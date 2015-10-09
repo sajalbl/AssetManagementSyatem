@@ -1,0 +1,48 @@
+<!doctype html>
+<!--[if lt IE 8]>         <html class="no-js lt-ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Web Application</title>
+        <meta name="description" content="Responsive Admin Web App">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="styles/main.css"/>
+
+    </head>
+
+    <body data-ng-controller="indexcontroller">
+    <div data-ng-app="AmsApp" id="app" class="app">
+        <!-- class=" app " body-wide-->
+
+        <section data-ng-include=" 'app/views/header.html' " id="header" class="header-container" data-ng-class=" {'header-fixed': admin.fixedHeader} " data-ng-controller="headerController"></section>
+
+        <div class="main-container">
+            <aside data-ng-include=" 'app/views/nav.html' " id="nav-container" class="nav-container" data-ng-class=" {'nav-fixed': admin.fixedSidebar, 'nav-horizontal': admin.menu === 'horizontal', 'nav-vertical': admin.menu === 'vertical'}" data-ng-controller="navController"></aside>
+            <toaster-container toaster-options="{'time-out': 3000, 'close-button':true}"></toaster-container>
+            <section data-ng-view="" id="content" class="content-container ainmate-slide-in-right"></section>
+        </div>
+  
+    </div>
+    <!-- 3rd party libraries -->
+    <script src="scripts/jquery-2.1.3.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/angular-sanitize.js"></script>
+    <script src="scripts/angular-cookies.js"></script>
+
+    <script src="scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <!-- Load app main script -->
+    <script src="scripts/jquery-ui.min.js"></script>
+    <script src="app/app.js"></script>
+    <!-- Load controllers -->
+    <script src="app/controllers/headerController.js?v=2"></script>
+    <script src="app/controllers/indexController.js?v=2"></script>
+    <script src="app/controllers/navController.js?v=2"></script>
+    <script src="app/controllers/homeController.js?v=2"></script>
+    </script>
+</html>
