@@ -7,6 +7,12 @@ app.config(function ($routeProvider) {
         templateUrl: "./app/views/home.html"
     });
 
+
+    $routeProvider.when("/newCompany", {
+        controller: "newCompanyController",
+        templateUrl: "./app/views/newCompany.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 });
 
