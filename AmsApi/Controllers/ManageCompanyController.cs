@@ -2,26 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 
 namespace AmsApi.Controllers
 {
-    public class ManageCompanyController : Controller
+    public class ManageCompanyController : ApiController
     {
-        //// GET: ManageCompany
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-       
-        [Route("api/manage/newCompany")]
-        [HttpPost]
+       [Route("api/manage/newCompany")]
+       [HttpPost]
         public HttpResponseMessage ManageCompany(ManageCompanyRequest request)
-        {
-            HttpResponseMessage response = new HttpResponseMessage();
-            return response;
-        }
+       {
+           HttpResponseMessage response = new HttpResponseMessage();
+           return response;
+       }
     }
 }

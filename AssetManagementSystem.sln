@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagementSystem", "AssetManagementSystem\AssetManagementSystem.csproj", "{05BC1DC4-8E8A-43D3-A3A8-F87D89F7E88B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmsApi", "AmsApi\AmsApi.csproj", "{8B48F3D5-BD44-4847-858B-00165533B65C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmsApi", "AmsApi\AmsApi.csproj", "{0DF02359-3CC3-47BB-B2E8-A7A7106BB231}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{05BC1DC4-8E8A-43D3-A3A8-F87D89F7E88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05BC1DC4-8E8A-43D3-A3A8-F87D89F7E88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05BC1DC4-8E8A-43D3-A3A8-F87D89F7E88B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B48F3D5-BD44-4847-858B-00165533B65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B48F3D5-BD44-4847-858B-00165533B65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B48F3D5-BD44-4847-858B-00165533B65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B48F3D5-BD44-4847-858B-00165533B65C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF02359-3CC3-47BB-B2E8-A7A7106BB231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF02359-3CC3-47BB-B2E8-A7A7106BB231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF02359-3CC3-47BB-B2E8-A7A7106BB231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF02359-3CC3-47BB-B2E8-A7A7106BB231}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
