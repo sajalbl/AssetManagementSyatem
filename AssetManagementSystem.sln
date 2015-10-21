@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagementSystem", "AssetManagementSystem\AssetManagementSystem.csproj", "{05BC1DC4-8E8A-43D3-A3A8-F87D89F7E88B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0DF02359-3CC3-47BB-B2E8-A7A7106BB231} = {0DF02359-3CC3-47BB-B2E8-A7A7106BB231}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmsApi", "AmsApi\AmsApi.csproj", "{0DF02359-3CC3-47BB-B2E8-A7A7106BB231}"
 EndProject

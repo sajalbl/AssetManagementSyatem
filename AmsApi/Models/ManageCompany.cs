@@ -8,6 +8,16 @@ namespace AmsApi.Models
     public class ManageCompanyRequest
     {
         public string CompanyName { get; set; }
+        public string OwnerName { get; set; }
+        public int Resources { get; set; }
+        public string Address { get; set; }
+        public string Contact{ get; set; }
+        public string Email { get; set; }
+        }
 
+    public class ManageCompanyResponse
+    {
+        public bool IsCompanyCreated { get; set; }
+        
     }
 }
