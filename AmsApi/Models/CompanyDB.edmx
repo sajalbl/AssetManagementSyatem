@@ -20,12 +20,12 @@
         <!--Errors Found During Generation:
 warning 6013: The table/view 'Company_db.dbo.Resources_table' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Resources_table">
-          <Property Name="Name of Device" Type="varchar" MaxLength="50" />
-          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="Name of Device" Type="nvarchar(max)" />
+          <Property Name="Type" Type="nvarchar(max)" />
           <Property Name="Issued to" Type="datetime2" Precision="7" />
-          <Property Name="Issued from" Type="date" />
-          <Property Name="Modified on" Type="date" />
-          <Property Name="IsActive" Type="varchar" MaxLength="10" />
+          <Property Name="Issued from" Type="datetime2" Precision="7" />
+          <Property Name="Modified on" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="nvarchar(max)" />
         </EntityType>-->
         <EntityContainer Name="Company_dbModelStoreContainer">
           <EntitySet Name="Company_table" EntityType="Self.Company_table" Schema="dbo" store:Type="Tables" />
