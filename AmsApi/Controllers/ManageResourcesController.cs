@@ -1,25 +1,26 @@
 ﻿using AmsApi.Adapter;
-using AmsApi.Models;
+using AmsApi.Resources.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace AmsApi.Controllers
 {
-    public class ManageCompanyController : ApiController
+    public class ManageResourcesController : ApiController
     {
-        [Route("api/manage/newCompany")]
+        [Route("api/manage/newResources")]
         [HttpPost]
-        public HttpResponseMessage ManageCompany(ManageCompanyRequest request)
+        public HttpResponseMessage ManageResources(ManageResourcesRequest request)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             try
             {
-                ManageCompanyAdapter adp = new ManageCompanyAdapter();
-                ManageCompanyResponse result = adp.AddCompany(request);
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.AddResources(request);
                 response = Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception Ex)
@@ -29,15 +30,15 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        [Route("api/manage/searchCompany")]
+        [Route("api/manage/showResources")]
         [HttpPost]
-        public HttpResponseMessage searchCompany(ManageCompanyRequest request)
+        public HttpResponseMessage showResources(ManageResourcesRequest request)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             try
             {
-                ManageCompanyAdapter adp = new ManageCompanyAdapter();
-                ManageCompanyResponse result = adp.SearchCompany(request);
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.ShowResources(request);
                 response = Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception Ex)
@@ -47,15 +48,16 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        [Route("api/manage/updateCompany")]
+
+        [Route("api/manage/updateResources")]
         [HttpPost]
-        public HttpResponseMessage updateCompany(ManageCompanyRequest request)
+        public HttpResponseMessage updateResources(ManageResourcesRequest request)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             try
             {
-                ManageCompanyAdapter adp = new ManageCompanyAdapter();
-                ManageCompanyResponse result = adp.UpdateCompany(request);
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.UpdateResources(request);
                 response = Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception Ex)
@@ -65,15 +67,15 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        [Route("api/manage/checkCompany")]
+        [Route("api/manage/deleteResources")]
         [HttpPost]
-        public HttpResponseMessage checkCompany(ManageCompanyRequest request)
+        public HttpResponseMessage deleteResources(ManageResourcesRequest request)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             try
             {
-                ManageCompanyAdapter adp = new ManageCompanyAdapter();
-                ManageCompanyResponse result = adp.CheckCompany(request);
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.DeleteResources(request);
                 response = Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception Ex)
@@ -82,6 +84,6 @@ namespace AmsApi.Controllers
             }
             return response;
         }
-       
+
     }
 }

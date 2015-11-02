@@ -1,27 +1,29 @@
-<div class="page page-dashboard">
-    <div class="row">
-        <div class="col-md-12">
-             <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="container">
-                        <form role="form">
-                            <div class="form-group">
-                                <label> Company name</label>
-                                <input type="text" class="form-control" placeholder="Company name" ng-model="companyName"/>
-                                <label> Admin </label>
-                                <input type="text" class="form-control" placeholder="Admin" ng-model="Admin" />
 
-                                <br />
+    <div class="page page-dashboard">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="container">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label> Company name</label>
+                                    <input type="text" class="form-control" placeholder="Company name" ng-model="CompanyName" />
+                                    <label> Admin </label>
+                                    <input type="text" class="form-control" placeholder="Admin" ng-model="OwnerName" />
 
-                                <input type="button" value="Search" ng-click="valid()"/>
+                                    <br />
 
-                            </div>
-                        </form>
+                                    <input type="button" value="Log In" ng-click="search()" />
+
+                                </div>
+                            </form>
+                        </div>
+                        <h2> <b> {{status}} </b></h2>
                     </div>
-                 
                 </div>
-            </div>             
+            </div>
         </div>
-    </div>    
-</div>
-  
+        
+     </div>
+

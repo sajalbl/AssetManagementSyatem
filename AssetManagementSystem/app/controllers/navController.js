@@ -1,5 +1,9 @@
 ﻿
-app.controller('navController', ['$scope', '$route', function ($scope, $route) {
+app.controller('navController', ['$scope', '$route', 'localStorageService', function ($scope, $route, localStorageService) {
     
-  
+    $scope.$on('LogIn', function (event, status) {
+        
+        $scope.showNav = status;
+    });
+    
 }]);

@@ -7,24 +7,25 @@
                     <form role="form" name="form">
                         <div class="form-group">
                             <label> Company's Name </label>
-                            <input type="text" class="form-control" ng-model="Cname" placeholder="Company name" name="Cname" />
+                            <input type="text" class="form-control" ng-model="company.CompanyName" placeholder="Company name" name="Cname" />
                             <label> Owner's Name  </label>
-                            <input type="text" class="form-control" placeholder="Owner name" ng-model="Oname" name="Oname" />
+                            <input type="text" class="form-control" placeholder="Owner name" ng-model="company.OwnerName" name="Oname" />
                             <label> No. of Resources </label>
-                            <input type="number" min ="1" class="form-control" placeholder="Resources no." ng-model="resources" name="resources" />
+                            <input type="number" min ="1" class="form-control" placeholder="Resources no." ng-model="company.ResourceCount" name="resources" />
                             <label> Address </label>
-                            <input type="text" class="form-control" placeholder="Address" ng-model="address" name="address" />
+                            <input type="text" class="form-control" placeholder="Address" ng-model="company.Address" name="address" />
                             <label> Contact No. </label>
-                            <input type="text" class="form-control" placeholder="Contact no." ng-model="contact" name="contact" />
+                            <input type="text" class="form-control" placeholder="Contact no." ng-model="company.Contact" name="contact" />
                             <label> Email </label>
-                            <input type="text" class="form-control" placeholder="Email" ng-model="email" name="email" />
+                            <input type="text" class="form-control" placeholder="Email" ng-model="company.Email" name="email" />
                             <br />
                             <button ng-click="submit()">Submit</button>
                         </div>
                     </form>
                 </div>
+                <h2 ng-hide="company.CompanyName"> <b> {{status}} </b></h2>
             </div>
         </div>
     </div>
 </div>
-<!--<p id="d"> </p>-->
+

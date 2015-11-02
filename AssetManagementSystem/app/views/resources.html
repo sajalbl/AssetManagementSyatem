@@ -1,0 +1,53 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="container">
+
+                <table>
+                    <tr>
+                        <th width="100">
+                            #
+                        </th>
+                        <th width="100">
+                            Name Of Device
+                        </th>
+                        <th width="200">
+                            Type
+                        </th>
+                        <th width="200">
+                            Issued To
+                        </th>
+
+                        <th width="200">
+                            Issued From
+                        </th>
+
+                        <!--<th width="200">
+                            Modified On
+                        </th>
+                        <th width="200" s>
+                            Is Active
+                        </th>-->
+                       
+                    </tr>
+                      <tbody>
+                        <tr ng-repeat="resource in resourceList">
+                            <td> {{$index + 1}}</td>
+                            <td> {{resource.NameOfDevice}}</td>
+                            <td> {{resource.Type}}</td>
+                            <td> {{resource.IssuedTo}}</td>
+                            <td> {{resource.IssuedFrom}}</td>
+                            <!--<td> {{resource.ModifiedOn}}</td>
+                            <td> {{resource.IsActive}}</td>-->
+                            <td> <a href="#/edit" ng-click="editRow(resource)"> <pre> Edit  </pre> </a></td>
+                            <td><button ng-click="removeRow(resource.NameOfDevice)">Delete</button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

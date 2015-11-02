@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company_table">
           <Key>
             <PropertyRef Name="CompanyId" />
@@ -17,21 +17,24 @@
           <Property Name="ResourceCount" Type="nvarchar(max)" />
           <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Company_db.dbo.Resources_table' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Resources_table">
-          <Property Name="Name of Device" Type="nvarchar(max)" />
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameOfDevice" Type="nvarchar(max)" />
           <Property Name="Type" Type="nvarchar(max)" />
-          <Property Name="Issued to" Type="datetime2" Precision="7" />
-          <Property Name="Issued from" Type="datetime2" Precision="7" />
-          <Property Name="Modified on" Type="datetime2" Precision="7" />
+          <Property Name="IssuedTo" Type="datetime2" Precision="7" />
+          <Property Name="IssuedFrom" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="nvarchar(max)" />
-        </EntityType>-->
+          <Property Name="CompanyName" Type="nvarchar(max)" />
+        </EntityType>
         <EntityContainer Name="Company_dbModelStoreContainer">
           <EntitySet Name="Company_table" EntityType="Self.Company_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resources_table" EntityType="Self.Resources_table" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Company_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -47,8 +50,22 @@ warning 6013: The table/view 'Company_db.dbo.Resources_table' does not have a pr
           <Property Name="ResourceCount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="Resources_table">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOfDevice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IssuedTo" Type="DateTime" Precision="7" />
+          <Property Name="IssuedFrom" Type="DateTime" Precision="7" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityContainer Name="Company_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Company_table" EntityType="Self.Company_table" />
+          <EntitySet Name="Resources_table" EntityType="Self.Resources_table" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -66,6 +83,20 @@ warning 6013: The table/view 'Company_db.dbo.Resources_table' does not have a pr
                 <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
                 <ScalarProperty Name="ResourceCount" ColumnName="ResourceCount" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resources_table">
+            <EntityTypeMapping TypeName="Company_dbModel.Resources_table">
+              <MappingFragment StoreEntitySet="Resources_table">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+                <ScalarProperty Name="NameOfDevice" ColumnName="NameOfDevice" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IssuedTo" ColumnName="IssuedTo" />
+                <ScalarProperty Name="IssuedFrom" ColumnName="IssuedFrom" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

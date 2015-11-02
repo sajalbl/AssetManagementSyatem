@@ -1,0 +1,57 @@
+﻿
+<div class="page page-dashboard">
+   
+    <div ng-show="ShowTable" class="table">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="container">
+
+                    <table>
+                        <tr>
+                            <th width="100">
+                                Index
+                            </th>
+                            <th width="200">
+                                Address
+                            </th>
+                            <th width="200">
+                                Company Name
+                            </th>
+
+                            <th width="200">
+                                Contact
+                            </th>
+
+                            <th width="200">
+                                Email
+                            </th>
+                            <th width="200" s>
+                                Owner Name
+                            </th>
+                            <th>
+                                Resource Count
+                            </th>
+
+                        </tr>
+                        <tbody>
+                            <tr ng-repeat="company in companyList">
+                                <td> {{$index + 1}}</td>
+                                <td> {{company.Address}}</td>
+                                <td> {{company.CompanyName}}</td>
+                                <td> {{company.Contact}}</td>
+                                <td> {{company.Email}}</td>
+                                <td> {{company.OwnerName}}</td>
+                                <td> {{company.ResourceCount}}</td>
+                                <td> <a href="#/update" ng-click="editRow(company)"> <pre> Edit  </pre> </a></td>
+                                <td><button ng-click="removeRow(company.CompanyName,company.OwnerName)">Delete</button></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2 ng-show="hideTable"> <b> {{status}}</b></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

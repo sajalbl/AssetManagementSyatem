@@ -1,0 +1,30 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="container">
+                    <form role="form" name="form">
+                        <div class="form-group">
+                            <label> Name of Device </label>
+                            <input type="text" class="form-control" ng-model="resources.NameOfDevice" placeholder="Name of Device" disabled />
+                            <label> Type of Device </label>
+                            <input type="text" class="form-control" placeholder="Type of Device" ng-model="resources.Type" />
+                            <label> Issued On </label>
+                            <input type="date" class="form-control" ng-model="resources.IssuedTo" />
+                            <label> Issued From </label>
+                            <input type="date" class="form-control" ng-model="resources.IssuedFrom" />
+                            <!--<label> Modified On </label>
+                            <input type="date" class="form-control" ng-model="resources.ModifiedOn" />
+                            <label> Is Active </label>
+                            <input type="text" class="form-control" placeholder="Is Active" ng-model="resources.Active" />-->
+                            <br />
+                            <button ng-click="update()">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <h2> <b> {{status}} </b></h2>
+            </div>
+        </div>
+    </div>
+</div>
+

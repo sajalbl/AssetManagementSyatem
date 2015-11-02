@@ -2,74 +2,64 @@
 app.controller('newCompanyController', ['$scope', '$http', function ($scope, $http) {
 
     var serviceBase = 'http://localhost:14597/';
-
-    $scope.Cname = "";
-    $scope.Oname = "";
-    $scope.resources = '';
-    $scope.address = "";
-    $scope.contact = '';
-    $scope.email = "";
-
+    $scope.company = { "CompanyName": $scope.CompanyName, "OwnerName": $scope.OwnerName, "Resources": $scope.ResourceCount, "Address": $scope.Address, "Contact": $scope.Contact, "Email": $scope.Email };
+    
     $scope.submit = function () {
         var valid = $scope.validate();
-        if (valid) {
-            var text = { "CompanyName": $scope.Cname, "OwnerName": $scope.Oname, "Resources": $scope.resources, "Address": $scope.address, "Contact": $scope.contact, "Email": $scope.email };
-            $http.post(serviceBase + 'api/manage/newCompany', JSON.stringify(text)).then(function (results) {
-                return results;
-            });
-        }
-    }
-    //    var x = new XMLHttpRequest();
-    //    x.onreadystatechange = function()
-    //    {
-    //        if(x.readyState==4 && x.status==200)
-    //        {
-    //            document.getElementById("d").innerHTML = x.responseText;
-    //        }
-    //    }
-    //    x.open("GET","newCompany.html",true);
-    //    x.send();
+        if (valid)
+            var text = { "CompanyName": $scope.company.CompanyName, "OwnerName": $scope.company.OwnerName, "Resources": $scope.company.ResourceCount, "Address": $scope.company.Address, "Contact": $scope.company.Contact, "Email": $scope.company.Email };
+        $http.post(serviceBase + 'api/manage/newCompany', JSON.stringify(text)).then(function (results) {
+            if (results.data.IsCompanyCreated == false)
+            {
+                $scope.status = "Company already exist";
+            }
+            else {
+                $scope.status = "Company Details added Successfully";
+            }
+            $scope.company = "";
+            
+        });
+       
+    };
 
-    //}
+   
 
     $scope.validate = function () {
         var isValid = true;
-        if ($scope.Cname == null && $scope.Cname == "") {
+        if ($scope.company.CompanyName == null && $scope.company.CompanyName == "") {
             alert("Enter Company name");
             isValid = false;
         }
-        if ($scope.Oname == null && $scope.Oname == "") {
+        if ($scope.company.OwnerName == null && $scope.company.OwnerName == "") {
             alert("Enter Owner's name");
             isValid = false;
         }
-        if ($scope.resources == null && $scope.resources == "") {
+        if ($scope.company.ResourceCount == null && $scope.company.ResourceCount == "") {
             alert("Enter no. of resources");
             isValid = false;
         }
-        if ($scope.address == null && $scope.address == "") {
+        if ($scope.company.Address == null && $scope.company.Address == "") {
             alert("Enter address");
             isValid = false;
         }
-        if ($scope.contact == null || $scope.contact == "") {
+        if ($scope.company.Contact == null || $scope.company.Contact == "") {
             alert("please enter the contact");
             isValid = false;
         }
-        if (!/^[0-9]*$/.test($scope.contact) && ($scope.contact != null || $scope.contact != "")) {
+        if (!/^[0-9]*$/.test($scope.company.Contact) && ($scope.company.Contact != null || $scope.company.Contact != "")) {
             alert("enter valid phone no.");
             isValid = false;
         }
-        if ($scope.email == null || $scope.email == "") {
+        if ($scope.company.Email == null || $scope.company.Email == "") {
             alert("please enter the email");
             isValid = false;
         }
-        if (!/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test($scope.email) && ($scope.email != null || $scope.email != "")) {
+        if (!/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test($scope.company.Email) && ($scope.company.Email != null || $scope.company.Email != "")) {
             alert("Enter valid email");
             isValid = false;
         }
 
-        //var text = { "CompanyName":$scope.Cname, "OwnerName": $scope.Oname, "Resources": $scope.resources, "Address": $scope.address, "Contact": $scope.contact, "Email": $scope.email };
-        //text = new XMLHttpRequest();
-        //text.send();
+        
         return isValid;
     };
 
