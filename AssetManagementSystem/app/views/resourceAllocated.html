@@ -1,11 +1,11 @@
 ﻿
-    <div class="container">
-        <form role="form">
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="query" placeholder="Search" autofocus />
-            </div>
-        </form>
+<div class="container">
+    <form role="form">
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="query" placeholder="Search" autofocus />
         </div>
+    </form>
+</div>
 <div>
     <div class="row">
         <div class="col-md-12">
@@ -29,9 +29,9 @@
                             Issued From
                         </th>
 
-                        <th width="200">
+                        <!--<th width="200">
                             Employee ID
-                        </th>
+                        </th>-->
 
                         <!--<th width="200">
                             Modified On
@@ -48,19 +48,20 @@
                             <td> {{resource.Type}}</td>
                             <td> {{resource.IssuedTo}}</td>
                             <td> {{resource.IssuedFrom}}</td>
-                            <td> {{resource.EmployeeID}} </td>
-                            <td>
+                            
+                            <!--<td>
                                 <a href=" #/edit" ng-click="editRow(resource)"> <pre> Edit  </pre> </a>
                             </td>
-                            <td><button ng-click="remove(resource.CompanyName,resource.NameOfDevice,resource.Type)">Delete</</button></td>
+                            <td><button ng-click="remove(resource.CompanyName,resource.NameOfDevice,resource.Type)">Delete</</button></td>-->
                         </tr>
                     </tbody>
 
                 </table>
 
-                <h2> <b> {{status}} </b></h2>
+                <!--<h2> <b> {{status}} </b></h2>-->
             </div>
         </div>
     </div>
 </div>
+
 

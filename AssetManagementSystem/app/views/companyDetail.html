@@ -7,16 +7,16 @@
 
                 <div class="container">
 
-                    <table>
+                    <table class="table table-bordered table-striped">
                         <tr>
                             <th width="100">
                                 Index
                             </th>
                             <th width="200">
-                                Address
+                                Company Name
                             </th>
                             <th width="200">
-                                Company Name
+                                Owner Name
                             </th>
 
                             <th width="200">
@@ -27,29 +27,32 @@
                                 Email
                             </th>
                             <th width="200" s>
-                                Owner Name
+                                Address
                             </th>
                             <th>
                                 Resource Count
                             </th>
-
+                            <th>
+                                No. of Employees
+                            </th>
                         </tr>
                         <tbody>
                             <tr ng-repeat="company in companyList">
-                                <td> {{$index + 1}}</td>
-                                <td> {{company.Address}}</td>
-                                <td> {{company.CompanyName}}</td>
-                                <td> {{company.Contact}}</td>
-                                <td> {{company.Email}}</td>
-                                <td> {{company.OwnerName}}</td>
-                                <td> {{company.ResourceCount}}</td>
+                                <td> {{$index + 1}} </td>
+                                <td> {{company.CompanyName}} </td>
+                                <td> {{company.OwnerName}} </td>
+                                <td> {{company.Contact}} </td>
+                                <td> {{company.Email}} </td>
+                                <td> {{company.Address}} </td>
+                                <td> {{resourceCount}} </td>
+                                <td> {{employeeCount}} </td>
                                 <td> <a href="#/update" ng-click="editRow(company)"> <pre> Edit  </pre> </a></td>
                                 <td><button ng-click="removeRow(company.CompanyName,company.OwnerName)">Delete</button></td>
 
                             </tr>
                         </tbody>
                     </table>
-                    <h2 ng-show="hideTable"> <b> {{status}}</b></h2>
+                    <h2 ng-show="hideTable"> <b> {{status}} </b></h2>
                 </div>
             </div>
         </div>

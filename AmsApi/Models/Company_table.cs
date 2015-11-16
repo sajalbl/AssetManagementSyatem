@@ -21,5 +21,6 @@ namespace AmsApi.Models
         public string OwnerName { get; set; }
         public string ResourceCount { get; set; }
         public int CompanyId { get; set; }
+        public Nullable<int> EmployeeCount { get; set; }
     }
 }

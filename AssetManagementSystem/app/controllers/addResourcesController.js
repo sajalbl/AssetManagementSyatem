@@ -1,18 +1,26 @@
 ﻿'use strict';
-app.controller('addResourcesController', ['$scope', '$http','localStorageService', function ($scope, $http , localStorageService) {
+app.controller('addResourcesController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
     var serviceBase = 'http://localhost:14597/';
      
-    $scope.companyName = localStorageService.get("companyresource");
-    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type, "IssuedTo": $scope.IssuedTo, "IssuedFrom": $scope.IssuedFrom};
+    //$scope.$on('Success', function (event, detail) {
+
+    //    $scope.companyName = detail;
+    //});
+
+    $scope.companyName = localStorageService.get("addResource");
+    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type, "IssuedTo": $scope.IssuedTo, "IssuedFrom": $scope.IssuedFrom, "EmployeeID": $scope.EmployeeID};
 
     $scope.add = function () {
         var valid = $scope.validate();
         if(valid)
-            var text = { "CompanyName": $scope.companyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedTo": $scope.resources.IssuedTo, "IssuedFrom": $scope.resources.IssuedFrom };
+            var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedTo": $scope.resources.IssuedTo, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID" : $scope.resources.EmployeeID };
         $http.post(serviceBase + 'api/manage/newResources', JSON.stringify(text)).then(function (result) {
-            $scope.resources = "";
+           
+                $scope.resources = "";
+                $scope.status = "Resource detail added";
+           
         });
-        $scope.status = "Resource detail added";
+        
     };
 
     $scope.validate = function () {

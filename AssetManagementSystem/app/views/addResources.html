@@ -6,8 +6,9 @@
                 <div class="container">
                     <form role="form" name="form">
                         <div class="form-group">
+                           
                             <label> Company Name </label>
-                            <input type="text" class="form-control" ng-model="companyName" disabled/>
+                            <input type="text" class="form-control" ng-model="companyName.CompanyName" disabled/>
                             <label> Name of Device </label>
                             <input type="text" class="form-control" ng-model="resources.NameOfDevice" placeholder="Name of Device" />
                             <label> Type of Device </label>
@@ -16,12 +17,14 @@
                             <input type="date"  class="form-control"  ng-model="resources.IssuedTo" />
                             <label> Issued From </label>
                             <input type="date" class="form-control"  ng-model="resources.IssuedFrom" />
+                            <label> Employee ID </label>
+                            <input type="text" class="form-control" placeholder="Employee ID" ng-model="resources.EmployeeID" />
                             <br />
-                            <button ng-click="add()">Add</button>
+                            <button ng-click="add()"> Add </button>
                         </div>
                     </form>
                 </div>
-                <h2 ng-hide="resources.Name"> <b> {{status}} </b></h2>
+                <h2 ng-hide="resources.NameOfDevice"> <b> {{status}} </b></h2>
             </div>
         </div>
     </div>

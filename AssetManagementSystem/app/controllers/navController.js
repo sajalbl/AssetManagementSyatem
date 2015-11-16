@@ -6,4 +6,14 @@ app.controller('navController', ['$scope', '$route', 'localStorageService', func
         $scope.showNav = status;
     });
     
+    $scope.$on('Success', function (event, status) {
+        $scope.showNavigation = status;
+    });
+
+    //$scope.logout = function () {
+    //    localStorageService.clear();
+    //    $route.reload();
+    //};
+
+
 }]);

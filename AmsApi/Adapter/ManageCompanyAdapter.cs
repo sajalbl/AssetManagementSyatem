@@ -36,7 +36,6 @@ namespace AmsApi.Adapter
 
                 comp.CompanyName = request.CompanyName;
                 comp.OwnerName = request.OwnerName;
-                comp.ResourceCount = request.Resources.ToString();
                 comp.Address = request.Address;
                 comp.Contact = request.Contact;
                 comp.Email = request.Email;
@@ -84,7 +83,7 @@ namespace AmsApi.Adapter
                 if(comp != null)
                 {
                     //comp = new Company_table();
-                    comp.ResourceCount = request.Resources.ToString();
+                   // comp.ResourceCount = request.Resources.ToString();
                     comp.Address = request.Address;
                     comp.Contact = request.Contact;
                     comp.Email = request.Email;
@@ -102,11 +101,11 @@ namespace AmsApi.Adapter
         {
             ManageCompanyResponse response = new ManageCompanyResponse();
 
-            Company_table company = new Company_table();
+            //Company_table company = new Company_table();
             using (var context = new Company_dbEntities())
             {
 
-                company = (from a in context.Company_table where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName select a).FirstOrDefault<Company_table>();
+               var company = (from a in context.Company_table where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName select a).FirstOrDefault<Company_table>();
                 if(company != null)
                 { 
                 response.IsCompanyExist = true;
@@ -119,6 +118,20 @@ namespace AmsApi.Adapter
             }
             return response;
         }
+
+        //public ManageCompanyResponse UpdateResources(ManageCompanyRequest Req)
+        //{
+        //    ManageCompanyResponse response = new ManageCompanyResponse();
+        //    using(var context = new Company_dbEntities())
+        //    {
+        //        var company = (from a in context.Company_table where a.CompanyName == Req.CompanyName select a).FirstOrDefault<Company_table>();
+
+        //        company.ResourceCount = Req.Resources.ToString();
+
+        //    }
+        //    return response;
+            
+        //}
     }
 
 }

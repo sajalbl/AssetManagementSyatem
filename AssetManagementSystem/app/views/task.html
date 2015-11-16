@@ -1,0 +1,61 @@
+﻿<div ng-show="manager" class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="container">
+                    <form role="form" name="form">
+                        <div class="form-group">
+                            <label> Employee ID </label>
+                            <input type="text" class="form-control" ng-model="task.EmployeeID" placeholder="Employee ID" />
+                            <label> Employee Name </label>
+                            <input type="text" class="form-control" placeholder="Employee Name" ng-model="task.EmployeeName" />
+                            <br />
+                            <label> Description </label> <br />
+                            <textarea rows="2" cols="50" placeholder="Write Task here" ng-model="task.Description"></textarea>
+                            
+                            <br />
+                            <button ng-click="submit()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <h2 ng-hide="task.EmployeeID"> <b> {{status}} </b></h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="employee">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container">
+                <table class="table table-bordered table-striped">
+                    <tr>
+
+                        <th width="100">
+                            Employee ID
+                        </th>
+                        <th width="200">
+                            Employee Name
+                        </th>
+                        <th width="200">
+                            Description
+                        </th>
+
+                    </tr>
+                    <tbody>
+                        <tr ng-repeat="task in taskList">
+
+                            <td> {{task.EmployeeID}}</td>
+                            <td> {{task.EmployeeName}}</td>
+                            <td> {{task.Description}}</td>
+                            
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

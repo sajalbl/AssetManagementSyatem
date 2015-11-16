@@ -6,7 +6,18 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', 'localStorage
         $scope.OwnerName = "";
         $scope.companyList = [];
         $scope.status = "";
+        $scope.CompanyID = "";
+        $scope.EmployeeName = "";
         
+        $scope.company = function () {
+            $scope.companyLogin = true;
+            $scope.employeeLogin = false;
+        };
+
+        $scope.employee = function() {
+            $scope.companyLogin = false;
+            $scope.employeeLogin = true;
+        };
        
         $scope.search = function () {
             var val = $scope.valid();
@@ -18,17 +29,46 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', 'localStorage
                         $scope.status = "LogIn successful";
                         localStorageService.set("companyText", text);
                         localStorageService.set("companyData", detail);
+                        localStorageService.set("addResource", detail);
+                        localStorageService.set("againCompanyName", detail);
+                        localStorageService.set("ResourceCount", detail);
+                        localStorageService.set("forEmployee", detail);
+
+                       // $rootScope.$broadcast('Success', detail);
+
                         $rootScope.$broadcast('LogIn', true);
+
                     }
                     else
                     {
                         $scope.status = "User doesnot exist";
                     }
-
                         
                 });
+
+               
             }
         };
+
+        $scope.login = function () {
+            var text = { "EmployeeID": $scope.EmployeeID, "EmployeeName": $scope.EmployeeName };
+            var detail = { "EmployeeID": $scope.EmployeeID };
+            $http.post(serviceBase + 'api/manage/checkEmployee', JSON.stringify(text)).then(function (results) {
+                if(results.data.IsEmployeeExist)
+                {
+                    $scope.status = "Login Successful";
+                    localStorageService.set("employeeid", detail);
+                    localStorageService.set("employee", detail);
+                    localStorageService.set("task", detail);
+                    $rootScope.$broadcast('Success', true);
+                }
+                else
+                {
+                    $scope.status = "User Doesnot Exist";
+                }
+            });
+        };
+
         $scope.valid = function () {
             var isValid = true;
             if ($scope.CompanyName == null && $scope.CompanyName == "") {

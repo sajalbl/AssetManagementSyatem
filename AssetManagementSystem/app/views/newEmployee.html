@@ -1,0 +1,32 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="container">
+                    <form role="form" name="form">
+                        <div class="form-group">
+                            <label> Employee Name </label>
+                            <input type="text" class="form-control" ng-model="employee.EmployeeName" placeholder="Employee Name" />
+                            <label> Employee ID  </label>
+                            <input type="text" class="form-control" placeholder="Employee ID" ng-model="employee.EmployeeID" />
+                            <!--<label> No. of Resources </label>
+                            <input type="number" min ="1" class="form-control" placeholder="Resources no." ng-model="company.ResourceCount" name="resources" />-->
+                            <label> Company Name </label>
+                            <input type="text" class="form-control" ng-model="companyName.CompanyName" disabled />
+                            <label> Department </label>
+                            <input type="text" class="form-control" placeholder="Department" ng-model="employee.Department" />
+                            <label> Designation </label>
+                            <input type="text" class="form-control" placeholder="Designation" ng-model="employee.Designation" />
+                            <br />
+                            <button ng-click="submit()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <h2 ng-hide="employee.EmployeeName"> <b> {{status}} </b></h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -12,16 +12,13 @@ namespace AmsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Resources_table
+    public partial class Employee_table
     {
-        public int ResourceId { get; set; }
-        public string NameOfDevice { get; set; }
-        public string Type { get; set; }
-        public string IssuedTo { get; set; }
-        public string IssuedFrom { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public string IsActive { get; set; }
-        public string CompanyName { get; set; }
+        public int ID { get; set; }
         public string EmployeeID { get; set; }
+        public string Department { get; set; }
+        public string EmployeeName { get; set; }
+        public string CompanyName { get; set; }
+        public string Designation { get; set; }
     }
 }

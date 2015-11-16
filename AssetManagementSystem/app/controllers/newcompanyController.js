@@ -2,12 +2,12 @@
 app.controller('newCompanyController', ['$scope', '$http', function ($scope, $http) {
 
     var serviceBase = 'http://localhost:14597/';
-    $scope.company = { "CompanyName": $scope.CompanyName, "OwnerName": $scope.OwnerName, "Resources": $scope.ResourceCount, "Address": $scope.Address, "Contact": $scope.Contact, "Email": $scope.Email };
+    $scope.company = { "CompanyName": $scope.CompanyName, "OwnerName": $scope.OwnerName, "Address": $scope.Address, "Contact": $scope.Contact, "Email": $scope.Email };
     
     $scope.submit = function () {
         var valid = $scope.validate();
         if (valid)
-            var text = { "CompanyName": $scope.company.CompanyName, "OwnerName": $scope.company.OwnerName, "Resources": $scope.company.ResourceCount, "Address": $scope.company.Address, "Contact": $scope.company.Contact, "Email": $scope.company.Email };
+            var text = { "CompanyName": $scope.company.CompanyName, "OwnerName": $scope.company.OwnerName, "Address": $scope.company.Address, "Contact": $scope.company.Contact, "Email": $scope.company.Email };
         $http.post(serviceBase + 'api/manage/newCompany', JSON.stringify(text)).then(function (results) {
             if (results.data.IsCompanyCreated == false)
             {
@@ -34,10 +34,10 @@ app.controller('newCompanyController', ['$scope', '$http', function ($scope, $ht
             alert("Enter Owner's name");
             isValid = false;
         }
-        if ($scope.company.ResourceCount == null && $scope.company.ResourceCount == "") {
-            alert("Enter no. of resources");
-            isValid = false;
-        }
+        //if ($scope.company.ResourceCount == null && $scope.company.ResourceCount == "") {
+        //    alert("Enter no. of resources");
+        //    isValid = false;
+        //}
         if ($scope.company.Address == null && $scope.company.Address == "") {
             alert("Enter address");
             isValid = false;

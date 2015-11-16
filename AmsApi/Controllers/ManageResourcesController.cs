@@ -1,4 +1,5 @@
 ﻿using AmsApi.Adapter;
+using AmsApi.Models;
 using AmsApi.Resources.Models;
 using System;
 using System.Collections.Generic;
@@ -85,5 +86,61 @@ namespace AmsApi.Controllers
             return response;
         }
 
+
+        [Route("api/manage/companyDeleted")]
+        [HttpPost]
+        public HttpResponseMessage companyDeleted(ManageResourcesRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.CompanyDeleted(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            return response;
+        }
+
+        [Route("api/manage/resourceCount")]
+        [HttpPost]
+        public HttpResponseMessage resourceCount(ManageResourcesRequest request)
+        {
+            
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.ResourceCount(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            return response;
+        }
+
+        [Route("api/manage/resourceAllocated")]
+        [HttpPost]
+        public HttpResponseMessage resourceAllocated(ManageResourcesRequest request)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.ResourceAllocated(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            return response;
+        }
     }
 }

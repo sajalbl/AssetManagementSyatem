@@ -1,0 +1,54 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        
+                        <th width="100">
+                            Employee ID
+                        </th>
+                        <th width="200">
+                           Employee Name
+                        </th>
+                        <th width="200">
+                            Company Name
+                        </th>
+
+                        <th width="200">
+                            Department
+                        </th>
+
+                        <th width="200">
+                            Designation
+                        </th>
+                        <!--<th width="200">
+                            Modified On
+                        </th>
+                        <th width="200" s>
+                            Is Active
+                        </th>-->
+
+                    </tr>
+                    <tbody>
+                        <tr ng-repeat="employee in employeeList">
+                            
+                            <td> {{employee.EmployeeID}}</td>
+                            <td> {{employee.EmployeeName}}</td>
+                            <td> {{employee.CompanyName}}</td>
+                            <td> {{employee.Department}}</td>
+                            <td> {{employee.Designation}} </td>
+                            <!--<td>
+                                <a href=" #/edit" ng-click="editRow(resource)"> <pre> Edit  </pre> </a>
+                            </td>
+                            <td><button ng-click="remove(resource.CompanyName,resource.NameOfDevice,resource.Type)">Delete</</button></td>-->
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <!--<h2> <b> {{status}} </b></h2>-->
+            </div>
+        </div>
+    </div>
+</div>

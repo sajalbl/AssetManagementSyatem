@@ -65,7 +65,11 @@
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\navController.js" />
     <Content Include="app\controllers\newCompanyController.js" />
+    <Content Include="app\controllers\newEmployeeController.js" />
+    <Content Include="app\controllers\profileController.js" />
+    <Content Include="app\controllers\resourceAllocatedController.js" />
     <Content Include="app\controllers\resourcesController.js" />
+    <Content Include="app\controllers\taskController.js" />
     <Content Include="app\controllers\UpdateController.js" />
     <Content Include="app\controllers\updateResourceController.js" />
     <Content Include="app\views\addResources.html" />
@@ -74,7 +78,11 @@
     <Content Include="app\views\home.html" />
     <Content Include="app\views\nav.html" />
     <Content Include="app\views\newCompany.html" />
+    <Content Include="app\views\newEmployee.html" />
+    <Content Include="app\views\profile.html" />
+    <Content Include="app\views\resourceAllocated.html" />
     <Content Include="app\views\resources.html" />
+    <Content Include="app\views\task.html" />
     <Content Include="app\views\update.html" />
     <Content Include="app\views\updateResource.html" />
     <Content Include="index.html" />
