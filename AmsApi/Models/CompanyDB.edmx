@@ -28,6 +28,11 @@
           <Property Name="CompanyName" Type="nvarchar(max)" />
           <Property Name="Department" Type="nvarchar(max)" />
           <Property Name="EmployeeName" Type="nvarchar(max)" />
+          <Property Name="DOB" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Contact" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="ManagerID" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Resources_table">
           <Key>
@@ -51,6 +56,9 @@
           <Property Name="EmployeeName" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Tasks" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssignedBy" Type="nvarchar(max)" />
+          <Property Name="EmployeeConfirm" Type="nvarchar(max)" />
+          <Property Name="ManagerConfirm" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="Company_dbModelStoreContainer">
           <EntitySet Name="Company_table" EntityType="Self.Company_table" Schema="dbo" store:Type="Tables" />
@@ -85,6 +93,11 @@
           <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Resources_table">
           <Key>
@@ -114,6 +127,9 @@
           <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Tasks" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssignedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -138,6 +154,11 @@
           <EntitySetMapping Name="Employee_table">
             <EntityTypeMapping TypeName="Company_dbModel.Employee_table">
               <MappingFragment StoreEntitySet="Employee_table">
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -165,6 +186,9 @@
           <EntitySetMapping Name="Task_table">
             <EntityTypeMapping TypeName="Company_dbModel.Task_table">
               <MappingFragment StoreEntitySet="Task_table">
+                <ScalarProperty Name="ManagerConfirm" ColumnName="ManagerConfirm" />
+                <ScalarProperty Name="EmployeeConfirm" ColumnName="EmployeeConfirm" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
                 <ScalarProperty Name="Tasks" ColumnName="Tasks" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />

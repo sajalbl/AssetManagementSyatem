@@ -20,5 +20,10 @@ namespace AmsApi.Models
         public string EmployeeName { get; set; }
         public string CompanyName { get; set; }
         public string Designation { get; set; }
+        public string DOB { get; set; }
+        public string Address { get; set; }
+        public string Contact { get; set; }
+        public string Email { get; set; }
+        public string ManagerID { get; set; }
     }
 }

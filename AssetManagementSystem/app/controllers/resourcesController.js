@@ -1,38 +1,52 @@
 ﻿'use strict';
-app.controller('resourcesController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
+app.controller('resourcesController', ['$scope', '$http', 'localStorageService', '$window', function ($scope, $http, localStorageService, $window) {
     var serviceBase = 'http://localhost:14597/';
     $scope.query = "";
 
-    //$scope.$on('Success', function (event, detail) {
-    //    $scope.resourceCompany = detail;
-    //});
-    // $scope.show();
-    $scope.resourceCompany = localStorageService.get("companyData");
     
+    //$scope.resourceCompany = localStorageService.get("companyData");
+
+    $scope.resourceCompany = localStorageService.get("companyData");
+
+    $http.post(serviceBase + 'api/manage/showResources', JSON.stringify($scope.resourceCompany)).then(function (results) {
+        $scope.resourceList = JSON.parse(results.data.ResourcesList);
+        console.log($scope.resourceList);
+    });
+    
+    $scope.show = function () {
+        $scope.resourceCompany = localStorageService.get("companyData");
+        
         $http.post(serviceBase + 'api/manage/showResources', JSON.stringify($scope.resourceCompany)).then(function (results) {
             $scope.resourceList = JSON.parse(results.data.ResourcesList);
             console.log($scope.resourceList);
         });
+    };
 
     $scope.editRow = function (resource) {
         localStorageService.set("resourceDetail", resource);
     };
     
     $scope.remove = function (CompanyName, NameOfDevice, Type) {
-        alert("Are you sure ?");
-        var text = {"CompanyName" : CompanyName , "NameOfDevice": NameOfDevice , "Type" : Type };
-        $http.post(serviceBase + 'api/manage/deleteResources', JSON.stringify(text)).then(function (results) {
-            
-            $scope.status = "Deleted";
+        //alert("are you sure you want to delete this ?");
 
-            location.reload();
-                
-        });
+        if ($window.confirm("are you sure you want to delete this ?"))
+        {
+            var text = { "CompanyName": CompanyName, "NameOfDevice": NameOfDevice, "Type": Type };
+            $http.post(serviceBase + 'api/manage/deleteResources', JSON.stringify(text)).then(function (results) {
+
+                $scope.status = "Deleted";
+
+                $scope.show();
+
+            });
+        }
+        else
+        {
+            $scope.status = "";
+        }
+        
 
     };
 
-    //$scope.filterFunction = function (element) {
-    //    return element.name.match(/^Ma/) ? true : false;
-    //};
-
+    
 }]);

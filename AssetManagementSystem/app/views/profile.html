@@ -1,53 +1,28 @@
 ﻿<div>
     <div class="row">
         <div class="col-md-12">
-            <div class="container">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        
-                        <th width="100">
-                            Employee ID
-                        </th>
-                        <th width="200">
-                           Employee Name
-                        </th>
-                        <th width="200">
-                            Company Name
-                        </th>
-
-                        <th width="200">
-                            Department
-                        </th>
-
-                        <th width="200">
-                            Designation
-                        </th>
-                        <!--<th width="200">
-                            Modified On
-                        </th>
-                        <th width="200" s>
-                            Is Active
-                        </th>-->
-
-                    </tr>
-                    <tbody>
-                        <tr ng-repeat="employee in employeeList">
-                            
-                            <td> {{employee.EmployeeID}}</td>
-                            <td> {{employee.EmployeeName}}</td>
-                            <td> {{employee.CompanyName}}</td>
-                            <td> {{employee.Department}}</td>
-                            <td> {{employee.Designation}} </td>
-                            <!--<td>
-                                <a href=" #/edit" ng-click="editRow(resource)"> <pre> Edit  </pre> </a>
-                            </td>
-                            <td><button ng-click="remove(resource.CompanyName,resource.NameOfDevice,resource.Type)">Delete</</button></td>-->
-                        </tr>
-                    </tbody>
-
-                </table>
-
-                <!--<h2> <b> {{status}} </b></h2>-->
+            <div class="container" ng-repeat="employee in employeeList">
+                <h4>  <label> Company Name :  </label> &nbsp; <label style="font:italic"> {{employee.CompanyName}}</label> </h4>
+                <br />
+                <h4>  <label> Employee Name :  </label>&nbsp; <label style="font:italic" > {{employee.EmployeeName}}</label></h4>
+                <br />
+                <h4>  <label> Employee ID :  </label>&nbsp; <label style="font:italic" > {{employee.EmployeeID}}</label></h4>
+                <br />
+                <h4>  <label> Manager ID :  </label>&nbsp; <label style="font:italic"> {{employee.ManagerID}}</label></h4>
+                <br />
+                <h4>  <label> Department :   </label>&nbsp;  <label style="font:italic" > {{employee.Department}}</label></h4>
+                <br />
+                <h4> <label> Designation :   </label> &nbsp; <label style="font:italic" > {{employee.Designation}}</label></h4>
+                <br />
+                <h4> <label> Date of Birth :   </label>&nbsp; <label style="font:italic" > {{employee.DOB}}</label></h4>
+                <br />
+                <h4> <label> Address :   </label>&nbsp; <label style="font:italic" > {{employee.Address}}</label></h4>
+                <br />
+                <h4> <label> Contact :   </label>&nbsp; <label style="font:italic" > {{employee.Contact}}</label></h4>
+                <br />
+                <h4> <label> Email :   </label>&nbsp; <label style="font:italic" > {{employee.Email}}</label></h4>
+                
+                <h4 style="text-align:center"><a href="#/editProfile" ng-show="ShowEdit" ng-cloak  ng-click="edit(employee.DOB,employee.Address,employee.Contact,employee.Email)"> Edit </a></h4>
             </div>
         </div>
     </div>

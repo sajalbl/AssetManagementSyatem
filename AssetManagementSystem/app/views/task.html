@@ -3,7 +3,25 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="container">
-                    <form role="form" name="form">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Employee ID
+                            </th>
+                            <th>
+                                Employee Name
+                            </th>
+                            
+                        </tr>
+                        <tbody>
+                            <tr ng-repeat="employees in managerEmployees">
+                                <td> {{employees.EmployeeID}} </td>
+                                <td> {{employees.EmployeeName}} </td>
+                                <td> <a href="#/taskAssign" ng-click="assign(employees.EmployeeID,employees.EmployeeName)"> Assign Task </a></td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                    <!--<form role="form" name="form">
                         <div class="form-group">
                             <label> Employee ID </label>
                             <input type="text" class="form-control" ng-model="task.EmployeeID" placeholder="Employee ID" />
@@ -12,24 +30,69 @@
                             <br />
                             <label> Description </label> <br />
                             <textarea rows="2" cols="50" placeholder="Write Task here" ng-model="task.Description"></textarea>
-                            
+
                             <br />
                             <button ng-click="submit()">Submit</button>
                         </div>
-                    </form>
+                    </form>-->
                 </div>
                 <h2 ng-hide="task.EmployeeID"> <b> {{status}} </b></h2>
             </div>
         </div>
     </div>
-</div>
+    <div>
+        <h3 style="text-align:center"> Task Assigned : </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+                    <table class="table table-bordered  table-hover">
+                        <tr>
 
+                            <th width="100">
+                                Employee ID
+                            </th>
+                            <th width="200">
+                                Employee Name
+                            </th>
+                            <th width="200">
+                                Description
+                            </th>
+                            <th width="200">
+                                Status
+                            </th>
+                            <th width="200">
+                                Approval
+                            </th>
+
+                        </tr>
+                        <tbody>
+                            <tr ng-repeat="tasks in taskAssign">
+
+                                <td> {{tasks.EmployeeID}} </td>
+                                <td> {{tasks.EmployeeName}} </td>
+                                <td> {{tasks.Description}} </td>
+                                <td> {{tasks.EmployeeConfirm}} </td>
+                                <td> {{tasks.ManagerConfirm}} </td>
+                                <td> <button  ng-click="approved(tasks.EmployeeID,tasks.Description)"> Approved </button>
+                                    <button ng-click="decline(tasks.EmployeeID,tasks.Description)"> Decline </button> </td>
+                                <td> <button ng-click="deleteTask(tasks.EmployeeID,tasks.Description)"> &times; </button></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <h4> {{approval}} </h4>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div ng-show="employee">
     <div class="row">
         <div class="col-md-12">
             <div class="container">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered  table-hover">
                     <tr>
 
                         <th width="100">
@@ -41,20 +104,35 @@
                         <th width="200">
                             Description
                         </th>
+                        <th width="200">
+                            Assigned By
+                        </th>
+                        <th width="200">
+                            Status
+                        </th>
+                        <th width="200">
+                            Approval
+                        </th>
 
                     </tr>
                     <tbody>
                         <tr ng-repeat="task in taskList">
 
-                            <td> {{task.EmployeeID}}</td>
-                            <td> {{task.EmployeeName}}</td>
-                            <td> {{task.Description}}</td>
-                            
+                            <td> {{task.EmployeeID}} </td>
+                            <td> {{task.EmployeeName}} </td>
+                            <td> {{task.Description}} </td>
+                            <td> {{task.AssignedBy}} </td>
+                            <td> {{task.EmployeeConfirm}} </td>
+                            <td> {{task.ManagerConfirm}} </td>
+                            <td>
+                                <input type="radio" ng-click="completed(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> Completed 
+                                <input type="radio" ng-click="pending(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> Pending 
+                            </td>
                         </tr>
                     </tbody>
-
                 </table>
-
+                <span><button  ng-click="update()"> Update </button></span>
+                <h5> {{stat}} </h5>
             </div>
         </div>
     </div>

@@ -25,6 +25,7 @@ namespace AmsApi.Adapter
                     employee.EmployeeID = request.EmployeeID;
                     employee.Department = request.Department;
                     employee.Designation = request.Designation;
+                    employee.ManagerID = request.ManagerID;
 
                     context.Employee_table.Add(employee);
                     context.SaveChanges();
@@ -115,6 +116,56 @@ namespace AmsApi.Adapter
                 {
                     response.IsManager = false;
                 }
+            }
+            return response;
+        }
+
+        public ManageEmployeeResponse UpdateEmployee(ManageEmployeeRequest request)
+        {
+            ManageEmployeeResponse response = new ManageEmployeeResponse();
+
+            using(var context = new Company_dbEntities())
+            {
+                var employee = (from a in context.Employee_table where a.EmployeeID == request.EmployeeID select a).FirstOrDefault<Employee_table>();
+
+                employee.DOB = request.DOB.ToString();
+                employee.Address = request.Address;
+                employee.Contact = request.Contact;
+                employee.Email = request.Email;
+
+                context.SaveChanges();
+                response.Edit = true;
+            }
+            return response;
+        }
+
+        public ManageEmployeeResponse EmployeeDetail(ManageEmployeeRequest request)
+        {
+            ManageEmployeeResponse response = new ManageEmployeeResponse();
+
+            List<Employee_table> employee = new List<Employee_table>();
+            using (var context = new Company_dbEntities())
+            {
+
+                employee = (from a in context.Employee_table where request.CompanyName == a.CompanyName select a).ToList<Employee_table>();
+                response.EmployeeDetail = JsonConvert.SerializeObject(employee);
+
+            }
+            return response;
+        }
+
+
+        public ManageEmployeeResponse ManagerEmployees(ManageEmployeeRequest request)
+        {
+            ManageEmployeeResponse response = new ManageEmployeeResponse();
+
+            List<Employee_table> employee = new List<Employee_table>();
+            using (var context = new Company_dbEntities())
+            {
+
+                employee = (from a in context.Employee_table where request.EmployeeID == a.ManagerID select a).ToList<Employee_table>();
+                response.ManagerEmployees = JsonConvert.SerializeObject(employee);
+
             }
             return response;
         }

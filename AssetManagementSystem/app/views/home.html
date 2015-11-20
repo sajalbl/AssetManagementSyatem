@@ -5,47 +5,55 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <input type="radio" name="login" id="id1" ng-click="company()"  /> Company Login <br />
-                        <input type="radio" name="login" id="id2" ng-click="employee()" /> Employee login
-                        <br />
-                        <br />
+                        <!--<input type="radio" name="login" id="id1" ng-click="company()"  /> Company Login <br />
+        <input type="radio" name="login" id="id2" ng-click="employee()" /> Employee login
+        <br />
+        <br />-->
+                        <!--<div ng-show="companyLogin" class="container">-->
+                        <div class="container">
+                            <button class="btn btn-info" data-toggle="collapse" data-target="#company"> Company Login </button>
+                            <div id="company" class="collapse">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label> Company Name</label>
+                                        <input type="text" class="form-control" placeholder="Company name" ng-model="CompanyName" />
+                                        <label> Owner Name </label>
+                                        <input type="text" class="form-control" placeholder="Admin" ng-model="OwnerName" />
 
-                        <div ng-show="companyLogin" class="container">
-                           
-                            <form role="form">
-                                <div class="form-group">
-                                    <label> Company Name</label>
-                                    <input type="text" class="form-control" placeholder="Company name" ng-model="CompanyName" />
-                                    <label> Owner Name </label>
-                                    <input type="text" class="form-control" placeholder="Admin" ng-model="OwnerName" />
+                                        <br />
 
-                                    <br />
+                                        <input type="button" value="Log In" ng-click="search()" />
 
-                                    <input type="button" value="Log In" ng-click="search()" />
-
-                                </div>
-                            </form>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+                        <br />
+                        <!--</div>-->
+                        <!--<div ng-show="employeeLogin" class="container">-->
+                        <div class="container">
+                            <button class="btn btn-info" data-toggle="collapse" data-target="#employee"> Employee Login </button>
+                            <div id="employee" class="collapse">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label> Employee Id</label>
+                                        <input type="text" class="form-control" placeholder="Employee ID" ng-model="EmployeeID" />
+                                        <label> Employee Name </label>
+                                        <input type="text" class="form-control" placeholder="Employee Name" ng-model="EmployeeName" />
 
-                        <div ng-show="employeeLogin" class="container">
-                            <form role="form">
-                                <div class="form-group">
-                                    <label> Employee Id</label>
-                                    <input type="text" class="form-control" placeholder="Employee ID" ng-model="EmployeeID" />
-                                    <label> Employee Name </label>
-                                    <input type="text" class="form-control" placeholder="Employee Name" ng-model="EmployeeName" />
+                                        <br />
 
-                                    <br />
+                                        <input type="button" value="Log In" ng-click="login()" />
 
-                                    <input type="button" value="Log In" ng-click="login()" />
-
-                                </div>
-                            </form>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+                        <!--</div>-->
                         <h2> <b> {{status}} </b></h2>
                     </div>
-                </div>
-            </div>
+                        </div>
+                    </div>
         </div>
         
      </div>

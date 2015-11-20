@@ -49,5 +49,82 @@ namespace AmsApi.Controllers
             }
             return response;
         }
+
+
+        [Route("api/manage/taskAssign")]
+        [HttpPost]
+
+        public HttpResponseMessage taskAssign(ManageTaskRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageTaskAdapter adp = new ManageTaskAdapter();
+                ManageTaskResponse result = adp.TaskAssign(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
+
+        [Route("api/manage/employeeConfirm")]
+        [HttpPost]
+
+        public HttpResponseMessage employeeConfirm(ManageTaskRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageTaskAdapter adp = new ManageTaskAdapter();
+                ManageTaskResponse result = adp.EmployeeConfirm(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
+
+        [Route("api/manage/approval")]
+        [HttpPost]
+
+        public HttpResponseMessage approval(ManageTaskRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageTaskAdapter adp = new ManageTaskAdapter();
+                ManageTaskResponse result = adp.Approval(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
+
+        [Route("api/manage/deleteTask")]
+        [HttpPost]
+
+        public HttpResponseMessage deleteTask(ManageTaskRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageTaskAdapter adp = new ManageTaskAdapter();
+                ManageTaskResponse result = adp.DeleteTask(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
     }
 }

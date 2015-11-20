@@ -43,14 +43,14 @@ app.config(function ($routeProvider) {
         templateUrl: "./app/views/updateResource.html"
     });
 
-    $routeProvider.when("/logout", {
-            resolve: {
-                redirect: function (localStorage) {
-                    localStorage.clear();
-                    return "/home";
-                }
-            }
-        });
+    //$routeProvider.when("/logout", {
+    //        resolve: {
+    //            redirect: function (localStorage) {
+    //                localStorage.clear();
+    //                return "/home";
+    //            }
+    //        }
+    //    });
 
 
     $routeProvider.when("/newEmployee", {
@@ -72,6 +72,22 @@ app.config(function ($routeProvider) {
         controller: "taskController",
         templateUrl: "./app/views/task.html"
     });
+
+    $routeProvider.when("/editProfile", {
+        controller: "editProfileController",
+        templateUrl: "./app/views/editProfile.html"
+    });
+
+    $routeProvider.when("/employeeDetail", {
+        controller: "employeeController",
+        templateUrl: "./app/views/employee.html"
+    });
+
+    $routeProvider.when("/taskAssign", {
+        controller: "taskAssignController",
+        templateUrl: "./app/views/taskAssign.html"
+    });
+
 
     $routeProvider.otherwise({ redirectTo: "/home" });
 });

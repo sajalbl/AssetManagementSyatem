@@ -25,7 +25,7 @@ namespace AmsApi.Models
 
         public bool IsCompanyExist { get; set; }
 
-
+        //public bool EditLinkShow { get; set; }
 
         
     }

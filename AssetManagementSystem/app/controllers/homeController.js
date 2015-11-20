@@ -33,10 +33,11 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', 'localStorage
                         localStorageService.set("againCompanyName", detail);
                         localStorageService.set("ResourceCount", detail);
                         localStorageService.set("forEmployee", detail);
+                        localStorageService.set("employeeList", detail);
+                        
+                        //$rootScope.$broadcast('Success', detail);
 
-                       // $rootScope.$broadcast('Success', detail);
-
-                        $rootScope.$broadcast('LogIn', true);
+                        $rootScope.$broadcast('LogIn', 'company');
 
                     }
                     else
@@ -60,7 +61,12 @@ app.controller('homeController', ['$scope', '$rootScope', '$http', 'localStorage
                     localStorageService.set("employeeid", detail);
                     localStorageService.set("employee", detail);
                     localStorageService.set("task", detail);
-                    $rootScope.$broadcast('Success', true);
+                    localStorageService.set("editProfile", detail);
+                    localStorageService.set("taskAssign", detail);
+                    $rootScope.$broadcast('LogIn', 'employee');
+
+                    $rootScope.$broadcast('EditLink', true);
+                    
                 }
                 else
                 {

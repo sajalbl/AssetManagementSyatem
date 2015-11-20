@@ -18,5 +18,8 @@ namespace AmsApi.Models
         public string EmployeeName { get; set; }
         public string Description { get; set; }
         public int Tasks { get; set; }
+        public string AssignedBy { get; set; }
+        public string EmployeeConfirm { get; set; }
+        public string ManagerConfirm { get; set; }
     }
 }

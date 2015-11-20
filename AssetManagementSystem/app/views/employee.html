@@ -1,0 +1,63 @@
+﻿<div class="container">
+    <form role="form">
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="query" placeholder="Search" autofocus />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th width="100">
+                            #
+                        </th>
+                        <th width="100">
+                            Employee ID
+                        </th>
+                        <th width="200">
+                            Employee Name
+                        </th>
+                        <th width="200">
+                            Department
+                        </th>
+
+                        <th width="200">
+                            Designation
+                        </th>
+
+                        <!--<th width="200">
+                            Employee ID
+                        </th>-->
+
+                        <!--<th width="200">
+                            Modified On
+                        </th>
+                        <th width="200" s>
+                            Is Active
+                        </th>-->
+
+                    </tr>
+                    <tbody>
+                        <tr ng-repeat="employee in employeeList | filter:query ">
+                            <td> {{$index + 1}}</td>
+                            <td> {{employee.EmployeeID}}</td>
+                            <td> {{employee.EmployeeName}}</td>
+                            <td> {{employee.Department}}</td>
+                            <td> {{employee.Designation}}</td>
+                            
+                            <td> <a href="#/profile" ng-click="showProfile(employee.EmployeeID)"> Profile </a></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <h2> <b> {{status}} </b></h2>
+            </div>
+        </div>
+    </div>
+</div>
