@@ -23,8 +23,9 @@ app.controller('editProfileController', ['$scope', '$http', 'localStorageService
         }).then(function (results) {
             console.log(results);
 
-            $http.post(serviceBase + 'api/manage/updateEmployee', JSON.stringify(text)).then(function (results) {
-                                $scope.status = "Details Updated Successfully";
+         $http.post(serviceBase + 'api/manage/updateEmployee', JSON.stringify(text)).then(function (results) {
+
+             $scope.status = "Details Updated Successfully";
 
             });
         });
