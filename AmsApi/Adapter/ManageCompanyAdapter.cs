@@ -119,33 +119,7 @@ namespace AmsApi.Adapter
             return response;
         }
 
-        //public ManageCompanyResponse EditLink(ManageCompanyRequest request)
-        //{
-        //    ManageCompanyResponse response = new ManageCompanyResponse();
-            
-        //    using (var context = new Company_dbEntities())
-        //    {
-
-        //       var company = (from a in context.Company_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Company_table>();
-        //       response.EditLinkShow = true;
-
-        //    }
-        //    return response;
-        //}
-
-        //public ManageCompanyResponse UpdateResources(ManageCompanyRequest Req)
-        //{
-        //    ManageCompanyResponse response = new ManageCompanyResponse();
-        //    using(var context = new Company_dbEntities())
-        //    {
-        //        var company = (from a in context.Company_table where a.CompanyName == Req.CompanyName select a).FirstOrDefault<Company_table>();
-
-        //        company.ResourceCount = Req.Resources.ToString();
-
-        //    }
-        //    return response;
-            
-        //}
+        
     }
 
 }

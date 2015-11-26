@@ -16,12 +16,18 @@
                             <input type="text" class="form-control" ng-model="companyName.CompanyName" disabled />
                             <label> Department </label>
                             <input type="text" class="form-control" placeholder="Department" ng-model="employee.Department" />
+                            <br />
                             <label> Designation </label>
-                            <input type="text" class="form-control" placeholder="Manager or Employee" ng-model="employee.Designation" />
+                            <br />
+                            <span><input type="radio" ng-click="ifEmployee()" name="des"/> Employee </span>
+                            <br />
+                            <span><input type="radio" ng-click="ifManager()" name="des"/> Manager </span>
+                            <br />
+                            <br />
                             <label> Manager ID </label>
                             <input type="text" class="form-control" placeholder="ManagerID" ng-model="employee.ManagerID" />
                             <br />
-                            <button ng-click="submit()">Submit</button>
+                            <button class="btn btn-info" ng-click="submit()">Submit</button>
                         </div>
                     </form>
                 </div>

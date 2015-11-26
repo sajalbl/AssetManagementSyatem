@@ -2,9 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
-
 namespace AmsApi.Adapter
 {
     public class ManageEmployeeAdapter
@@ -93,7 +93,7 @@ namespace AmsApi.Adapter
             {
 
                 employee = (from a in context.Employee_table where request.EmployeeID == a.EmployeeID select a).ToList<Employee_table>();
-                response.EmployeeList = JsonConvert.SerializeObject(employee);
+                response.EmployeeList = employee;
 
             }
             return response;
@@ -122,16 +122,25 @@ namespace AmsApi.Adapter
 
         public ManageEmployeeResponse UpdateEmployee(ManageEmployeeRequest request)
         {
+            //var destinationPath = "http://localhost:58474/images/";
+            
             ManageEmployeeResponse response = new ManageEmployeeResponse();
 
             using(var context = new Company_dbEntities())
             {
                 var employee = (from a in context.Employee_table where a.EmployeeID == request.EmployeeID select a).FirstOrDefault<Employee_table>();
 
-                employee.DOB = request.DOB.ToString();
+                employee.DOB = request.DOB.ToShortDateString();
                 employee.Address = request.Address;
                 employee.Contact = request.Contact;
                 employee.Email = request.Email;
+                
+
+                //var image = request.Picture;
+                //var source = Path.Combine(image);
+                //var destination = Path.Combine(destinationPath, image);
+
+                //File.Copy(source, destination , true);
 
                 context.SaveChanges();
                 response.Edit = true;

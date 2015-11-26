@@ -15,8 +15,21 @@
                             <label> Email </label>
                             <input type="text" class="form-control" placeholder="Email" ng-model="profile.Email" />
                             <br />
-                            <button ng-click="update()">Update</button>
                         </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="container">
+                                            <label> Profile photo : </label>
+                                            <input type="file" file-model="uploadFile" /> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <br />
+                                <button class="btn btn-info" ng-click="update()"> Update </button>
+                            </div>
                     </form>
                 </div>
             </div>

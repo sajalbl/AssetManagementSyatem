@@ -39,7 +39,8 @@ namespace AmsApi.Adapter
             {
                 task = (from a in context.Task_table where a.EmployeeID == request.EmployeeID select a).ToList<Task_table>();
 
-                response.TaskList = JsonConvert.SerializeObject(task); 
+                response.TaskList = task;
+
             }
             return response;
         }
@@ -159,5 +160,7 @@ namespace AmsApi.Adapter
             }
             return response;
         }
+
+        
     }
 }

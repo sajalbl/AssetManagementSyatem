@@ -221,6 +221,7 @@
     <Compile Include="Controllers\AllCompanyController.cs" />
     <Compile Include="Controllers\DeleteCompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\imageController.cs" />
     <Compile Include="Controllers\ManageCompanyController.cs" />
     <Compile Include="Controllers\ManageEmployeeController.cs" />
     <Compile Include="Controllers\ManageResourcesController.cs" />

@@ -17,6 +17,7 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
         {
             $scope.employee = true;
             $scope.task();
+            
         }
     });
 
@@ -30,10 +31,12 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
 
     };
 
+
+
     $scope.task = function () {
         var detail = { "EmployeeID": $scope.employeeID.EmployeeID };
         $http.post(serviceBase + 'api/manage/TaskList', JSON.stringify(detail)).then(function (results) {
-            $scope.taskList = JSON.parse(results.data.TaskList);
+            $scope.taskList = results.data.TaskList;
 
             console.log($scope.taskList);
         });
@@ -50,6 +53,7 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
 
     $scope.assign = function (EmployeeID, EmployeeName) {
 
+        location.href = "#/taskAssign";
         var text = { "EmployeeID": EmployeeID, "EmployeeName": EmployeeName };
         localStorageService.set("assign", text);
     };

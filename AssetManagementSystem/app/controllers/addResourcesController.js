@@ -8,12 +8,12 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
     //});
 
     $scope.companyName = localStorageService.get("addResource");
-    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type, "IssuedTo": $scope.IssuedTo, "IssuedFrom": $scope.IssuedFrom, "EmployeeID": $scope.EmployeeID};
+    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type,  "IssuedFrom": $scope.IssuedFrom, "EmployeeID": $scope.EmployeeID};
 
     $scope.add = function () {
         var valid = $scope.validate();
         if(valid)
-            var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedTo": $scope.resources.IssuedTo, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID" : $scope.resources.EmployeeID };
+            var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type,  "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID" : $scope.resources.EmployeeID };
         $http.post(serviceBase + 'api/manage/newResources', JSON.stringify(text)).then(function (result) {
            
                 $scope.resources = "";
@@ -33,10 +33,10 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
             alert("Enter Resource type");
             isValid = false;
         }
-        if ($scope.resources.IssuedTo == null && $scope.resources.IssuedTo == "") {
-            alert("Enter Issued On Date and Time");
-            isValid = false;
-        }
+        //if ($scope.resources.IssuedTo == null && $scope.resources.IssuedTo == "") {
+        //    alert("Enter Issued On Date and Time");
+        //    isValid = false;
+        //}
         if ($scope.resources.IssuedFrom == null && $scope.resources.IssuedFrom == "") {
             alert("Enter Issued From date and time");
             isValid = false;

@@ -25,5 +25,10 @@ app.controller('navController', ['$scope', '$route', 'localStorageService', func
     //    $route.reload();
     //};
 
+    $scope.logout = function () {
+        localStorage.clear();
+        location.reload();
+    };
+
 
 }]);

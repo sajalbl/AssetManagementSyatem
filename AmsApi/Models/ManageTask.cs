@@ -19,12 +19,17 @@ namespace AmsApi.Models
 
     public class ManageTaskResponse
     {
+        public ManageTaskResponse()
+        {
+            TaskList = new List<Task_table>();
+        }
         public bool TaskAdded { get; set; }
-        public string TaskList { get; set; }
+        public List<Task_table> TaskList { get; set; }
         public string TaskAssign { get; set; }
         public bool ConfirmEmployee { get; set; }
         public bool ConfirmManager { get; set; }
         public bool TaskDeleted { get; set; }
+        
 
     }
 }

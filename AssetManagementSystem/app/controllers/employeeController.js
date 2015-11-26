@@ -12,6 +12,8 @@ app.controller('employeeController', ['$scope', '$http', 'localStorageService', 
     });
 
     $scope.showProfile = function (EmployeeID) {
+        location.href = "#/profile";
+
         var detail = {"EmployeeID": EmployeeID };
         localStorageService.set("employee",detail);
     };

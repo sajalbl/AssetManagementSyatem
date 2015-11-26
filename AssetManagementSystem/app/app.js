@@ -44,12 +44,8 @@ app.config(function ($routeProvider) {
     });
 
     //$routeProvider.when("/logout", {
-    //        resolve: {
-    //            redirect: function (localStorage) {
-    //                localStorage.clear();
-    //                return "/home";
-    //            }
-    //        }
+    //    controller: "logOutController",
+    //    templateUrl:  "./app/views/logOut.html"
     //    });
 
 
@@ -92,4 +88,18 @@ app.config(function ($routeProvider) {
     $routeProvider.otherwise({ redirectTo: "/home" });
 });
 
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
 
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);

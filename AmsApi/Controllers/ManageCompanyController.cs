@@ -83,22 +83,6 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        //[Route("api/manage/editLink")]
-        //[HttpPost]
-        //public HttpResponseMessage editLink(ManageCompanyRequest request)
-        //{
-        //    HttpResponseMessage response = new HttpResponseMessage();
-        //    try
-        //    {
-        //        ManageCompanyAdapter adp = new ManageCompanyAdapter();
-        //        ManageCompanyResponse result = adp.EditLink(request);
-        //        response = Request.CreateResponse(HttpStatusCode.OK, result);
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    return response;
-        //}
+        
     }
 }

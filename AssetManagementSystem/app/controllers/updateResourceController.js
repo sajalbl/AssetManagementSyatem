@@ -10,13 +10,11 @@ app.controller('updateResourceController', ['$scope', '$http', 'localStorageServ
     $scope.companyName = localStorageService.get("againCompanyName");
      
     $scope.update = function () {
-        var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedTo": $scope.resources.IssuedTo, "IssuedFrom": $scope.resources.IssuedFrom,"EmployeeID": $scope.resources.EmployeeID };
+        var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom,"EmployeeID": $scope.resources.EmployeeID };
         $http.post(serviceBase + 'api/manage/updateResources', JSON.stringify(text)).then(function (results) {
             $scope.resources = "";
         });
         $scope.status = "Resources Updated Successfully";
     };
-
-
-
+            
 }]);

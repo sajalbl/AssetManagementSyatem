@@ -29,35 +29,32 @@ app.controller('newCompanyController', ['$scope', '$http', function ($scope, $ht
         if ($scope.company.CompanyName == null && $scope.company.CompanyName == "") {
             alert("Enter Company name");
             isValid = false;
-        }
+        };
         if ($scope.company.OwnerName == null && $scope.company.OwnerName == "") {
             alert("Enter Owner's name");
             isValid = false;
-        }
-        //if ($scope.company.ResourceCount == null && $scope.company.ResourceCount == "") {
-        //    alert("Enter no. of resources");
-        //    isValid = false;
-        //}
+        };
+       
         if ($scope.company.Address == null && $scope.company.Address == "") {
             alert("Enter address");
             isValid = false;
-        }
+        };
         if ($scope.company.Contact == null || $scope.company.Contact == "") {
             alert("please enter the contact");
             isValid = false;
-        }
+        };
         if (!/^[0-9]*$/.test($scope.company.Contact) && ($scope.company.Contact != null || $scope.company.Contact != "")) {
             alert("enter valid phone no.");
             isValid = false;
-        }
+        };
         if ($scope.company.Email == null || $scope.company.Email == "") {
             alert("please enter the email");
             isValid = false;
-        }
+        };
         if (!/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test($scope.company.Email) && ($scope.company.Email != null || $scope.company.Email != "")) {
             alert("Enter valid email");
             isValid = false;
-        }
+        };
 
         
         return isValid;

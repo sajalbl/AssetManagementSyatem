@@ -27,6 +27,7 @@ app.controller('companyDetailController', ['$scope',  '$http', 'localStorageServ
 
 
     $scope.editRow = function (company) {
+        location.href = "#/update";
         localStorageService.set("companyDetail", company);
     };
 

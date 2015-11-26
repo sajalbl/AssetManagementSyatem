@@ -93,6 +93,7 @@
     <Content Include="app\views\taskAssign.html" />
     <Content Include="app\views\update.html" />
     <Content Include="app\views\updateResource.html" />
+    <Content Include="Images\qq.jpg" />
     <Content Include="index.html" />
     <Content Include="scripts\angular-cookies.js" />
     <Content Include="scripts\angular-google-maps.min.js" />
