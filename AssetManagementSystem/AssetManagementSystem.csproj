@@ -76,6 +76,7 @@
     <Content Include="app\controllers\taskController.js" />
     <Content Include="app\controllers\UpdateController.js" />
     <Content Include="app\controllers\updateResourceController.js" />
+    <Content Include="app\services\uploadFileService.js" />
     <Content Include="app\views\addResources.html" />
     <Content Include="app\views\companyDetail.html" />
     <Content Include="app\views\editProfile.html" />
