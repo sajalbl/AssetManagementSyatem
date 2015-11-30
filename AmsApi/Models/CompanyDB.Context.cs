@@ -26,8 +26,8 @@ namespace AmsApi.Models
         }
     
         public virtual DbSet<Company_table> Company_table { get; set; }
+        public virtual DbSet<Employee_table> Employee_table { get; set; }
         public virtual DbSet<Resources_table> Resources_table { get; set; }
         public virtual DbSet<Task_table> Task_table { get; set; }
-        public virtual DbSet<Employee_table> Employee_table { get; set; }
     }
 }

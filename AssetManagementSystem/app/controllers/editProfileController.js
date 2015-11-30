@@ -1,38 +1,20 @@
 ﻿'use strict';
-app.controller('editProfileController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
+app.controller('editProfileController', ['uploadFileService', '$scope', '$http', 'localStorageService', function (uploadFileService, $scope, $http, localStorageService) {
+
     var serviceBase = 'http://localhost:14597/';
+    var uploadBase = "http://localhost:58474/Images/";
 
     $scope.employeeID = localStorageService.get("editProfile");
     $scope.profile = localStorageService.get("employeeProfile");
-    
-   
 
     $scope.update = function () {
+        var text = { "EmployeeID": $scope.employeeID.EmployeeID, "DOB": $scope.profile.DOB, "Address": $scope.profile.Address, "Contact": $scope.profile.Contact, "Email": $scope.profile.Email };
 
-        console.log($scope.uploadFile);
-        var text = { "EmployeeID": $scope.employeeID.EmployeeID, "DOB": $scope.profile.DOB, "Address": $scope.profile.Address, "Contact": $scope.profile.Contact, "Email": $scope.profile.Email, "Picture": $scope.uploadFile.name };
-        
-        var data = new FormData();
-        console.log();
-        data.append('EmployeeID', $scope.employeeID.EmployeeID);
-        data.append('UploadImage', $scope.uploadFile.name);
-        data.append('FolderPath', "http://localhost:58474/Images/");
-        console.log(data);
-         $http.post(serviceBase + 'api/manage/imageUpload', data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(function (results) {
-            console.log(results);
+        uploadFileService.fileUpload($scope.employeeID.EmployeeID, $scope.uploadFile, uploadBase).then(function (results) { });
 
-         $http.post(serviceBase + 'api/manage/updateEmployee', JSON.stringify(text)).then(function (results) {
-
-             $scope.status = "Details Updated Successfully";
-
-            });
+        $http.post(serviceBase + 'api/manage/updateEmployee', JSON.stringify(text)).then(function (results) {
+            $scope.status = "Details Updated Successfully";
         });
 
-     
-        
     };
-
 }]);

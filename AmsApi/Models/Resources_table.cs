@@ -21,7 +21,7 @@ namespace AmsApi.Models
         public string IssuedFrom { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string IsActive { get; set; }
-        public string CompanyName { get; set; }
         public string EmployeeID { get; set; }
+        public string CompanyName { get; set; }
     }
 }

@@ -1,13 +1,15 @@
 ﻿using AmsApi.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Xml.Linq;
 
 namespace AmsApi.Controllers
 {
@@ -16,18 +18,19 @@ namespace AmsApi.Controllers
         [Route("api/manage/imageUpload")]
         [HttpPost]
 
-        public HttpResponseMessage uploadImage()
+        public HttpResponseMessage Post()
         {
             HttpResponseMessage response = null;
 
             try
             {
-                
-                    var uploadedImage = HttpContext.Current.Request.Files["UploadImage"]; 
+                if (HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    var uploadedImage = HttpContext.Current.Request.Files["UploadImage"];
                     var path = HttpContext.Current.Request.Params["FolderPath"];
-                    var employeeID = HttpContext.Current.Request.Files["EmployeeID"];
+                    var employeeID = HttpContext.Current.Request.Params["EmployeeID"];
 
-                    if (uploadedImage != null) 
+                    if (uploadedImage != null)
                     {
                         var source = Path.Combine(HttpContext.Current.Server.MapPath("~/Images/"), path);
                         bool exist = Directory.Exists(source);
@@ -48,21 +51,21 @@ namespace AmsApi.Controllers
                             }
 
                         }
-                        var picture = Path.Combine(source, uploadedImage.ToString());
+                        var picture = Path.Combine(source, uploadedImage.FileName);
                         uploadedImage.SaveAs(picture);
 
                     }
-                    response = Request.CreateResponse(HttpStatusCode.OK, true);
                 }
-            
+                response = Request.CreateResponse(HttpStatusCode.OK, true);
 
+            }
             catch (Exception ex)
             {
 
             }
             return response;
 
-           
+
         }
 
     }

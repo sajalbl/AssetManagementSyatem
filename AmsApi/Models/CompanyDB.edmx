@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company_table">
           <Key>
             <PropertyRef Name="CompanyId" />
@@ -67,7 +67,8 @@
           <EntitySet Name="Resources_table" EntityType="Self.Resources_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task_table" EntityType="Self.Task_table" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Company_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -81,40 +82,8 @@
           <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OwnerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ResourceCount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeCount" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Resources_table">
-          <Key>
-            <PropertyRef Name="ResourceId" />
-          </Key>
-          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameOfDevice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IssuedTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IssuedFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
-          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityContainer Name="Company_dbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Company_table" EntityType="Self.Company_table" />
-          <EntitySet Name="Resources_table" EntityType="Self.Resources_table" />
-          <EntitySet Name="Task_table" EntityType="Company_dbModel.Task_table" />
-          <EntitySet Name="Employee_table" EntityType="Company_dbModel.Employee_table" />
-        </EntityContainer>
-        <EntityType Name="Task_table">
-          <Key>
-            <PropertyRef Name="Tasks" />
-          </Key>
-          <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Tasks" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssignedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ManagerConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Employee_table">
           <Key>
@@ -133,6 +102,38 @@
           <Property Name="ManagerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Resources_table">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOfDevice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IssuedTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IssuedFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Task_table">
+          <Key>
+            <PropertyRef Name="Tasks" />
+          </Key>
+          <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tasks" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssignedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Company_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Company_table" EntityType="Self.Company_table" />
+          <EntitySet Name="Employee_table" EntityType="Self.Employee_table" />
+          <EntitySet Name="Resources_table" EntityType="Self.Resources_table" />
+          <EntitySet Name="Task_table" EntityType="Self.Task_table" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -153,10 +154,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Employee_table">
+            <EntityTypeMapping TypeName="Company_dbModel.Employee_table">
+              <MappingFragment StoreEntitySet="Employee_table">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Resources_table">
             <EntityTypeMapping TypeName="Company_dbModel.Resources_table">
               <MappingFragment StoreEntitySet="Resources_table">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
                 <ScalarProperty Name="NameOfDevice" ColumnName="NameOfDevice" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
@@ -164,6 +182,7 @@
                 <ScalarProperty Name="IssuedFrom" ColumnName="IssuedFrom" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -171,31 +190,13 @@
           <EntitySetMapping Name="Task_table">
             <EntityTypeMapping TypeName="Company_dbModel.Task_table">
               <MappingFragment StoreEntitySet="Task_table">
-                <ScalarProperty Name="ManagerConfirm" ColumnName="ManagerConfirm" />
-                <ScalarProperty Name="EmployeeConfirm" ColumnName="EmployeeConfirm" />
-                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
-                <ScalarProperty Name="Tasks" ColumnName="Tasks" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_table">
-            <EntityTypeMapping TypeName="Company_dbModel.Employee_table">
-              <MappingFragment StoreEntitySet="Employee_table">
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Tasks" ColumnName="Tasks" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="EmployeeConfirm" ColumnName="EmployeeConfirm" />
+                <ScalarProperty Name="ManagerConfirm" ColumnName="ManagerConfirm" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
