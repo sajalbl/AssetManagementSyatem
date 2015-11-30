@@ -10,14 +10,15 @@ app.controller('editProfileController', ['$scope', '$http', 'localStorageService
     $scope.update = function () {
 
         console.log($scope.uploadFile);
-        var text = { "EmployeeID": $scope.employeeID.EmployeeID, "DOB": $scope.profile.DOB, "Address": $scope.profile.Address, "Contact": $scope.profile.Contact, "Email": $scope.profile.Email };
+        var text = { "EmployeeID": $scope.employeeID.EmployeeID, "DOB": $scope.profile.DOB, "Address": $scope.profile.Address, "Contact": $scope.profile.Contact, "Email": $scope.profile.Email, "Picture": $scope.uploadFile.name };
+        
         var data = new FormData();
-        console.log($scope.employeeID.EmployeeID);
+        console.log();
         data.append('EmployeeID', $scope.employeeID.EmployeeID);
         data.append('UploadImage', $scope.uploadFile.name);
         data.append('FolderPath', "http://localhost:58474/Images/");
         console.log(data);
-        return $http.post(serviceBase + 'api/manage/imageUpload', data, {
+         $http.post(serviceBase + 'api/manage/imageUpload', data, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function (results) {
@@ -34,7 +35,4 @@ app.controller('editProfileController', ['$scope', '$http', 'localStorageService
         
     };
 
-
-    
-    
 }]);

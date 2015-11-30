@@ -22,8 +22,7 @@ namespace AmsApi.Controllers
 
             try
             {
-                if (HttpContext.Current.Request.Files.AllKeys.Any())
-                {
+                
                     var uploadedImage = HttpContext.Current.Request.Files["UploadImage"]; 
                     var path = HttpContext.Current.Request.Params["FolderPath"];
                     var employeeID = HttpContext.Current.Request.Files["EmployeeID"];
@@ -49,13 +48,13 @@ namespace AmsApi.Controllers
                             }
 
                         }
-                        var picture = Path.Combine(source, uploadedImage.FileName);
+                        var picture = Path.Combine(source, uploadedImage.ToString());
                         uploadedImage.SaveAs(picture);
 
                     }
                     response = Request.CreateResponse(HttpStatusCode.OK, true);
                 }
-            }
+            
 
             catch (Exception ex)
             {
