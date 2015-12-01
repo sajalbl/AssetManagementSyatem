@@ -6,6 +6,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.IO.Compression;
+using Ionic.Zip;
+using System.Dynamic;
+
 
 namespace AssetManagementSystem.Controllers
 {
@@ -28,28 +32,62 @@ namespace AssetManagementSystem.Controllers
 
                     if (uploadedImage != null)
                     {
-                        var source = Path.Combine(HttpContext.Current.Server.MapPath("~/Images/"), path);
-                        bool exist = Directory.Exists(source);
+                        
+                            var source = Path.Combine(HttpContext.Current.Server.MapPath("~/Images/"), path);
+                            bool exist = Directory.Exists(source);
 
-                        if (!exist)
+                            if (!exist)
+                            {
+                                Directory.CreateDirectory(source);
+
+                            }
+
+                            var employeeFolder = Path.Combine(source, employeeID + "/");
+                            bool present = Directory.Exists(employeeFolder);
+
+                            if (!present)
+                            {
+                                Directory.CreateDirectory(employeeFolder);
+                            }
+
+                        if (string.Equals(Path.GetExtension(uploadedImage.FileName), ".zip", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            Directory.CreateDirectory(source);
+                            List<dynamic> zipFileDatas = new List<dynamic>();
+                            
+                            
+                            var zipFilePath = Path.Combine(employeeFolder, uploadedImage.FileName);
+                            uploadedImage.SaveAs(zipFilePath);
+
+                            //var folder = Path.GetFileNameWithoutExtension(uploadedImage.FileName);
+                            //var elementPath = Path.Combine(zipFilePath, folder);
+                            
+                            using (ZipFile zip = ZipFile.Read(zipFilePath))
+                            {
+                                foreach (ZipEntry entry in zip)
+                                {
+                                    using (MemoryStream data = new MemoryStream())
+                                    {
+                                        entry.Extract(data);
+                                        data.Seek(0, SeekOrigin.Begin);
+
+                                       dynamic e = new ExpandoObject();
+                                        var zipFolder = Path.Combine(employeeFolder, entry.FileName);
+                                        e.fileName = entry.FileName;
+                                        e.filePath = zipFolder;
+                                        e.uploadDateTime = DateTime.Now;
+                                        zipFileDatas.Add(e);
+
+                                        byte[] fileData = File.ReadAllBytes(entry.FileName);
+                                        
+                                    }
+                                }
+                            }
                         }
-
-                        var readSavePath = string.Format(@"{0}/{1}", source, uploadedImage);
-                        //using (var fileStream = File.OpenRead(readSavePath))
-                        //{
-                        //    insertDB DB = new insertDB();
-                        //    bool result = DB.addToDB(employeeID.ToString(), uploadedImage.ToString());
-                        //    if (result == true)
-                        //    {
-                        //        fileStream.Close();
-                        //    }
-
-                        //}
-                        var picture = Path.Combine(source, uploadedImage.ToString());
-                        uploadedImage.SaveAs(picture);
-
+                        else
+                        {
+                            var picture = Path.Combine(employeeFolder, uploadedImage.FileName);
+                            uploadedImage.SaveAs(picture);
+                        }
                     }
                     response = Request.CreateResponse(HttpStatusCode.OK, true);
                 }
@@ -62,8 +100,7 @@ namespace AssetManagementSystem.Controllers
                 throw ex;
             }
             return response;
-
-
         }
+        
     }
 }

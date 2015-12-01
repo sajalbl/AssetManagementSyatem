@@ -4,9 +4,10 @@ app.controller('profileController', ['$scope', '$http', 'localStorageService', f
     
 
     //$scope.ShowEdit = false;
-    $scope.source = "http://localhost:58474/images/";
+    
     $scope.employeeID = localStorageService.get("employee");
-
+    //$scope.source = "http://localhost:58474/images/";
+     
    
     $http.post(serviceBase + 'api/manage/employees', JSON.stringify($scope.employeeID)).then(function (results) {
         $scope.employeeList = results.data.EmployeeList;

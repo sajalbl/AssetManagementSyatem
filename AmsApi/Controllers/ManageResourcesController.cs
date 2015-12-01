@@ -142,5 +142,24 @@ namespace AmsApi.Controllers
             }
             return response;
         }
+
+        [Route("api/manage/showImage")]
+        [HttpPost]
+        public HttpResponseMessage showImage(ManageResourcesRequest request)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.ShowImage(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            return response;
+        }
     }
 }

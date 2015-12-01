@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="container" ng-repeat="employee in employeeList">
-                <h4> <label> Profile Picture :</label> </h4> &nbsp; <img ng-src="{{source}}{{employee.Picture}}" /> 
+                <h4> <label> Profile Picture :</label> </h4> &nbsp; <img ng-src="http://localhost:58474/images/{{employee.EmployeeID}}/{{employee.Picture}}" /> 
                 <h4>  <label> Company Name :  </label> &nbsp; <label style="font:italic"> {{employee.CompanyName}}</label> </h4>
                 <br />
                 <h4>  <label> Employee Name :  </label> &nbsp; <label style="font:italic" > {{employee.EmployeeName}}</label></h4>

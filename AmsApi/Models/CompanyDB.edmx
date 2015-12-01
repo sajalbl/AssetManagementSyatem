@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company_table">
           <Key>
             <PropertyRef Name="CompanyId" />
@@ -48,6 +48,8 @@
           <Property Name="IsActive" Type="nvarchar(max)" />
           <Property Name="EmployeeID" Type="nvarchar(max)" />
           <Property Name="CompanyName" Type="nvarchar(max)" />
+          <Property Name="Serial" Type="nvarchar(max)" />
+          <Property Name="Picture" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Task_table">
           <Key>
@@ -67,8 +69,7 @@
           <EntitySet Name="Resources_table" EntityType="Self.Resources_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task_table" EntityType="Self.Task_table" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Company_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -115,6 +116,8 @@
           <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Serial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Task_table">
           <Key>
@@ -175,6 +178,8 @@
           <EntitySetMapping Name="Resources_table">
             <EntityTypeMapping TypeName="Company_dbModel.Resources_table">
               <MappingFragment StoreEntitySet="Resources_table">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
                 <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
                 <ScalarProperty Name="NameOfDevice" ColumnName="NameOfDevice" />
                 <ScalarProperty Name="Type" ColumnName="Type" />

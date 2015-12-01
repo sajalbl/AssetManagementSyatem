@@ -32,6 +32,10 @@
                         <th width="200">
                             Employee ID
                         </th>
+                        
+                        <th width="200">
+                            Serial no.
+                        </th>
 
                         <!--<th width="200">
                             Modified On
@@ -48,10 +52,12 @@
                             <td> {{resource.Type}}</td>
                             <td> {{resource.IssuedFrom}}</td>
                             <td> {{resource.EmployeeID}} </td>
+                            <td> {{resource.Serial}} </td>
                             <td>
                                 <button class="btn btn-info" ng-click="editRow(resource)">  Edit   </button>
                             </td>
-                            <td><button class="btn btn-danger" ng-click="remove(resource.CompanyName,resource.NameOfDevice,resource.Type,resource.EmployeeID)">Delete</</button></td>
+                            <td> <button class="btn btn-info" ng-click="showImage(resource.Serial)"> Show Image </button></td>
+                            <td><button class="btn btn-danger" ng-click="remove(resource.CompanyName,resource.NameOfDevice,resource.Type,resource.EmployeeID,resource.Serial)">Delete</</button></td>
                             
                         </tr>
                     </tbody>
@@ -61,6 +67,13 @@
                 
                 <h2> <b> {{status}} </b></h2>
             </div>
+        </div>
+    </div>
+</div>
+<div ng-show="showI">
+    <div class="row">
+        <div class="col-md-12">
+            <img ng-src="http://localhost:58474/images/{{imageList.Serial}}/{{imageList.Picture}}" />
         </div>
     </div>
 </div>

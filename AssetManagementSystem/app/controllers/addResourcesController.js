@@ -8,16 +8,22 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
     //});
 
     $scope.companyName = localStorageService.get("addResource");
-    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type,  "IssuedFrom": $scope.IssuedFrom, "EmployeeID": $scope.EmployeeID};
+    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type,  "IssuedFrom": $scope.IssuedFrom, "EmployeeID": $scope.EmployeeID, "Serial": $scope.Serial};
 
     $scope.add = function () {
         var valid = $scope.validate();
         if(valid)
-            var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type,  "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID" : $scope.resources.EmployeeID };
-        $http.post(serviceBase + 'api/manage/newResources', JSON.stringify(text)).then(function (result) {
-           
+            var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID": $scope.resources.EmployeeID, "Serial": $scope.resources.Serial };
+        $http.post(serviceBase + 'api/manage/newResources', JSON.stringify(text)).then(function (results) {
+            if (results.data.IsResourcesCreated)
+                {
                 $scope.resources = "";
                 $scope.status = "Resource detail added";
+            }
+            else
+            {
+                $scope.status = "Resource already exist";
+            }
            
         });
         

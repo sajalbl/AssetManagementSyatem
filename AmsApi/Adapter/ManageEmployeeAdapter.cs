@@ -122,7 +122,7 @@ namespace AmsApi.Adapter
 
         public ManageEmployeeResponse UpdateEmployee(ManageEmployeeRequest request)
         {
-            //var destinationPath = "http://localhost:58474/Images/";
+            
             
             ManageEmployeeResponse response = new ManageEmployeeResponse();
 
@@ -135,14 +135,7 @@ namespace AmsApi.Adapter
                 employee.Contact = request.Contact;
                 employee.Email = request.Email;
                 employee.Picture = request.Picture;
-                //employee.Picture = request.Picture;
-
-                //var image = HttpContext.Current.Request.Files["request.Picture"];
-
-                //var destination = Path.Combine(destinationPath, image.ToString());
-
-                //image.SaveAs(destination);
-
+                
                 context.SaveChanges();
                 response.Edit = true;
             }

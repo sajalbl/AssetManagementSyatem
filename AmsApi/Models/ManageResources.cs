@@ -13,6 +13,8 @@ namespace AmsApi.Resources.Models
         public DateTime IssuedTo { get; set; }
         public DateTime IssuedFrom { get; set; }
         public string EmployeeID { get; set; }
+        public string Serial { get; set; }
+        public string Picture { get; set; }
 
        
         }
@@ -32,6 +34,8 @@ namespace AmsApi.Resources.Models
         public int Resourcecount { get; set; }
 
         public string ResourcesAllocated { get; set; }
+
+        public string resourceImage { get; set; }
 
     }
 }

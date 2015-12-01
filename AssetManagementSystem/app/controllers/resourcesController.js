@@ -27,12 +27,12 @@ app.controller('resourcesController', ['$scope', '$http', 'localStorageService',
         localStorageService.set("resourceDetail", resource);
     };
     
-    $scope.remove = function (CompanyName, NameOfDevice, Type, EmployeeID) {
+    $scope.remove = function (CompanyName, NameOfDevice, Type, EmployeeID, Serial) {
         //alert("are you sure you want to delete this ?");
 
         if ($window.confirm("are you sure you want to delete this ?"))
         {
-            var text = { "CompanyName": CompanyName, "NameOfDevice": NameOfDevice, "Type": Type, "EmployeeID": EmployeeID };
+            var text = { "CompanyName": CompanyName, "NameOfDevice": NameOfDevice, "Type": Type, "EmployeeID": EmployeeID, "Serial": Serial };
             $http.post(serviceBase + 'api/manage/deleteResources', JSON.stringify(text)).then(function (results) {
 
                 $scope.status = "Deleted";
@@ -47,6 +47,16 @@ app.controller('resourcesController', ['$scope', '$http', 'localStorageService',
         }
         
 
+    };
+
+    $scope.showImage = function (Serial) {
+        var text = { "Serial": Serial }
+        $http.post(serviceBase + 'api/manage/showImage', JSON.stringify(text)).then(function (results) {
+            $scope.showI = true;
+            $scope.imageList = JSON.parse(results.data.resourceImage);
+            
+        });
+        
     };
 
     

@@ -1,6 +1,7 @@
 ﻿'use strict';
-app.controller('updateResourceController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
+app.controller('updateResourceController', ['uploadFileService', '$scope', '$http', 'localStorageService', function (uploadFileService, $scope, $http, localStorageService) {
     var serviceBase = 'http://localhost:14597/';
+    var uploadBase = "";
 
     $scope.resources = localStorageService.get("resourceDetail");
 
@@ -10,11 +11,17 @@ app.controller('updateResourceController', ['$scope', '$http', 'localStorageServ
     $scope.companyName = localStorageService.get("againCompanyName");
      
     $scope.update = function () {
-        var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom,"EmployeeID": $scope.resources.EmployeeID };
+        var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID": $scope.resources.EmployeeID, "Serial": $scope.resources.Serial, "Picture": $scope.Picture.name };
+
+        uploadFileService.fileUpload($scope.resources.Serial, $scope.Picture, uploadBase).then(function (results) {
+
+        });
+
         $http.post(serviceBase + 'api/manage/updateResources', JSON.stringify(text)).then(function (results) {
             $scope.resources = "";
+            $scope.status = "Resources Updated Successfully";
         });
-        $scope.status = "Resources Updated Successfully";
+        
     };
             
 }]);

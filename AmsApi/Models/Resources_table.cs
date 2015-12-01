@@ -23,5 +23,7 @@ namespace AmsApi.Models
         public string IsActive { get; set; }
         public string EmployeeID { get; set; }
         public string CompanyName { get; set; }
+        public string Serial { get; set; }
+        public string Picture { get; set; }
     }
 }
