@@ -26,6 +26,7 @@ namespace AmsApi.Adapter
                     employee.Department = request.Department;
                     employee.Designation = request.Designation;
                     employee.ManagerID = request.ManagerID;
+                    employee.DOB = request.DOB.ToShortDateString();
 
                     context.Employee_table.Add(employee);
                     context.SaveChanges();
@@ -134,7 +135,7 @@ namespace AmsApi.Adapter
                 employee.Address = request.Address;
                 employee.Contact = request.Contact;
                 employee.Email = request.Email;
-                employee.Picture = request.Picture;
+                
                 
                 context.SaveChanges();
                 response.Edit = true;

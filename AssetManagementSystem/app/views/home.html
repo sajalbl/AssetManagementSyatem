@@ -11,44 +11,52 @@
         <br />-->
                         <!--<div ng-show="companyLogin" class="container">-->
                         <div class="container">
-                            <button class="btn btn-info" data-toggle="collapse" data-target="#company"> Company Login </button>
-                            <div id="company" class="collapse">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label> Company Name</label>
-                                        <input type="text" class="form-control" placeholder="Company name" ng-model="CompanyName" />
-                                        <label> Owner Name </label>
-                                        <input type="text" class="form-control" placeholder="Admin" ng-model="OwnerName" />
+                            <button ng-click="company()" class="btn btn-info"> Company Login </button>
 
-                                        <br />
+                            <button ng-click="employee()" class="btn btn-info"> Employee Login </button>
+                            <br />
+                            <br />
+                            <div>
+                                <div ng-show="companyLogin">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label> Company Name</label>
+                                            <input type="text" class="form-control" placeholder="Company name" ng-model="CompanyName" />
+                                            <label> Owner Name </label>
+                                            <input type="text" class="form-control" placeholder="Admin" ng-model="OwnerName" />
 
-                                        <input type="button" value="Log In" ng-click="search()" />
+                                            <br />
 
-                                    </div>
-                                </form>
+                                            <input type="button" value="Log In" ng-click="search()" />
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div ng-show="employeeLogin">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label> Employee Id</label>
+                                            <input type="text" class="form-control" placeholder="Employee ID" ng-model="EmployeeID" />
+                                            <label> Employee Name </label>
+                                            <input type="text" class="form-control" placeholder="Employee Name" ng-model="EmployeeName" />
+
+                                            <br />
+
+                                            <input type="button" value="Log In" ng-click="login()" />
+
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <br />
                         <!--</div>-->
                         <!--<div ng-show="employeeLogin" class="container">-->
-                        <div class="container">
-                            <button class="btn btn-info" data-toggle="collapse" data-target="#employee"> Employee Login </button>
-                            <div id="employee" class="collapse">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label> Employee Id</label>
-                                        <input type="text" class="form-control" placeholder="Employee ID" ng-model="EmployeeID" />
-                                        <label> Employee Name </label>
-                                        <input type="text" class="form-control" placeholder="Employee Name" ng-model="EmployeeName" />
-
-                                        <br />
-
-                                        <input type="button" value="Log In" ng-click="login()" />
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <!--<div class="container">
+                            
+                           
+                        </div>-->
                         <!--</div>-->
                         <h2> <b> {{status}} </b></h2>
                     </div>

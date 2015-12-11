@@ -57,7 +57,7 @@
                                 <button class="btn btn-info" ng-click="editRow(resource)">  Edit   </button>
                             </td>
                             <td> <button class="btn btn-info" ng-click="showImage(resource.Serial)"> Show Image </button></td>
-                            <td><button class="btn btn-danger" ng-click="remove(resource.CompanyName,resource.NameOfDevice,resource.Type,resource.EmployeeID,resource.Serial)">Delete</</button></td>
+                            <td><button class="btn btn-danger" ng-click="remove(resource)">Delete</</button></td>
                             
                         </tr>
                     </tbody>
@@ -70,11 +70,25 @@
         </div>
     </div>
 </div>
-<div ng-show="showI">
-    <div class="row">
-        <div class="col-md-12">
-            <img ng-src="http://localhost:58474/images/{{imageList.Serial}}/{{imageList.Picture}}" />
+<script type="text/ng-template" id="deleteModal.html">
+    <div class="modal-body">
+        <h3 class="modal-title">Are you sure you want to delete the resource?</h3>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">Yes</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="imageModal.html">
+    <div class="modal-header">
+        <p style="float:right"><button class="btn btn-info" ng-click="close()"> &times; </button> </p>
+    </div>
+    <div class="modal-body">
+        <div ng-repeat="image in imageList">
+            <img ng-src="http://localhost:58474/images/{{source}}/{{image.name}}" />
         </div>
     </div>
-</div>
+        
+</script>
 

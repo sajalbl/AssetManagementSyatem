@@ -11,9 +11,11 @@ namespace AmsApi.Controllers
 {
     public class DeleteCompanyController : ApiController
     {
-       [Route("api/manage/deleteCompany")]
-       [HttpPost]
+        [Route("api/manage/deleteCompany")]
+        [HttpPost]
 
+
+       // NameValueCollection col = new NameValueCollection();
         public HttpResponseMessage delete(ManageCompanyRequest request)
         {
             HttpResponseMessage response = new HttpResponseMessage();

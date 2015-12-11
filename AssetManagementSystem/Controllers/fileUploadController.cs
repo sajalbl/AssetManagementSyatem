@@ -9,6 +9,8 @@ using System.Web.Http;
 using System.IO.Compression;
 using Ionic.Zip;
 using System.Dynamic;
+using Newtonsoft.Json;
+using AssetManagementSystem.Models;
 
 
 namespace AssetManagementSystem.Controllers
@@ -39,7 +41,7 @@ namespace AssetManagementSystem.Controllers
                             if (!exist)
                             {
                                 Directory.CreateDirectory(source);
-
+                                
                             }
 
                             var employeeFolder = Path.Combine(source, employeeID + "/");
@@ -52,40 +54,68 @@ namespace AssetManagementSystem.Controllers
 
                         if (string.Equals(Path.GetExtension(uploadedImage.FileName), ".zip", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            List<dynamic> zipFileDatas = new List<dynamic>();
-                            
-                            
+                            List<Image> pic = new List<Image>();
+                          
                             var zipFilePath = Path.Combine(employeeFolder, uploadedImage.FileName);
                             uploadedImage.SaveAs(zipFilePath);
 
-                            //var folder = Path.GetFileNameWithoutExtension(uploadedImage.FileName);
-                            //var elementPath = Path.Combine(zipFilePath, folder);
-                            
-                            using (ZipFile zip = ZipFile.Read(zipFilePath))
+                            using (ZipArchive archive = System.IO.Compression.ZipFile.OpenRead(zipFilePath))
                             {
-                                foreach (ZipEntry entry in zip)
+                                foreach (ZipArchiveEntry entry in archive.Entries)
                                 {
-                                    using (MemoryStream data = new MemoryStream())
-                                    {
-                                        entry.Extract(data);
-                                        data.Seek(0, SeekOrigin.Begin);
+                                    entry.ExtractToFile(Path.Combine(employeeFolder, entry.FullName));
 
-                                       dynamic e = new ExpandoObject();
-                                        var zipFolder = Path.Combine(employeeFolder, entry.FileName);
-                                        e.fileName = entry.FileName;
-                                        e.filePath = zipFolder;
-                                        e.uploadDateTime = DateTime.Now;
-                                        zipFileDatas.Add(e);
+                                    Image i = new Image();
 
-                                        byte[] fileData = File.ReadAllBytes(entry.FileName);
-                                        
-                                    }
+                                    i.name = entry.FullName;
+
+                                    pic.Add(i);
+
+                               }
+                                using (var context = new Company_dbEntities())
+                                {
+                                    var result = JsonConvert.SerializeObject(pic);
+                                    var image = (from a in context.Resources_table where employeeID == a.Serial select a).FirstOrDefault<Resources_table>();
+                                    image.Picture = result;
+
+                                    context.SaveChanges();
                                 }
                             }
+                            
                         }
                         else
                         {
                             var picture = Path.Combine(employeeFolder, uploadedImage.FileName);
+                            
+                            using (var context = new Company_dbEntities())
+                            {
+
+                                var image = (from a in context.Resources_table where employeeID == a.Serial select a).FirstOrDefault<Resources_table>();
+
+                                if(image != null)
+                                {
+                                    List<Image> pic = new List<Image>();
+                                    Image i = new Image();
+
+                                    i.name = uploadedImage.FileName;
+
+                                    pic.Add(i);
+                                    var result = JsonConvert.SerializeObject(pic);
+
+                                    image.Picture = result;
+                                    context.SaveChanges();
+                                }
+
+                                else
+                                {
+                                    var profile = (from a in context.Employee_table where employeeID == a.EmployeeID select a).FirstOrDefault<Employee_table>();
+
+                                    profile.Picture = uploadedImage.FileName;
+                                    context.SaveChanges();
+                                }
+
+                                
+                            }
                             uploadedImage.SaveAs(picture);
                         }
                     }
@@ -101,6 +131,63 @@ namespace AssetManagementSystem.Controllers
             }
             return response;
         }
-        
+
+        [Route("api/manage/UploadCSV")]
+        [HttpPost]
+
+        public HttpResponseMessage uploadCSV()
+        {
+            HttpResponseMessage response = null;
+
+            try
+            {
+                if (HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    var uploadedCSV = HttpContext.Current.Request.Files["UploadCSV"];
+                    var path = HttpContext.Current.Request.Params["FolderPath"];
+
+                    if (uploadedCSV != null)
+                    {
+                        var source = Path.Combine(HttpContext.Current.Server.MapPath("~/CSV/"), path);
+                        bool exist = Directory.Exists(source);
+
+                        if (!exist)
+                        {
+                            Directory.CreateDirectory(source);
+
+                        }
+
+                        var csvName = Path.GetFileNameWithoutExtension(uploadedCSV.FileName);
+                        var uploadPath = Path.Combine(source, csvName);
+
+                        uploadedCSV.SaveAs(uploadPath);
+
+                        //csvUploadAdapter adp = new csvUploadAdapter();
+                        //csvUploadResponse result = adp.parseCSV(uploadedCSV);
+                        //response = Request.CreateResponse(HttpStatusCode.OK, result);
+                    }
+
+                    response = Request.CreateResponse(HttpStatusCode.OK, true);
+                }
+
+                
+            }
+
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
+
+
     }
+
+    public class Image
+    {
+        public string name { get; set; }
+    }
+
+
 }
+

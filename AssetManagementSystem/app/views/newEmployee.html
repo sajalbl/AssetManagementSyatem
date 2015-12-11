@@ -14,6 +14,8 @@
                             <input type="number" min ="1" class="form-control" placeholder="Resources no." ng-model="company.ResourceCount" name="resources" />-->
                             <label> Company Name </label>
                             <input type="text" class="form-control" ng-model="companyName.CompanyName" disabled />
+                            <label> Date of Birth </label>
+                            <input type="date" class="form-control" ng-model="employee.DOB" placeholder="Date of Birth" />
                             <label> Department </label>
                             <input type="text" class="form-control" placeholder="Department" ng-model="employee.Department" />
                             <br />
@@ -30,6 +32,12 @@
                             <button class="btn btn-info" ng-click="submit()">Submit</button>
                         </div>
                     </form>
+
+                    <label> Upload CSV file : </label>
+                    <input type="file" name="file" file-model="csvFile" />
+                    <br />
+                    
+                    <button class="btn btn-info" ng-click="update()"> Upload </button>
                 </div>
                 <h2 ng-hide="employee.EmployeeName"> <b> {{status}} </b></h2>
             </div>

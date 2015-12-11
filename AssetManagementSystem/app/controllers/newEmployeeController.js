@@ -1,9 +1,11 @@
 ﻿'use strict';
-app.controller('newEmployeeController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
+app.controller('newEmployeeController', ['uploadFileService', '$scope', '$http', 'localStorageService', function (uploadFileService,$scope, $http, localStorageService) {
 
     var serviceBase = 'http://localhost:14597/';
-    $scope.employee = { "EmployeeName": $scope.EmployeeName, "EmployeeID": $scope.EmployeeID, "Department": $scope.Department, "ManagerID": $scope.ManagerID };
+    var uploadBase = "";
+    $scope.employee = { "EmployeeName": $scope.EmployeeName, "EmployeeID": $scope.EmployeeID, "Department": $scope.Department, "ManagerID": $scope.ManagerID, "DOB": $scope.DOB };
     $scope.companyName = localStorageService.get("forEmployee");
+
 
     $scope.ifEmployee = function () {
         var text = {  "Designation": "employee" };
@@ -17,8 +19,9 @@ app.controller('newEmployeeController', ['$scope', '$http', 'localStorageService
 
         
     $scope.submit = function () {
+
         $scope.designation = localStorageService.get("empDes");
-        var text = { "EmployeeName": $scope.employee.EmployeeName, "EmployeeID": $scope.employee.EmployeeID, "Department": $scope.employee.Department, "Designation": $scope.designation.Designation , "CompanyName": $scope.companyName.CompanyName, "ManagerID": $scope.employee.ManagerID };
+        var text = { "EmployeeName": $scope.employee.EmployeeName, "EmployeeID": $scope.employee.EmployeeID, "Department": $scope.employee.Department, "Designation": $scope.designation.Designation, "CompanyName": $scope.companyName.CompanyName, "ManagerID": $scope.employee.ManagerID, "DOB": $scope.employee.DOB };
 
         $http.post(serviceBase + 'api/manage/newEmployee', JSON.stringify(text)).then(function (results) {
             if (results.data.IsEmployeeCreated)
@@ -31,6 +34,12 @@ app.controller('newEmployeeController', ['$scope', '$http', 'localStorageService
                 $scope.status = "Employee ID already Exist";
             }
             $scope.employee = "";
+        });
+    };
+
+    $scope.update = function () {
+        uploadFileService.CSVUpload($scope.csvFile, uploadBase).then(function (results) {
+
         });
     };
 }]);

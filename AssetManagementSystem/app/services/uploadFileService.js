@@ -2,6 +2,8 @@
 app.factory('uploadFileService', ['$http', function ($http) {
 
     var serviceBase = 'http://localhost:58474/';
+   
+
     var uploadFileServiceFactory = {};
 
     var _fileUpload = function (empid, file, path) {
@@ -13,12 +15,28 @@ app.factory('uploadFileService', ['$http', function ($http) {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function (results) {
-   
+
         });
     };
     uploadFileServiceFactory.fileUpload = _fileUpload;
 
-    return uploadFileServiceFactory;
 
-    
+    var _CSVUpload = function (file , path) {
+        var data = new FormData();
+        
+        data.append('UploadCSV', file);
+        data.append('FolderPath', path);
+
+        return $http.post(serviceBase + "api/manage/UploadCSV", data, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(function (results) {
+
+        });
+    };
+    uploadFileServiceFactory.CSVUpload = _CSVUpload;
+
+
+      return uploadFileServiceFactory;
+  
 }]);
