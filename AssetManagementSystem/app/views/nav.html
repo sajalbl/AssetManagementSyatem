@@ -4,17 +4,16 @@
         data-slim-scroll
         data-collapse-nav
         data-highlight-active>
-        <li><a href="#/home"><span>Home</span> </a></li>
-        <li><a href="#/newCompany"><span> Add Company </span> </a></li>
-        <li ng-show="showNav"><a href="#/newEmployee"><span> Add Employee </span></a></li>
-        <li ng-show="showNav"><a href="#/companyDetail"><span> Company Detail</span> </a></li>
-        <li ng-show="showNav"><a href="#/employeeDetail"> <span>Employee Detail</span></a></li>
-        <li ng-show="showNav"><a href="#/resourceDetail"> <span>Resource Detail</span></a></li>
-        <li ng-show="showNav"><a href="#/addResource"><span> Add Resources </span></a></li>
-        <li ng-show="showNav"><a href="#" ng-click="logout()"><span> Log out </span></a></li>
-        <li ng-show="showNavigation"><a href="#/profile"><span> Profile </span></a></li>
-        <li ng-show="showNavigation"><a href="#/resourceAllocated"><span> Resource Alloted </span></a></li>
-        <li ng-show="showNavigation"><a href="#/tasks"><span> Tasks </span></a></li>
-        <li ng-show="showNavigation"><a href="#" ng-click="logout()"><span> Log out </span></a></li>
+        <!--<span>Home</span> </a></li><li><a href="#/home">-->
+        <li ng-show="companyLogin"><a href="#/newCompany"><span> Add Company </span> </a></li>
+        <li ng-show="companyLogin"><a href="#/newEmployee"><span> Add Employee </span></a></li>
+        <li ng-show="companyLogin"><a href="#/companyDetail"><span> Company Detail</span> </a></li>
+        <li ng-show="companyLogin"><a href="#/resourceDetail"> <span>Resource Detail</span></a></li>
+        <li ng-show="companyLogin"><a href="#/addResource"><span> Add Resources </span></a></li>
+        <li ng-show="employeeLogin"><a href="#/employeeDetail"> <span>Employee Detail</span></a></li>
+        <li ng-show="employeeLogin"><a href="#/profile"><span> Profile </span></a></li>
+        <li ng-show="employeeLogin"><a href="#/resourceAllocated"><span> Resource Alloted </span></a></li>
+        <li ng-show="employeeLogin"><a href="#/tasks"><span> Tasks </span></a></li>
+        <li><a href="#/login" ng-click="logout()"><span> Log out </span></a></li>
     </ul>
 </div>

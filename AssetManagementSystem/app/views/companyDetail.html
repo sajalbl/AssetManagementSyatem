@@ -1,12 +1,8 @@
-﻿
-<div class="page page-dashboard">
-   
-    <div ng-show="ShowTable" class="table">
+﻿<div class="page page-dashboard">
+    <div class="table">
         <div class="row">
             <div class="col-md-12">
-
                 <div class="container">
-
                     <table class="table table-bordered table-striped">
                         <tr>
                             <th width="100">
@@ -37,22 +33,20 @@
                             </th>
                         </tr>
                         <tbody>
-                            <tr ng-repeat="company in companyList">
+                            <tr>
                                 <td> {{$index + 1}} </td>
-                                <td> {{company.CompanyName}} </td>
-                                <td> {{company.OwnerName}} </td>
-                                <td> {{company.Contact}} </td>
-                                <td> {{company.Email}} </td>
-                                <td> {{company.Address}} </td>
-                                <td> {{resourceCount}} </td>
-                                <td> {{employeeCount}} </td>
-                                <td> <button class="btn btn-info" ng-click="editRow(company)">  Edit   </button></td>
-                                <td><button class="btn btn-danger" ng-click="removeRow(company.CompanyName,company.OwnerName)">Delete</button></td>
-
+                                <td> {{companyInfo.CompanyName}} </td>
+                                <td> {{companyInfo.OwnerName}} </td>
+                                <td> {{companyInfo.Contact}} </td>
+                                <td> {{companyInfo.Email}} </td>
+                                <td> {{companyInfo.Address}} </td>
+                                <td> {{companyInfo.ResourceCount}} </td>
+                                <td> {{companyInfo.EmployeeCount}} </td>
+                                <td> <button class="btn btn-info" ng-click="editRow(companyInfo)">  Edit   </button></td>
+                                <td><button class="btn btn-danger" ng-click="removeRow(companyInfo.CompanyName,companyInfo.OwnerName)">Delete</button></td>
                             </tr>
                         </tbody>
                     </table>
-                    <h2 ng-show="hideTable"> <b> {{status}} </b></h2>
                 </div>
             </div>
         </div>
