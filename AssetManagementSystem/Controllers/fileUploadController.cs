@@ -92,7 +92,7 @@ namespace AssetManagementSystem.Controllers
 
                                 var image = (from a in context.Resources_table where employeeID == a.Serial select a).FirstOrDefault<Resources_table>();
 
-                                if(image != null)
+                                if (image != null)
                                 {
                                     List<Image> pic = new List<Image>();
                                     Image i = new Image();
@@ -132,53 +132,53 @@ namespace AssetManagementSystem.Controllers
             return response;
         }
 
-        [Route("api/manage/UploadCSV")]
-        [HttpPost]
+        //[Route("api/manage/UploadCSV")]
+        //[HttpPost]
 
-        public HttpResponseMessage uploadCSV()
-        {
-            HttpResponseMessage response = null;
+        //public HttpResponseMessage uploadCSV()
+        //{
+        //    HttpResponseMessage response = null;
 
-            try
-            {
-                if (HttpContext.Current.Request.Files.AllKeys.Any())
-                {
-                    var uploadedCSV = HttpContext.Current.Request.Files["UploadCSV"];
-                    var path = HttpContext.Current.Request.Params["FolderPath"];
+        //    try
+        //    {
+        //        if (HttpContext.Current.Request.Files.AllKeys.Any())
+        //        {
+        //            var uploadedCSV = HttpContext.Current.Request.Files["UploadCSV"];
+        //            var path = HttpContext.Current.Request.Params["FolderPath"];
 
-                    if (uploadedCSV != null)
-                    {
-                        var source = Path.Combine(HttpContext.Current.Server.MapPath("~/CSV/"), path);
-                        bool exist = Directory.Exists(source);
+        //            if (uploadedCSV != null)
+        //            {
+        //                var source = Path.Combine(HttpContext.Current.Server.MapPath("~/CSV/"), path);
+        //                bool exist = Directory.Exists(source);
 
-                        if (!exist)
-                        {
-                            Directory.CreateDirectory(source);
+        //                if (!exist)
+        //                {
+        //                    Directory.CreateDirectory(source);
 
-                        }
+        //                }
 
-                        var csvName = Path.GetFileNameWithoutExtension(uploadedCSV.FileName);
-                        var uploadPath = Path.Combine(source, csvName);
+        //                var csvName = Path.GetFileNameWithoutExtension(uploadedCSV.FileName);
+        //                var uploadPath = Path.Combine(source, csvName);
 
-                        uploadedCSV.SaveAs(uploadPath);
+        //                uploadedCSV.SaveAs(uploadPath);
 
-                        //csvUploadAdapter adp = new csvUploadAdapter();
-                        //csvUploadResponse result = adp.parseCSV(uploadedCSV);
-                        response = Request.CreateResponse(HttpStatusCode.OK, true);
-                    }
+                    //    csvUploadAdapter adp = new csvUploadAdapter();
+                    //    csvUploadResponse result = adp.parseCSV(uploadedCSV);
+                    //    response = Request.CreateResponse(HttpStatusCode.OK, result);
+                    //}
 
                    
-                }
+        //        }
 
                 
-            }
+        //    }
 
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            return response;
-        }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return response;
+        //}
 
 
     }
