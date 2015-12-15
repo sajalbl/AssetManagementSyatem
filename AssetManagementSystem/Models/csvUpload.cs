@@ -10,7 +10,8 @@ namespace AssetManagementSystem.Models
         public string EmployeeName { get; set; }
         public string EmployeeID { get; set; }
         public string CompanyName { get; set; }
-
+        public string csvFilePath { get; set; }
+        public string csvFileName { get; set; }
 
     }
 

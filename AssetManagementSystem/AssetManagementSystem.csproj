@@ -46,10 +46,10 @@
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\..\RealtyKonnect\RealtyKonnect\code\ExternalLibraries\DotNetZipLib-DevKit-v1.9\Tools\Ionic.Zip.dll</HintPath>
+      <HintPath>..\External\DotNetZipLib-DevKit-v1.9\Tools\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zlib">
-      <HintPath>..\..\RealtyKonnect\RealtyKonnect\code\ExternalLibraries\DotNetZipLib-DevKit-v1.9\Tools\Ionic.Zlib.dll</HintPath>
+      <HintPath>..\External\DotNetZipLib-DevKit-v1.9\Tools\Ionic.Zlib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -99,7 +99,6 @@
     <Content Include="app\controllers\headerController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
-    <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\navController.js" />
     <Content Include="app\controllers\newCompanyController.js" />
     <Content Include="app\controllers\newEmployeeController.js" />
@@ -108,7 +107,7 @@
     <Content Include="app\controllers\resourcesController.js" />
     <Content Include="app\controllers\taskAssignController.js" />
     <Content Include="app\controllers\taskController.js" />
-    <Content Include="app\controllers\companyEditController.js" />
+    <Content Include="app\controllers\UpdateController.js" />
     <Content Include="app\controllers\updateResourceController.js" />
     <Content Include="app\services\uploadFileService.js" />
     <Content Include="app\views\addResources.html" />
@@ -117,7 +116,6 @@
     <Content Include="app\views\employee.html" />
     <Content Include="app\views\header.html" />
     <Content Include="app\views\home.html" />
-    <Content Include="app\views\loginPage.html" />
     <Content Include="app\views\nav.html" />
     <Content Include="app\views\newCompany.html" />
     <Content Include="app\views\newEmployee.html" />
@@ -126,7 +124,7 @@
     <Content Include="app\views\resources.html" />
     <Content Include="app\views\task.html" />
     <Content Include="app\views\taskAssign.html" />
-    <Content Include="app\views\companyEdit.html" />
+    <Content Include="app\views\update.html" />
     <Content Include="app\views\updateResource.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
@@ -183,6 +181,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\csvUploadAdapter.cs" />
+    <Compile Include="Controllers\csvUploadController.cs" />
     <Compile Include="Controllers\fileUploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

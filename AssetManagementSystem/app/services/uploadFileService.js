@@ -32,6 +32,13 @@ app.factory('uploadFileService', ['$http', function ($http) {
             headers: { 'Content-Type': undefined }
         }).then(function (results) {
 
+            var text = {"csvFileName": file.FileName}
+
+            $http.post(serviceBase + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
+
+
+            });
+
         });
     };
     uploadFileServiceFactory.CSVUpload = _CSVUpload;
