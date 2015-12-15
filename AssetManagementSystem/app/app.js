@@ -18,16 +18,6 @@ app.config(function ($routeProvider) {
         templateUrl: "./app/views/newCompany.html"
     });
 
-    $routeProvider.when("/update", {
-        controller: "UpdateController",
-        templateUrl: "./app/views/update.html"
-    });
-
-    $routeProvider.when("/companyDetail", {
-        controller: "companyDetailController",
-        templateUrl: "./app/views/companyDetail.html"
-    });
-
     $routeProvider.when("/addResource", {
         controller: "addResourcesController",
         templateUrl: "./app/views/addResources.html"
@@ -84,8 +74,23 @@ app.config(function ($routeProvider) {
         templateUrl: "./app/views/taskAssign.html"
     });
 
+    $routeProvider.when("/login", {
+        controller: "loginController",
+        templateUrl: "./app/views/loginPage.html"
+    });
 
-    $routeProvider.otherwise({ redirectTo: "/home" });
+    $routeProvider.when("/companyDetail", {
+        controller: "companyDetailController",
+        templateUrl: "./app/views/companyDetail.html"
+    });
+
+    $routeProvider.when("/companyEdit", {
+        controller: "companyEditController",
+        templateUrl: "./app/views/companyEdit.html"
+    });
+
+
+    $routeProvider.otherwise({ redirectTo: "/login" });
 });
 
 app.directive('fileModel', ['$parse', function ($parse) {

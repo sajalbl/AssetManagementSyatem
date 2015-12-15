@@ -11,9 +11,9 @@ namespace AmsApi.Models
         public string OwnerName { get; set; }
         public int Resources { get; set; }
         public string Address { get; set; }
-        public string Contact{ get; set; }
+        public string Contact { get; set; }
         public string Email { get; set; }
-        }
+    }
 
     public class ManageCompanyResponse
     {
@@ -21,12 +21,13 @@ namespace AmsApi.Models
 
         public string CompanyList { get; set; }
 
+        public string CompanyInfo { get; set; }
         public bool IsCompanyUpdated { get; set; }
 
         public bool IsCompanyExist { get; set; }
 
         //public bool EditLinkShow { get; set; }
 
-        
+
     }
 }

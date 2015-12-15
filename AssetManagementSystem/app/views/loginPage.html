@@ -1,0 +1,144 @@
+﻿<div class="page-signin">
+    <div class="signin-header">
+        <section class="logo text-center">
+            <h2>AMS</h2>
+        </section>
+    </div>
+    <div class="signin-body">
+        <div class="container">
+            <div class="form-container">
+                <!--<button ng-click="company()" class="btn btn-info"> Company Login </button>
+
+                <button ng-click="employee()" class="btn btn-info"> Employee Login </button>-->
+                <!--<div>
+                    <div ng-show="companyLogin">
+                        <form role="form">
+                            <div class="form-group">
+                                <label> Company Name</label>
+                                <input type="text" class="form-control" placeholder="Company name" ng-model="CompanyName" />
+                                <label> Owner Name </label>
+                                <input type="text" class="form-control" placeholder="Admin" ng-model="OwnerName" />
+
+                                <br />
+
+                                <input type="button" value="Log In" ng-click="search()" />
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <div ng-show="employeeLogin">
+                        <form role="form">
+                            <div class="form-group">
+                                <label> Employee Id</label>
+                                <input type="text" class="form-control" placeholder="Employee ID" ng-model="EmployeeID" />
+                                <label> Employee Name </label>
+                                <input type="text" class="form-control" placeholder="Employee Name" ng-model="EmployeeName" />
+
+                                <br />
+
+                                <input type="button" value="Log In" ng-click="login()" />
+
+                            </div>
+                        </form>
+                    </div>
+                </div>-->
+                <form class="form-horizontal" ng-show="companyLogin" ng-cloak>
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </div>
+                            <input class="form-control input-lg input-round text-center"
+                                   placeholder="Company name" data-ng-model="company.name" ng-enter="login()" />
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light">
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </div>
+                            <input type="password" ng-paste="$event.preventDefault()"
+                                   class="form-control input-lg input-round text-center"
+                                   placeholder="Password" data-ng-model="company.password" ng-enter="login()">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-blue btn-lg btn-round btn-block text-center" data-ng-click="login()">Log in</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <form class="form-horizontal" ng-show="employeeLogin" ng-cloak>
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </div>
+                            <input class="form-control input-lg input-round text-center"
+                                   placeholder="Employee name" data-ng-model="employee.name" ng-enter="login()" />
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light">
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </div>
+                            <input type="password" ng-paste="$event.preventDefault()"
+                                   class="form-control input-lg input-round text-center"
+                                   placeholder="Password" data-ng-model="employee.password" ng-enter="login()">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-blue btn-lg btn-round btn-block text-center" data-ng-click="login()">Log in</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="form-group">
+                    <label class="ui-radio" ng-repeat="status in authStatus">
+                        <input ng-checked="status.Checked" type="radio" ng-model="$parent.Name" class="radio" value="{{status.Value}}" ng-change="selectAuth(status)" />
+                        <span>{{status.Name}}</span>
+                    </label>
+                </div>
+                <!--<div data-ng-hide="message == ''" class="alert alert-danger">
+                    {{message}}
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!--<div class="row">
+    <div class="col-md-12">
+        <h2 class="form-login-heading">Konnect Application Management Portal</h2>
+    </div>
+</div>
+<hr />
+<form role="form">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <h2 class="form-login-heading">Login</h2>
+                <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
+                <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
+               <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="loginData.useRefreshTokens"><strong> Remember me</strong>
+                    </label>
+                </div>
+                <div class="clearfix"></div>
+                <button class="btn btn-md btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
+                <div data-ng-hide="message == ''" class="alert alert-danger">
+                    {{message}}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h2 class="form-login-heading">Social Logins</h2>
+                <p>Or you can login using one of the social logins bleow</p>
+                <button class="btn btn-large btn-facebook btn-block" type="button" data-ng-click="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | Connect with Facebook</button>
+                <button class="btn btn-large btn-google-plus btn-block" type="button" data-ng-click="authExternalProvider('Google')"><i class="fa fa-google-plus"></i> | Connect with Google+</button>
+            </div>
+            <div class="col-md-2">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+</form>-->

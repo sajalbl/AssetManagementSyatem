@@ -47,9 +47,10 @@ namespace AmsApi.Adapter
                     response.IsCompanyCreated = true;
                 }
 
-                else { 
-                context.SaveChanges();
-                response.IsCompanyCreated = false;
+                else
+                {
+                    context.SaveChanges();
+                    response.IsCompanyCreated = false;
                 }
             }
 
@@ -59,16 +60,20 @@ namespace AmsApi.Adapter
         public ManageCompanyResponse SearchCompany(ManageCompanyRequest request)
         {
             ManageCompanyResponse response = new ManageCompanyResponse();
-            
-             List<Company_table> company = new List<Company_table>();
-             using (var context = new Company_dbEntities())
-             {
+            Company_table company = default(Company_table);
+            using (var context = new Company_dbEntities())
+            {
+                company = (from a in context.Company_table 
+                           where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName 
+                           select a).FirstOrDefault();
 
-                 company = (from a in context.Company_table where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName select a).ToList<Company_table>();
-                 response.CompanyList = JsonConvert.SerializeObject(company);
-                 
-             }
-             return response;
+                //Whenever selecting the first or default, always check for null
+                if (company != null)
+                {
+                    response.CompanyInfo = JsonConvert.SerializeObject(company);
+                }
+            }
+            return response;
         }
 
         public ManageCompanyResponse UpdateCompany(ManageCompanyRequest request)
@@ -80,15 +85,15 @@ namespace AmsApi.Adapter
 
                 var comp = (from a in context.Company_table where a.CompanyName == request.CompanyName && a.OwnerName == request.OwnerName select a).FirstOrDefault<Company_table>();
 
-                if(comp != null)
+                if (comp != null)
                 {
                     //comp = new Company_table();
-                   // comp.ResourceCount = request.Resources.ToString();
+                    // comp.ResourceCount = request.Resources.ToString();
                     comp.Address = request.Address;
                     comp.Contact = request.Contact;
                     comp.Email = request.Email;
                 }
-              
+
                 context.SaveChanges();
                 response.IsCompanyUpdated = true;
 
@@ -105,10 +110,10 @@ namespace AmsApi.Adapter
             using (var context = new Company_dbEntities())
             {
 
-               var company = (from a in context.Company_table where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName select a).FirstOrDefault<Company_table>();
-                if(company != null)
-                { 
-                response.IsCompanyExist = true;
+                var company = (from a in context.Company_table where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName select a).FirstOrDefault<Company_table>();
+                if (company != null)
+                {
+                    response.IsCompanyExist = true;
                 }
                 else
                 {
@@ -119,7 +124,7 @@ namespace AmsApi.Adapter
             return response;
         }
 
-        
+
     }
 
 }
