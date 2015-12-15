@@ -162,9 +162,9 @@ namespace AssetManagementSystem.Controllers
 
                         uploadedCSV.SaveAs(uploadPath);
 
-                        csvUploadAdapter adp = new csvUploadAdapter();
-                        csvUploadResponse result = adp.parseCSV(uploadedCSV);
-                        response = Request.CreateResponse(HttpStatusCode.OK, result);
+                        //csvUploadAdapter adp = new csvUploadAdapter();
+                        //csvUploadResponse result = adp.parseCSV(uploadedCSV);
+                        response = Request.CreateResponse(HttpStatusCode.OK, true);
                     }
 
                    

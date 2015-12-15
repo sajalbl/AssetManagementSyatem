@@ -182,6 +182,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\csvUploadAdapter.cs" />
+    <Compile Include="Controllers\csvUploadController.cs" />
     <Compile Include="Controllers\fileUploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
