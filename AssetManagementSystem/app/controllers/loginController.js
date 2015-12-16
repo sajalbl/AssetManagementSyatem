@@ -4,11 +4,12 @@ app.controller('loginController', ['$scope', '$http', 'localStorageService', '$r
     target.addClass('body-wide');
 
     var serviceBase = 'http://localhost:14597/';
+    $scope.message = "";
     $scope.allowedAuth = 0;
     $scope.companyLogin = true;
 
-    $scope.company = { name: '', password: '' };
-    $scope.employee = { name: '', password: '' };
+    $scope.company = { name: '' };
+    $scope.employee = { name: '', email: '' };
 
     $scope.authStatus = [
             { Name: 'Company', Value: 0, Checked: true },
@@ -51,32 +52,33 @@ app.controller('loginController', ['$scope', '$http', 'localStorageService', '$r
     //    }
     //}, true);
 
-    $scope.login = function () { 
+    $scope.login = function () {
+        $scope.message = "";
         var val = $scope.valid();
         if (val) {
             if ($scope.allowedAuth == 0) {
-                var company = { "CompanyName": $scope.company.name, "OwnerName": $scope.company.password };
-                $http.post(serviceBase + 'api/manage/checkCompany', JSON.stringify(company)).then(function (results) {
-                    if (results.data.IsCompanyExist) {
+                var company = { "CompanyName": $scope.company.name };
+                $http.post(serviceBase + 'api/Company/searchCompany', JSON.stringify(company)).then(function (results) {
+                    if (results.data.IsSuccess != false && results.data.IsCompanyExist) {
+                        localStorageService.set("CompanyInfo", results.data.CompanyInfo);
                         $rootScope.$broadcast("CompanyLogin", company);
                         $location.path('/companyDetail');
                     }
                     else {
-                        $scope.show = true;
-                        $scope.message = "User authentication failed. Please try again!!"
+                        $scope.message = "Company authentication failed. Please try again!!"
                     }
                 });
             }
             else {
-                var employee = { "EmployeeID": $scope.employee.password, "EmployeeName": $scope.employee.name };
-                $http.post(serviceBase + 'api/manage/checkEmployee', JSON.stringify(employee)).then(function (results) {
-                    if (results.data.IsEmployeeExist) {
+                var employee = { "Email": $scope.employee.email, "EmployeeName": $scope.employee.name };
+                $http.post(serviceBase + 'api/Employee/searchEmployee', JSON.stringify(employee)).then(function (results) {
+                    if (results.data.IsSuccess != false && results.data.IsEmployeeExist) {
+                        localStorageService.set("EmployeeInfo", results.data.EmployeeInfo);
                         $rootScope.$broadcast("EmployeeLogin", employee);
                         $location.path('/profile');
                     }
                     else {
-                        $scope.show = true;
-                        $scope.message = "User authentication failed. Please try again!!"
+                        $scope.message = "Employee authentication failed. Please try again!!"
                     }
                 });
             }

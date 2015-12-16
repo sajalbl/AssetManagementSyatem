@@ -50,16 +50,16 @@
                                 <span class="glyphicon glyphicon-envelope"></span>
                             </div>
                             <input class="form-control input-lg input-round text-center"
-                                   placeholder="Company name" data-ng-model="company.name" ng-enter="login()" />
+                                   placeholder="Company" data-ng-model="company.name" ng-enter="login()" />
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light">
                                 <span class="glyphicon glyphicon-lock"></span>
                             </div>
                             <input type="password" ng-paste="$event.preventDefault()"
                                    class="form-control input-lg input-round text-center"
                                    placeholder="Password" data-ng-model="company.password" ng-enter="login()">
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <button class="btn btn-blue btn-lg btn-round btn-block text-center" data-ng-click="login()">Log in</button>
                         </div>
@@ -72,15 +72,15 @@
                                 <span class="glyphicon glyphicon-envelope"></span>
                             </div>
                             <input class="form-control input-lg input-round text-center"
-                                   placeholder="Employee name" data-ng-model="employee.name" ng-enter="login()" />
+                                   placeholder="Name" data-ng-model="employee.name" ng-enter="login()" />
                         </div>
                         <div class="form-group">
                             <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light">
                                 <span class="glyphicon glyphicon-lock"></span>
                             </div>
-                            <input type="password" ng-paste="$event.preventDefault()"
+                            <input type="text" ng-paste="$event.preventDefault()"
                                    class="form-control input-lg input-round text-center"
-                                   placeholder="Password" data-ng-model="employee.password" ng-enter="login()">
+                                   placeholder="Email" data-ng-model="employee.email" ng-enter="login()">
                         </div>
                         <div class="form-group">
                             <button class="btn btn-blue btn-lg btn-round btn-block text-center" data-ng-click="login()">Log in</button>
@@ -93,8 +93,12 @@
                         <span>{{status.Name}}</span>
                     </label>
                 </div>
-                <div data-ng-show="show" class="alert alert-danger">
+                <div data-ng-hide="message == ''" class="alert alert-danger">
                     {{message}}
+                </div>
+
+                <div class="form-group">
+                    <center><a href="#/newCompany"><span class="text-danger">Register new company!</span></a></center>
                 </div>
             </div>
         </div>
@@ -102,7 +106,6 @@
 
 </div>
 
-<h4 style="text-align:center"><a href="#/newCompany"><span> Add Company </span> </a></h4>
 
 
 

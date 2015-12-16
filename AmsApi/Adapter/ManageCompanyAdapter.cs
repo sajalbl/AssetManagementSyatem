@@ -11,10 +11,26 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using System.Dynamic;
 namespace AmsApi.Adapter
 {
     public class ManageCompanyAdapter
     {
+        public ManageCompanyResponse allCompany()
+        {
+            ManageCompanyResponse response = new ManageCompanyResponse();
+            List<Company_table> company = new List<Company_table>();
+            using (var context = new Company_dbEntities())
+            {
+                company = (from a in context.Company_table select a).ToList<Company_table>();
+
+                if (company.Count() > 0)
+                    response.CompanyList = JsonConvert.SerializeObject(company);
+                else
+                    response.CompanyList = null;
+            }
+            return response;
+        }
 
         public ManageCompanyResponse AddCompany(ManageCompanyRequest request)
         {
@@ -22,58 +38,63 @@ namespace AmsApi.Adapter
 
             using (var context = new Company_dbEntities())
             {
-
-                var comp = (from a in context.Company_table where a.CompanyName == request.CompanyName && a.OwnerName == request.OwnerName select a).FirstOrDefault<Company_table>();
-
-                var isNew = false;
-
-                if (comp == null)
+                int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+                if (compId != null)
                 {
-                    isNew = true;
-                    comp = new Company_table();
-
+                    throw new Exception("Company Name already Exists. Try another name.");
                 }
-
+                var comp = new Company_table();
                 comp.CompanyName = request.CompanyName;
                 comp.OwnerName = request.OwnerName;
                 comp.Address = request.Address;
                 comp.Contact = request.Contact;
-                comp.Email = request.Email;
                 comp.EmployeeCount = 0;
-                comp.ResourceCount = 0;
+                //comp.ResourceCount = 0;
+                comp.Email = request.Email;
+                comp.ModifiedOn = DateTime.Now;
+                comp.IsActive = true;
 
-                if (isNew)
-                {
-                    context.Company_table.Add(comp);
-                    context.SaveChanges();
-                    response.IsCompanyCreated = true;
-                }
+                context.Company_table.Add(comp);
+                context.SaveChanges();
 
-                else
-                {
-                    context.SaveChanges();
-
-                    response.IsCompanyCreated = false;
-                }
+                response.IsCompanyCreated = true;
+                response.CompanyId = comp.CompanyID;
             }
-
             return response;
         }
 
         public ManageCompanyResponse SearchCompany(ManageCompanyRequest request)
         {
             ManageCompanyResponse response = new ManageCompanyResponse();
-            Company_table company = default(Company_table);
+
             using (var context = new Company_dbEntities())
             {
-                company = (from a in context.Company_table 
-                           where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName 
-                           select a).FirstOrDefault();
+                int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+                if (compId == null)
+                {
+                    throw new Exception("No company found. Try again!");
+                }
+
+                var company = (from a in context.Company_table
+                               where a.CompanyID == compId
+                               select a).FirstOrDefault();
 
                 //Whenever selecting the first or default, always check for null
                 if (company != null)
                 {
-                    response.CompanyInfo = JsonConvert.SerializeObject(company);
+                    response.IsCompanyExist = true;
+
+                    dynamic comp = new ExpandoObject();
+                    comp.CompanyName = company.CompanyName;
+                    comp.CompanyId = company.CompanyID;
+                    comp.Address = company.Address;
+                    comp.Contact = company.Contact;
+                    comp.Email = company.Email;
+                    comp.EmployeeCount = company.EmployeeCount;
+                    comp.ResourceCount = company.ResourceCount;
+                    comp.OwnerName = company.OwnerName;
+
+                    response.CompanyInfo = JsonConvert.SerializeObject(comp);
                 }
             }
             return response;
@@ -85,9 +106,14 @@ namespace AmsApi.Adapter
 
             using (var context = new Company_dbEntities())
             {
-
-                var comp = (from a in context.Company_table where a.CompanyName == request.CompanyName && a.OwnerName == request.OwnerName select a).FirstOrDefault<Company_table>();
-
+                int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+                if (compId == null)
+                {
+                    throw new Exception("No company found. Try again!");
+                }
+                var comp = (from a in context.Company_table
+                            where a.CompanyID == compId
+                            select a).FirstOrDefault();
                 if (comp != null)
                 {
                     //comp = new Company_table();
@@ -97,35 +123,105 @@ namespace AmsApi.Adapter
                     comp.Email = request.Email;
                 }
 
+                // this method does not update any information about the employee or the resources of the company!
                 context.SaveChanges();
                 response.IsCompanyUpdated = true;
-
             }
-
             return response;
         }
 
-        public ManageCompanyResponse CheckCompany(ManageCompanyRequest request)
+        public ManageCompanyResponse deleteCompany(ManageCompanyRequest request)
         {
             ManageCompanyResponse response = new ManageCompanyResponse();
 
+            //creating a new instance is not required
             //Company_table company = new Company_table();
+
+            //calling the constructor would suffice
+            Company_table company = default(Company_table);
+
             using (var context = new Company_dbEntities())
             {
+                int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+                if (compId == null)
+                {
+                    throw new Exception("No company found. Try again!");
+                }
 
-                var company = (from a in context.Company_table where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName select a).FirstOrDefault<Company_table>();
+                company = (from a in context.Company_table
+                           where a.CompanyID == compId
+                           select a).FirstOrDefault();
+
                 if (company != null)
                 {
-                    response.IsCompanyExist = true;
+                    context.Company_table.Remove(company);
+                    response.IsCompanyUpdated = true;
                 }
-                else
-                {
-                    response.IsCompanyExist = false;
-                }
-
+                context.SaveChanges();
             }
             return response;
         }
+
+        public ManageCompanyResponse allManagers(ManageCompanyRequest request)
+        {
+            ManageCompanyResponse response = new ManageCompanyResponse();
+
+            using (var context = new Company_dbEntities())
+            {
+                int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+                if (compId == null)
+                    throw new Exception("No company found. Try again!");
+
+                //  List<Employee_table> managers = new List<Employee_table>();
+
+                //Add FK bw employee and comapny table using company Id, redo LINQ for this- DONE!
+                var managers = (from a in context.Employee_table
+                                where a.CompanyID == compId && a.Designation == "Manager"
+                                select new
+                                {
+                                    EmployeeName = a.EmployeeName,
+                                    EmployeeID = a.EmployeeID,
+                                    CompanyID = a.CompanyID,
+                                    ManagerID = a.ManagerID,
+                                    Designation = a.Designation,
+                                    Department = a.Department,
+                                    DOB = a.DOB,
+                                    Address = a.Address,
+                                    Contact = a.Contact,
+                                    Email = a.Email
+                                }).ToList();
+
+                //dynamic manList = new ExpandoObject();
+                //manList.Managers = managers;
+
+                response.ManagerList = JsonConvert.SerializeObject(managers);
+            }
+            return response;
+        }
+
+        // this works the same as search company...
+
+        //public ManageCompanyResponse CheckCompany(ManageCompanyRequest request)
+        //{
+        //    ManageCompanyResponse response = new ManageCompanyResponse();
+
+        //    //Company_table company = new Company_table();
+        //    using (var context = new Company_dbEntities())
+        //    {
+
+        //        var company = (from a in context.Company_table where request.CompanyName == a.CompanyName && request.OwnerName == a.OwnerName select a).FirstOrDefault<Company_table>();
+        //        if (company != null)
+        //        {
+        //            response.IsCompanyExist = true;
+        //        }
+        //        else
+        //        {
+        //            response.IsCompanyExist = false;
+        //        }
+
+        //    }
+        //    return response;
+        //}
 
 
     }

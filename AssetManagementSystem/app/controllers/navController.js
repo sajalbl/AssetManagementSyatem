@@ -19,6 +19,12 @@ app.controller('navController', ['$scope', '$rootScope', '$route', 'localStorage
         $scope.employeeLogin = false;
     }
 
+    var employee = localStorageService.get("Employee");
+    if (employee != null) {
+        $scope.companyLogin = false;
+        $scope.employeeLogin = true;
+    }
+
     $scope.$on('CompanyLogin', function (event, data) {
         if (data != undefined && data != '') {
             localStorageService.set("Company", data);

@@ -6,10 +6,15 @@ app.controller('companyDetailController', ['$rootScope', '$location', '$modal', 
     target.removeClass('body-wide');
 
     var company = localStorageService.get("Company");
+    //var companyInfo = localStorageService.get("CompanyInfo");
+    //if (companyInfo != null)
+    //$scope.companyInfo = companyInfo;
+
     if (company != null)
-        $http.post(serviceBase + 'api/manage/searchCompany', JSON.stringify(company)).then(function (results) {
-            //this api return every info about the company
-            $scope.companyInfo = JSON.parse(results.data.CompanyInfo);
+        $http.post(serviceBase + 'api/Company/searchCompany', JSON.stringify(company)).then(function (results) {
+            if (results.data.IsSuccess != false && results.data.IsCompanyExist) {
+                $scope.companyInfo = JSON.parse(results.data.CompanyInfo);
+            }
         });
 
 
