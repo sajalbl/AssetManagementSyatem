@@ -14,7 +14,7 @@
           <Property Name="Email" Type="nvarchar(max)" />
           <Property Name="CompanyName" Type="nvarchar(max)" />
           <Property Name="OwnerName" Type="nvarchar(max)" />
-          <Property Name="ResourceCount" Type="nvarchar(max)" />
+          <Property Name="ResourceCount" Type="int" />
           <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeCount" Type="int" />
         </EntityType>
@@ -50,6 +50,7 @@
           <Property Name="CompanyName" Type="nvarchar(max)" />
           <Property Name="Serial" Type="nvarchar(max)" />
           <Property Name="Picture" Type="nvarchar(max)" />
+          <Property Name="CompanyID" Type="int" />
         </EntityType>
         <EntityType Name="Task_table">
           <Key>
@@ -82,7 +83,7 @@
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OwnerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResourceCount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResourceCount" Type="Int32" />
           <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeCount" Type="Int32" />
         </EntityType>
@@ -118,6 +119,7 @@
           <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Serial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="Int32" />
         </EntityType>
         <EntityType Name="Task_table">
           <Key>
@@ -178,6 +180,7 @@
           <EntitySetMapping Name="Resources_table">
             <EntityTypeMapping TypeName="Company_dbModel.Resources_table">
               <MappingFragment StoreEntitySet="Resources_table">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="Serial" ColumnName="Serial" />
                 <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />

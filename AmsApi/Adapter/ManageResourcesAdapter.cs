@@ -40,6 +40,12 @@ namespace AmsApi.Adapter
 
                     context.Resources_table.Add(resp);
                     context.SaveChanges();
+
+                    var number = (from a in context.Company_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Company_table>();
+
+                    number.ResourceCount++;
+                    
+                    context.SaveChanges();
                     response.IsResourcesCreated = true;
                 }
                 else
@@ -109,6 +115,12 @@ namespace AmsApi.Adapter
 
                 context.SaveChanges();
 
+                var number = (from a in context.Company_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Company_table>();
+
+                number.ResourceCount--;
+
+                context.SaveChanges();
+
                 response.ResourceDeleted = true;
             }
 
@@ -140,26 +152,26 @@ namespace AmsApi.Adapter
             return response;
         }
 
-        public ManageResourcesResponse ResourceCount(ManageResourcesRequest request)
-        {
-            ManageResourcesResponse response = new ManageResourcesResponse();
+        //public ManageResourcesResponse ResourceCount(ManageResourcesRequest request)
+        //{
+        //    ManageResourcesResponse response = new ManageResourcesResponse();
            
-            using (var context = new Company_dbEntities())
-            {
+        //    using (var context = new Company_dbEntities())
+        //    {
 
-               var resource = (from a in context.Resources_table where request.CompanyName == a.CompanyName select a).Count();
+        //       var resource = (from a in context.Resources_table where request.CompanyName == a.CompanyName select a).Count();
 
-               var company = (from a in context.Company_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Company_table>();
+        //       var company = (from a in context.Company_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Company_table>();
 
-               company.ResourceCount = resource.ToString();
+        //       company.ResourceCount = resource.ToString();
                                
-               context.SaveChanges();
+        //       context.SaveChanges();
                
-               response.Resourcecount = resource;
+        //       response.Resourcecount = resource;
 
-            }
-            return response;
-        }
+        //    }
+        //    return response;
+        //}
 
         public ManageResourcesResponse ResourceAllocated(ManageResourcesRequest request)
         {

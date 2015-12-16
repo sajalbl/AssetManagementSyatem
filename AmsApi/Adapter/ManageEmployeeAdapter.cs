@@ -31,6 +31,11 @@ namespace AmsApi.Adapter
                     context.Employee_table.Add(employee);
                     context.SaveChanges();
 
+                    var number = (from a in context.Company_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Company_table>();
+
+                    number.EmployeeCount++;
+
+                    context.SaveChanges();
                     response.IsEmployeeCreated = true; 
                 }
                 else

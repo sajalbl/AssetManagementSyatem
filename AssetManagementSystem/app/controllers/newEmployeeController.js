@@ -4,7 +4,7 @@ app.controller('newEmployeeController', ['uploadFileService', '$scope', '$http',
     var serviceBase = 'http://localhost:14597/';
     var uploadBase = "";
     $scope.employee = { "EmployeeName": $scope.EmployeeName, "EmployeeID": $scope.EmployeeID, "Department": $scope.Department, "ManagerID": $scope.ManagerID, "DOB": $scope.DOB };
-    $scope.companyName = localStorageService.get("forEmployee");
+    $scope.companyName = localStorageService.get("Company");
 
 
     $scope.ifEmployee = function () {

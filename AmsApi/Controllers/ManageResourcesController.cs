@@ -105,24 +105,24 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        [Route("api/manage/resourceCount")]
-        [HttpPost]
-        public HttpResponseMessage resourceCount(ManageResourcesRequest request)
-        {
+        //[Route("api/manage/resourceCount")]
+        //[HttpPost]
+        //public HttpResponseMessage resourceCount(ManageResourcesRequest request)
+        //{
             
-            HttpResponseMessage response = new HttpResponseMessage();
-            try
-            {
-                ManageResourcesAdapter adp = new ManageResourcesAdapter();
-                ManageResourcesResponse result = adp.ResourceCount(request);
-                response = Request.CreateResponse(HttpStatusCode.OK, result);
-            }
-            catch (Exception Ex)
-            {
-                throw Ex;
-            }
-            return response;
-        }
+        //    HttpResponseMessage response = new HttpResponseMessage();
+        //    try
+        //    {
+        //        ManageResourcesAdapter adp = new ManageResourcesAdapter();
+        //        ManageResourcesResponse result = adp.ResourceCount(request);
+        //        response = Request.CreateResponse(HttpStatusCode.OK, result);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    return response;
+        //}
 
         [Route("api/manage/resourceAllocated")]
         [HttpPost]

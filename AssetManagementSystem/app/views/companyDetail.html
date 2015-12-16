@@ -1,4 +1,47 @@
-﻿<div class="page page-dashboard">
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="container">
+            <!--<h4> <label> Profile Picture :</label> </h4> &nbsp; <img ng-src="http://localhost:58474/images/{{employee.EmployeeID}}/{{employee.Picture}}" />
+            <br />-->
+            <h4>  <label> Company Name :  </label> &nbsp; <label style="font:italic"> {{companyInfo.CompanyName}}</label> </h4>
+            <br />
+            <h4>  <label> Owner Name :  </label> &nbsp; <label style="font:italic"> {{companyInfo.OwnerName}}</label></h4>
+            <br />
+            <h4>  <label> Contact :  </label> &nbsp; <label style="font:italic"> {{companyInfo.Contact}}</label></h4>
+            <br />
+            <h4>  <label> Email :  </label> &nbsp; <label style="font:italic"> {{companyInfo.Email}}</label></h4>
+            <br />
+            <!--<h4>  <label> Department :   </label> &nbsp;  <label style="font:italic"> {{employee.Department}}</label></h4>
+            <br />
+            <h4> <label> Designation :   </label> &nbsp; <label style="font:italic"> {{employee.Designation}}</label></h4>
+            <br />
+            <h4> <label> Date of Birth :   </label> &nbsp; <label style="font:italic"> {{employee.DOB}}</label></h4>-->
+            
+            <h4> <label> Address :   </label> &nbsp; <label style="font:italic"> {{companyInfo.Address}}</label></h4>
+            <br />
+            <h4> <label> Resource Count :  </label> &nbsp; <label style="font:italic"> {{companyInfo.ResourceCount}}</label></h4>
+            <br />
+            <h4> <label> No. of Employees :   </label> &nbsp; <label style="font:italic"> {{companyInfo.EmployeeCount}}</label></h4>
+
+            <h4 style="text-align:center"><button class="btn btn-info" ng-click="editRow(companyInfo)"> Edit </button></h4>
+            <h4 style="text-align:center"><button class="btn btn-danger" ng-click="removeRow(companyInfo.CompanyName,companyInfo.OwnerName)"> Delete </button></h4>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="deleteModal.html">
+    <div class="modal-body">
+        <h3 class="modal-title">Are you sure you want to delete the Company and its details?</h3>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">Yes</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+
+
+<!--<div class="page page-dashboard">
     <div class="table">
         <div class="row">
             <div class="col-md-12">
@@ -51,4 +94,4 @@
             </div>
         </div>
     </div>
-    </div>
+    </div>-->

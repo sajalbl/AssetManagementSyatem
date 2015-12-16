@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('newCompanyController', ['$scope', '$http', function ($scope, $http) {
+app.controller('newCompanyController', ['$scope', '$http', '$rootScope', '$location', function ($scope, $http, $rootScope, $location) {
 
     var serviceBase = 'http://localhost:14597/';
     $scope.company = { "CompanyName": $scope.CompanyName, "OwnerName": $scope.OwnerName, "Address": $scope.Address, "Contact": $scope.Contact, "Email": $scope.Email };
@@ -15,6 +15,9 @@ app.controller('newCompanyController', ['$scope', '$http', function ($scope, $ht
             }
             else {
                 $scope.status = "Company Details added Successfully";
+                //var company = { "CompanyName": $scope.company.name, "OwnerName": $scope.company.password };
+                //$rootScope.$broadcast("CompanyLogin", company);
+                //$location.path('/companyDetail');
             }
             $scope.company = "";
             

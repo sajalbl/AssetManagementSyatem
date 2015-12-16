@@ -19,7 +19,7 @@ namespace AmsApi.Models
         public string Email { get; set; }
         public string CompanyName { get; set; }
         public string OwnerName { get; set; }
-        public string ResourceCount { get; set; }
+        public Nullable<int> ResourceCount { get; set; }
         public int CompanyId { get; set; }
         public Nullable<int> EmployeeCount { get; set; }
     }

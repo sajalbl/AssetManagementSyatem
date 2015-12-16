@@ -7,11 +7,13 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
     //    $scope.companyName = detail;
     //});
 
-    $scope.companyName = localStorageService.get("addResource");
+    $scope.companyName = localStorageService.get("Company");
     $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type,  "IssuedFrom": $scope.IssuedFrom, "EmployeeID": $scope.EmployeeID, "Serial": $scope.Serial};
 
     $scope.add = function () {
+
         var valid = $scope.validate();
+
         if(valid)
             var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID": $scope.resources.EmployeeID, "Serial": $scope.resources.Serial };
         $http.post(serviceBase + 'api/manage/newResources', JSON.stringify(text)).then(function (results) {
@@ -31,11 +33,14 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
 
     $scope.validate = function () {
         var isValid = true;
-        if ($scope.resources.NameOfDevice == null && $scope.resources.NameOfDevice == "") {
+
+        if ($scope.resources.NameOfDevice == null && $scope.resources.NameOfDevice == "")
+        {
             alert("Enter Device name");
             isValid = false;
         }
-        if ($scope.resources.Type == null && $scope.resources.Type == "") {
+        if ($scope.resources.Type == null && $scope.resources.Type == "")
+        {
             alert("Enter Resource type");
             isValid = false;
         }
@@ -43,7 +48,8 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
         //    alert("Enter Issued On Date and Time");
         //    isValid = false;
         //}
-        if ($scope.resources.IssuedFrom == null && $scope.resources.IssuedFrom == "") {
+        if ($scope.resources.IssuedFrom == null && $scope.resources.IssuedFrom == "")
+        {
             alert("Enter Issued From date and time");
             isValid = false;
         }

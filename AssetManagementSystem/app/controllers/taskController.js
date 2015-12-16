@@ -1,12 +1,12 @@
 ﻿'use strict';
-app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorageService', '$window', function ($scope, $rootScope, $http, localStorageService, $window) {
+app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'localStorageService', '$window', function ($scope, $rootScope, $modal, $http, localStorageService, $window) {
     var serviceBase = 'http://localhost:14597/';
     
-    $scope.employeeID = localStorageService.get("task");
+     var employeeID = localStorageService.get("Employee");
         
     $scope.task = { "EmployeeID": $scope.EmployeeID, "EmployeeName": $scope.EmployeeName, "Description": $scope.Description };
 
-    $http.post(serviceBase + 'api/manage/checkManager', JSON.stringify($scope.employeeID)).then(function (results) {
+    $http.post(serviceBase + 'api/manage/checkManager', JSON.stringify(employeeID)).then(function (results) {
         if(results.data.IsManager)
         {
             $scope.manager = true;
@@ -23,8 +23,8 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
 
     $scope.employees = function () {
 
-        var text = { "EmployeeID": $scope.employeeID.EmployeeID };
-        $http.post(serviceBase + 'api/manage/managerEmployees', JSON.stringify(text)).then(function (results) {
+        var employeeID = localStorageService.get("Employee");
+        $http.post(serviceBase + 'api/manage/managerEmployees', JSON.stringify(employeeID)).then(function (results) {
             $scope.managerEmployees = JSON.parse(results.data.ManagerEmployees);
             console.log($scope.managerEmployees);
         });
@@ -34,8 +34,9 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
 
 
     $scope.task = function () {
-        var detail = { "EmployeeID": $scope.employeeID.EmployeeID };
-        $http.post(serviceBase + 'api/manage/TaskList', JSON.stringify(detail)).then(function (results) {
+
+        
+        $http.post(serviceBase + 'api/manage/TaskList', JSON.stringify(employeeID)).then(function (results) {
             $scope.taskList = results.data.TaskList;
 
             console.log($scope.taskList);
@@ -43,9 +44,9 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
     };
 
     $scope.TaskAssign = function () {
-        var detail = { "EmployeeID": $scope.employeeID.EmployeeID };
+        
 
-        $http.post(serviceBase + 'api/manage/taskAssign', JSON.stringify(detail)).then(function (results) {
+        $http.post(serviceBase + 'api/manage/taskAssign', JSON.stringify(employeeID)).then(function (results) {
             $scope.taskAssign = JSON.parse(results.data.TaskAssign);
             console.log($scope.taskAssign);
         });
@@ -90,7 +91,10 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
             }
             else
             {
-                $scope.approval = "Status is still pending";
+                var modalInstance = $modal.open({
+                    templateUrl: 'pending.html',
+                    controller: pendingModal,
+                });
             }
             $scope.TaskAssign();
         });
@@ -106,12 +110,21 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
             }
             else
             {
-                $scope.approval = "Status is still pending";
+                var modalInstance = $modal.open({
+                    templateUrl: 'pending.html',
+                    controller: pendingModal,
+                });
             }
             $scope.TaskAssign();
         });
     };
 
+
+    var pendingModal = function ($scope, $modalInstance) {
+        $scope.ok = function () {
+            $modalInstance.dismiss();
+        };
+    };
 
     //$scope.pending = function (EmployeeID, Description, AssignedBy) {
     //    var text = { "EmployeeID": EmployeeID, "Description": Description, "AssignedBy": AssignedBy, "EmployeeConfirm": "Pending" };
@@ -146,29 +159,70 @@ app.controller('taskController', ['$scope', '$rootScope', '$http', 'localStorage
 
     };
 
-    $scope.deleteTask = function (EmployeeID, Description) {
+    //$scope.deleteTask = function (EmployeeID, Description) {
 
-        if ($window.confirm("are you sure you want to delete this ?"))
-        {
-                var text = { "EmployeeID": EmployeeID, "Description": Description };
+    //    if ($window.confirm("are you sure you want to delete this ?"))
+    //    {
+    //            var text = { "EmployeeID": EmployeeID, "Description": Description };
 
-                $http.post(serviceBase + 'api/manage/deleteTask', JSON.stringify(text)).then(function (results) {
+    //            $http.post(serviceBase + 'api/manage/deleteTask', JSON.stringify(text)).then(function (results) {
                     
-                        $scope.approval = "Deleted";
+    //                    $scope.approval = "Deleted";
                     
-                        $scope.TaskAssign();
-                });
-            }
-        else
-        {
-                $scope.approval = "";
-            }
-        };
+    //                    $scope.TaskAssign();
+    //            });
+    //        }
+    //    else
+    //    {
+    //            $scope.approval = "";
+    //        }
+    //    };
 
         //var text = { "EmployeeID": EmployeeID, "EmployeeName": EmployeeName, "Description": Description, "AssignedBy": EmployeeID, "EmployeeConfirm": EmployeeConfirm, "ManagerConfirm": ManagerConfirm };
 
         //var update = JsonConvert.SerializeObject(text);
 
- 
+    $scope.deleteTask = function (EmployeeID, Description) {
+        var text = { "EmployeeID": EmployeeID, "Description": Description };
+        $scope.modalConfirmationResult = 'cancel';
+
+        var modalInstance = $modal.open({
+            templateUrl: 'deleteModal.html',
+            controller: openModal,
+            resolve: {
+                toDelete: function () {
+                    return $scope.delete;
+                },
+                whichTask: function () {
+                    return text;
+                }
+            }
+        });
+    };
+
+    var openModal = function ($scope, $modalInstance, toDelete, whichTask) {
+        $scope.delete = toDelete;
+
+        $scope.ok = function () {
+            $scope.delete(whichTask);
+            $modalInstance.dismiss('cancel');
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }
+
+    $scope.delete = function (text) {
+
+        //var text = { "EmployeeID": EmployeeID, "Description": Description };
+
+        $http.post(serviceBase + 'api/manage/deleteTask', JSON.stringify(text)).then(function (results) {
+
+            $scope.approval = "Deleted";
+
+            $scope.TaskAssign();
+        });
+    };
 
 }]);

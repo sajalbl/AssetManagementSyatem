@@ -62,7 +62,8 @@ app.controller('loginController', ['$scope', '$http', 'localStorageService', '$r
                         $location.path('/companyDetail');
                     }
                     else {
-                        //$scope.message = "User authentication failed. Please try again!!"
+                        $scope.show = true;
+                        $scope.message = "User authentication failed. Please try again!!"
                     }
                 });
             }
@@ -71,10 +72,11 @@ app.controller('loginController', ['$scope', '$http', 'localStorageService', '$r
                 $http.post(serviceBase + 'api/manage/checkEmployee', JSON.stringify(employee)).then(function (results) {
                     if (results.data.IsEmployeeExist) {
                         $rootScope.$broadcast("EmployeeLogin", employee);
-                        $location.path('/employeeDetail');
+                        $location.path('/profile');
                     }
                     else {
-                        //$scope.message = "User authentication failed. Please try again!!"
+                        $scope.show = true;
+                        $scope.message = "User authentication failed. Please try again!!"
                     }
                 });
             }

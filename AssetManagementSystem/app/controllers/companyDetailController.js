@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('companyDetailController', ['$rootScope', '$modal', '$scope', '$http', 'localStorageService', '$window', function ($rootScope, $modal, $scope, $http, localStorageService, $window) {
+app.controller('companyDetailController', ['$rootScope', '$location', '$modal', '$scope', '$http', 'localStorageService', '$window', function ($rootScope, $location, $modal, $scope, $http, localStorageService, $window) {
     var serviceBase = 'http://localhost:14597/';
 
     var target = angular.element(document.querySelector('#app'));
@@ -44,18 +44,57 @@ app.controller('companyDetailController', ['$rootScope', '$modal', '$scope', '$h
         localStorageService.set("CompanyInfo", companyInfo);
     };
 
+
     $scope.removeRow = function (CompanyName, OwnerName) {
 
         var text = { "CompanyName": CompanyName, "OwnerName": OwnerName };
-        localStorageService.set("companymodal", text);
+        $scope.modalConfirmationResult = 'cancel';
+
+        var modalInstance = $modal.open({
+            templateUrl: 'deleteModal.html',
+            controller: openModal,
+            resolve: {
+                toDelete: function () {
+                    return $scope.deleteCompany;
+                },
+                comp: function () {
+                    return text;
+                }
+            }
+        });
+    };
+
+    var openModal = function ($scope, $modalInstance, toDelete, comp) {
+        $scope.delete = toDelete;
+        $scope.ok = function () {
+            $scope.delete(comp);
+            localStorage.clear();
+            $location.path("/#");
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
+
+    $scope.deleteCompany = function (text) {
+
+        $http.post(serviceBase + 'api/manage/deleteCompany', JSON.stringify(text)).then(function (results) {
+            
+
+            $http.post(serviceBase + 'api/manage/companyDeleted', JSON.stringify(text)).then(function (results) {
+                if (results.data.DeletedCompany) {
+                    $scope.stat = "";
+
+                }
+            });
+        });
+    };
+        //localStorageService.set("companymodal", text);
 
         //$rootScope.$emit('modal', 'company');
 
-        var modalInstance = $modal.open({
-            templateUrl: './app/views/deleteModal.html',
-            controller: 'deleteModalController'
-
-        });
+        
 
         //if ($window.confirm("are you sure you want to delete this ?")) {
         //    var text = { "CompanyName": CompanyName, "OwnerName": OwnerName };
@@ -77,6 +116,6 @@ app.controller('companyDetailController', ['$rootScope', '$modal', '$scope', '$h
         //{
         //    $scope.status = "";
         //}
-    };
+   // };
 
 }]);

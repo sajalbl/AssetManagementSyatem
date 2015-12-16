@@ -8,7 +8,7 @@ app.controller('updateResourceController', ['uploadFileService', '$scope', '$htt
     //$scope.$on('Success', function (event, detail) {
     //    $scope.companyName = detail;
     //});
-    $scope.companyName = localStorageService.get("againCompanyName");
+    $scope.companyName = localStorageService.get("Company");
      
     $scope.update = function () {
         var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID": $scope.resources.EmployeeID, "Serial": $scope.resources.Serial, "Picture": $scope.Picture.name };

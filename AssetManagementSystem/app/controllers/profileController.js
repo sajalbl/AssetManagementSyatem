@@ -2,19 +2,23 @@
 app.controller('profileController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService ) {
     var serviceBase = 'http://localhost:14597/';
     
+    var target = angular.element(document.querySelector('#app'));
+    target.removeClass('body-wide');
 
     //$scope.ShowEdit = false;
     
-    $scope.employeeID = localStorageService.get("employee");
+    var employeeID = localStorageService.get("Employee");
     //$scope.source = "http://localhost:58474/images/";
      
    
-    $http.post(serviceBase + 'api/manage/employees', JSON.stringify($scope.employeeID)).then(function (results) {
+    $http.post(serviceBase + 'api/manage/employees', JSON.stringify(employeeID)).then(function (results) {
         $scope.employeeList = results.data.EmployeeList;
         
         
         console.log($scope.employeeList);
     });
+
+
 
     //$scope.$on('EditLink', function (event, status) {
     //    $scope.HideEdit = status;

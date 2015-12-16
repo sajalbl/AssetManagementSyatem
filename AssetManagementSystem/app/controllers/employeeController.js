@@ -3,9 +3,9 @@ app.controller('employeeController', ['$scope', '$http', 'localStorageService', 
     var serviceBase = 'http://localhost:14597/';
     $scope.query = "";
 
-    $scope.employee = localStorageService.get("employeeList");
+    var employee = localStorageService.get("Company");
 
-    $http.post(serviceBase + 'api/manage/employeeDetail', JSON.stringify($scope.employee)).then(function (results) {
+    $http.post(serviceBase + 'api/manage/employeeDetail', JSON.stringify(employee)).then(function (results) {
 
         $scope.employeeList = JSON.parse(results.data.EmployeeDetail);
         console.log($scope.employeeList);
@@ -17,4 +17,5 @@ app.controller('employeeController', ['$scope', '$http', 'localStorageService', 
         var detail = {"EmployeeID": EmployeeID };
         localStorageService.set("employee",detail);
     };
+
 }]);

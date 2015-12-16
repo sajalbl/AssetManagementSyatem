@@ -6,21 +6,23 @@ app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http'
     
     //$scope.resourceCompany = localStorageService.get("companyData");
 
-    $scope.resourceCompany = localStorageService.get("companyData");
+    var resourceCompany = localStorageService.get("Company");
 
     //$rootScope.$on("CallShowMethod", function () {
     //    $scope.show();
     //});
 
-    $http.post(serviceBase + 'api/manage/showResources', JSON.stringify($scope.resourceCompany)).then(function (results) {
+   // $scope.ResourceBase = ""
+
+    $http.post(serviceBase + 'api/manage/showResources', JSON.stringify(resourceCompany)).then(function (results) {
         $scope.resourceList = JSON.parse(results.data.ResourcesList);
         console.log($scope.resourceList);
     });
     
     $scope.show = function () {
-        $scope.resourceCompany = localStorageService.get("companyData");
+        var resourceCompany = localStorageService.get("Company");
         
-        $http.post(serviceBase + 'api/manage/showResources', JSON.stringify($scope.resourceCompany)).then(function (results) {
+        $http.post(serviceBase + 'api/manage/showResources', JSON.stringify(resourceCompany)).then(function (results) {
             $scope.resourceList = JSON.parse(results.data.ResourcesList);
             console.log($scope.resourceList);
         });

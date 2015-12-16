@@ -25,5 +25,6 @@ namespace AmsApi.Models
         public string CompanyName { get; set; }
         public string Serial { get; set; }
         public string Picture { get; set; }
+        public Nullable<int> CompanyID { get; set; }
     }
 }
