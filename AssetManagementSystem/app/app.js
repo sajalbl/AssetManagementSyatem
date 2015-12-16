@@ -7,17 +7,12 @@ app.config(function (localStorageServiceProvider) {
 
 app.config(function ($routeProvider) {
 
-    $routeProvider.when("/home", {
-        controller: "homeController",
-        templateUrl: "./app/views/home.html"
-    });
+    //$routeProvider.when("/home", {
+    //    controller: "homeController",
+    //    templateUrl: "./app/views/home.html"
+    //});
 
-
-    $routeProvider.when("/newCompany", {
-        controller: "newCompanyController",
-        templateUrl: "./app/views/newCompany.html"
-    });
-
+    
     $routeProvider.when("/addResource", {
         controller: "addResourcesController",
         templateUrl: "./app/views/addResources.html"
@@ -38,7 +33,6 @@ app.config(function ($routeProvider) {
     //    templateUrl:  "./app/views/logOut.html"
     //    });
 
-
     $routeProvider.when("/newEmployee", {
         controller: "newEmployeeController",
         templateUrl: "./app/views/newEmployee.html"
@@ -47,11 +41,6 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/resourceAllocated", {
         controller: "resourceAllocatedController",
         templateUrl: "./app/views/resourceAllocated.html"
-    });
-
-    $routeProvider.when("/profile", {
-        controller: "profileController",
-        templateUrl: "./app/views/profile.html"
     });
 
     $routeProvider.when("/tasks", {
@@ -74,9 +63,16 @@ app.config(function ($routeProvider) {
         templateUrl: "./app/views/taskAssign.html"
     });
 
+    // NEW ROUTES
+
     $routeProvider.when("/login", {
         controller: "loginController",
         templateUrl: "./app/views/loginPage.html"
+    });
+
+    $routeProvider.when("/newCompany", {
+        controller: "newCompanyController",
+        templateUrl: "./app/views/newCompany.html"
     });
 
     $routeProvider.when("/companyDetail", {
@@ -89,6 +85,10 @@ app.config(function ($routeProvider) {
         templateUrl: "./app/views/companyEdit.html"
     });
 
+    $routeProvider.when("/profile", {
+        controller: "profileController",
+        templateUrl: "./app/views/profile.html"
+    });
 
     $routeProvider.otherwise({ redirectTo: "/login" });
 });

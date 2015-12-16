@@ -4,52 +4,55 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Company_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company_table">
           <Key>
-            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="CompanyID" />
           </Key>
+          <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="Contact" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar(max)" />
           <Property Name="CompanyName" Type="nvarchar(max)" />
           <Property Name="OwnerName" Type="nvarchar(max)" />
           <Property Name="ResourceCount" Type="nvarchar(max)" />
-          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeCount" Type="int" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Employee_table">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeID" Type="nvarchar(max)" />
-          <Property Name="Designation" Type="nvarchar(max)" />
-          <Property Name="CompanyName" Type="nvarchar(max)" />
-          <Property Name="Department" Type="nvarchar(max)" />
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeName" Type="nvarchar(max)" />
-          <Property Name="DOB" Type="nvarchar(max)" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="ManagerID" Type="nvarchar(max)" />
+          <Property Name="Designation" Type="nvarchar(max)" />
+          <Property Name="Department" Type="nvarchar(max)" />
+          <Property Name="DOB" Type="datetime2" Precision="7" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="Contact" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar(max)" />
-          <Property Name="ManagerID" Type="nvarchar(max)" />
           <Property Name="Picture" Type="nvarchar(max)" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Resources_table">
           <Key>
-            <PropertyRef Name="ResourceId" />
+            <PropertyRef Name="ResourceID" />
           </Key>
-          <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameOfDevice" Type="nvarchar(max)" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="Type" Type="nvarchar(max)" />
           <Property Name="IssuedTo" Type="nvarchar(max)" />
           <Property Name="IssuedFrom" Type="nvarchar(max)" />
-          <Property Name="ModifiedOn" Type="date" />
-          <Property Name="IsActive" Type="nvarchar(max)" />
-          <Property Name="EmployeeID" Type="nvarchar(max)" />
-          <Property Name="CompanyName" Type="nvarchar(max)" />
           <Property Name="Serial" Type="nvarchar(max)" />
           <Property Name="Picture" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="nvarchar(max)" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Task_table">
           <Key>
@@ -63,61 +66,101 @@
           <Property Name="EmployeeConfirm" Type="nvarchar(max)" />
           <Property Name="ManagerConfirm" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_Employee_table_Company_table">
+          <End Role="Company_table" Type="Self.Company_table" Multiplicity="1" />
+          <End Role="Employee_table" Type="Self.Employee_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company_table">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Employee_table">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resources_table_Employee_table">
+          <End Role="Employee_table" Type="Self.Employee_table" Multiplicity="1" />
+          <End Role="Resources_table" Type="Self.Resources_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_table">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Resources_table">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Company_dbModelStoreContainer">
           <EntitySet Name="Company_table" EntityType="Self.Company_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_table" EntityType="Self.Employee_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Resources_table" EntityType="Self.Resources_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task_table" EntityType="Self.Task_table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_table_Company_table" Association="Self.FK_Employee_table_Company_table">
+            <End Role="Company_table" EntitySet="Company_table" />
+            <End Role="Employee_table" EntitySet="Employee_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resources_table_Employee_table" Association="Self.FK_Resources_table_Employee_table">
+            <End Role="Employee_table" EntitySet="Employee_table" />
+            <End Role="Resources_table" EntitySet="Resources_table" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Company_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Company_table">
           <Key>
-            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="CompanyID" />
           </Key>
+          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OwnerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ResourceCount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeCount" Type="Int32" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Employee_table" Relationship="Self.FK_Employee_table_Company_table" FromRole="Company_table" ToRole="Employee_table" />
         </EntityType>
         <EntityType Name="Employee_table">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DOB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="ManagerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="7" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ManagerID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Company_table" Relationship="Self.FK_Employee_table_Company_table" FromRole="Employee_table" ToRole="Company_table" />
+          <NavigationProperty Name="Resources_table" Relationship="Self.FK_Resources_table_Employee_table" FromRole="Employee_table" ToRole="Resources_table" />
         </EntityType>
         <EntityType Name="Resources_table">
           <Key>
-            <PropertyRef Name="ResourceId" />
+            <PropertyRef Name="ResourceID" />
           </Key>
-          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameOfDevice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IssuedTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IssuedFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
-          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Serial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Employee_table" Relationship="Self.FK_Resources_table_Employee_table" FromRole="Resources_table" ToRole="Employee_table" />
         </EntityType>
         <EntityType Name="Task_table">
           <Key>
@@ -131,11 +174,43 @@
           <Property Name="EmployeeConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ManagerConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_Employee_table_Company_table">
+          <End Role="Company_table" Type="Self.Company_table" Multiplicity="1" />
+          <End Role="Employee_table" Type="Self.Employee_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company_table">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Employee_table">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resources_table_Employee_table">
+          <End Role="Employee_table" Type="Self.Employee_table" Multiplicity="1" />
+          <End Role="Resources_table" Type="Self.Resources_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_table">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Resources_table">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Company_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Company_table" EntityType="Self.Company_table" />
           <EntitySet Name="Employee_table" EntityType="Self.Employee_table" />
           <EntitySet Name="Resources_table" EntityType="Self.Resources_table" />
           <EntitySet Name="Task_table" EntityType="Self.Task_table" />
+          <AssociationSet Name="FK_Employee_table_Company_table" Association="Self.FK_Employee_table_Company_table">
+            <End Role="Company_table" EntitySet="Company_table" />
+            <End Role="Employee_table" EntitySet="Employee_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resources_table_Employee_table" Association="Self.FK_Resources_table_Employee_table">
+            <End Role="Employee_table" EntitySet="Employee_table" />
+            <End Role="Resources_table" EntitySet="Resources_table" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -146,49 +221,52 @@
           <EntitySetMapping Name="Company_table">
             <EntityTypeMapping TypeName="Company_dbModel.Company_table">
               <MappingFragment StoreEntitySet="Company_table">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
                 <ScalarProperty Name="ResourceCount" ColumnName="ResourceCount" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="EmployeeCount" ColumnName="EmployeeCount" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee_table">
             <EntityTypeMapping TypeName="Company_dbModel.Employee_table">
               <MappingFragment StoreEntitySet="Employee_table">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Resources_table">
             <EntityTypeMapping TypeName="Company_dbModel.Resources_table">
               <MappingFragment StoreEntitySet="Resources_table">
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="Serial" ColumnName="Serial" />
-                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+                <ScalarProperty Name="ResourceID" ColumnName="ResourceID" />
                 <ScalarProperty Name="NameOfDevice" ColumnName="NameOfDevice" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="IssuedTo" ColumnName="IssuedTo" />
                 <ScalarProperty Name="IssuedFrom" ColumnName="IssuedFrom" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

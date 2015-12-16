@@ -14,17 +14,26 @@ namespace AmsApi.Models
     
     public partial class Employee_table
     {
-        public int ID { get; set; }
-        public string EmployeeID { get; set; }
-        public string Designation { get; set; }
-        public string CompanyName { get; set; }
-        public string Department { get; set; }
+        public Employee_table()
+        {
+            this.Resources_table = new HashSet<Resources_table>();
+        }
+    
+        public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }
-        public string DOB { get; set; }
+        public int CompanyID { get; set; }
+        public string ManagerID { get; set; }
+        public string Designation { get; set; }
+        public string Department { get; set; }
+        public Nullable<System.DateTime> DOB { get; set; }
         public string Address { get; set; }
         public string Contact { get; set; }
         public string Email { get; set; }
-        public string ManagerID { get; set; }
         public string Picture { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+    
+        public virtual Company_table Company_table { get; set; }
+        public virtual ICollection<Resources_table> Resources_table { get; set; }
     }
 }

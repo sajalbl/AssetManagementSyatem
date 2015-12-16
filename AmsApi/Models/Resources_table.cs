@@ -14,16 +14,18 @@ namespace AmsApi.Models
     
     public partial class Resources_table
     {
-        public int ResourceId { get; set; }
+        public int ResourceID { get; set; }
         public string NameOfDevice { get; set; }
+        public int CompanyID { get; set; }
+        public int EmployeeID { get; set; }
         public string Type { get; set; }
         public string IssuedTo { get; set; }
         public string IssuedFrom { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public string IsActive { get; set; }
-        public string EmployeeID { get; set; }
-        public string CompanyName { get; set; }
         public string Serial { get; set; }
         public string Picture { get; set; }
+        public string IsActive { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
+    
+        public virtual Employee_table Employee_table { get; set; }
     }
 }

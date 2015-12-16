@@ -56,6 +56,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -153,9 +157,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNet.Identity.Owin">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -182,8 +183,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapter\AllCompanyAdapter.cs" />
-    <Compile Include="Adapter\DeleteCompanyAdapter.cs" />
+    <Compile Include="Adapter\AdapterHelper.cs" />
     <Compile Include="Adapter\ManageCompanyAdapter.cs" />
     <Compile Include="Adapter\ManageEmployeeAdapter.cs" />
     <Compile Include="Adapter\ManageResourcesAdapter.cs" />
@@ -220,8 +220,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AllCompanyController.cs" />
-    <Compile Include="Controllers\DeleteCompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageCompanyController.cs" />
     <Compile Include="Controllers\ManageEmployeeController.cs" />
@@ -232,36 +230,36 @@
     </Compile>
     <Compile Include="Interceptors\APIInterceptor.cs" />
     <Compile Include="Interceptors\AuditAttribute.cs" />
-    <Compile Include="Models\CompanyDB.Context.cs">
+    <Compile Include="Models\Company_dbEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CompanyDB.Context.tt</DependentUpon>
+      <DependentUpon>Company_dbEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CompanyDB.cs">
+    <Compile Include="Models\Company_dbEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CompanyDB.tt</DependentUpon>
+      <DependentUpon>Company_dbEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CompanyDB.Designer.cs">
+    <Compile Include="Models\Company_dbEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CompanyDB.edmx</DependentUpon>
+      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Company_table.cs">
-      <DependentUpon>CompanyDB.tt</DependentUpon>
+      <DependentUpon>Company_dbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee_table.cs">
-      <DependentUpon>CompanyDB.tt</DependentUpon>
+      <DependentUpon>Company_dbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageCompany.cs" />
     <Compile Include="Models\ManageEmployee.cs" />
     <Compile Include="Models\ManageResources.cs" />
     <Compile Include="Models\ManageTask.cs" />
     <Compile Include="Models\Resources_table.cs">
-      <DependentUpon>CompanyDB.tt</DependentUpon>
+      <DependentUpon>Company_dbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Task_table.cs">
-      <DependentUpon>CompanyDB.tt</DependentUpon>
+      <DependentUpon>Company_dbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -296,22 +294,22 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\CompanyDB.edmx">
+    <EntityDeploy Include="Models\Company_dbEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CompanyDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>Company_dbEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CompanyDB.Context.tt">
+    <Content Include="Models\Company_dbEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CompanyDB.edmx</DependentUpon>
-      <LastGenOutput>CompanyDB.Context.cs</LastGenOutput>
+      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
+      <LastGenOutput>Company_dbEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CompanyDB.edmx.diagram">
-      <DependentUpon>CompanyDB.edmx</DependentUpon>
+    <Content Include="Models\Company_dbEntities.edmx.diagram">
+      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\CompanyDB.tt">
+    <Content Include="Models\Company_dbEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CompanyDB.edmx</DependentUpon>
-      <LastGenOutput>CompanyDB.cs</LastGenOutput>
+      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
+      <LastGenOutput>Company_dbEntities.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -18,16 +18,12 @@ namespace AmsApi.Models
     public class ManageCompanyResponse
     {
         public bool IsCompanyCreated { get; set; }
-
         public string CompanyList { get; set; }
-
         public string CompanyInfo { get; set; }
         public bool IsCompanyUpdated { get; set; }
-
         public bool IsCompanyExist { get; set; }
-
+        public int CompanyId { get; set; }
+        public string ManagerList { get; set; }
         //public bool EditLinkShow { get; set; }
-
-
     }
 }

@@ -23,7 +23,10 @@
                         </div>
                     </form>
                 </div>
-                <h2 ng-hide="company.CompanyName"> <b> {{status}} </b></h2>
+                <div data-ng-hide="message == ''" class="alert alert-danger">
+                    {{message}}
+                </div>
+                <!--<h2 ng-hide="company.CompanyName"> <b> {{status}} </b></h2>-->
             </div>
         </div>
     </div>

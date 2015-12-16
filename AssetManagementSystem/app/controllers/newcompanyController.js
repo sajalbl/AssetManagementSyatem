@@ -1,28 +1,28 @@
 ﻿'use strict';
 app.controller('newCompanyController', ['$scope', '$http', function ($scope, $http) {
 
+    var target = angular.element(document.querySelector('#app'));
+    target.addClass('body-wide');
+
     var serviceBase = 'http://localhost:14597/';
-    $scope.company = { "CompanyName": $scope.CompanyName, "OwnerName": $scope.OwnerName, "Address": $scope.Address, "Contact": $scope.Contact, "Email": $scope.Email };
-    
+    $scope.company = { CompanyName: "", OwnerName: "", Address: "", Contact: "", Email: "" };
+    $scope.message = '';
+
     $scope.submit = function () {
         var valid = $scope.validate();
         if (valid)
-            var text = { "CompanyName": $scope.company.CompanyName, "OwnerName": $scope.company.OwnerName, "Address": $scope.company.Address, "Contact": $scope.company.Contact, "Email": $scope.company.Email };
-        $http.post(serviceBase + 'api/manage/newCompany', JSON.stringify(text)).then(function (results) {
-            if (results.data.IsCompanyCreated == false)
+            //var text = { "CompanyName": $scope.company.CompanyName, "OwnerName": $scope.company.OwnerName, "Address": $scope.company.Address, "Contact": $scope.company.Contact, "Email": $scope.company.Email };
+            $http.post(serviceBase + 'api/Company/newCompany', JSON.stringify($scope.company)).then(function (results) {
+            if (results.data.IsSuccess != false && results.data.IsCompanyCreated)
             {
-                $scope.status = "Company already exist";
+                $scope.message = "Company Details added Successfully";
+                $scope.company = { CompanyName: "", OwnerName: "", Address: "", Contact: "", Email: "" };
             }
             else {
-                $scope.status = "Company Details added Successfully";
+                $scope.message = "Try again.";
             }
-            $scope.company = "";
-            
         });
-       
     };
-
-   
 
     $scope.validate = function () {
         var isValid = true;
@@ -55,8 +55,6 @@ app.controller('newCompanyController', ['$scope', '$http', function ($scope, $ht
             alert("Enter valid email");
             isValid = false;
         };
-
-        
         return isValid;
     };
 

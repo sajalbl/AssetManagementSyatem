@@ -30,12 +30,10 @@ namespace AmsApi.Adapter
                 if (resp == null)
                 {
                     resp = new Resources_table();
-                    resp.CompanyName = request.CompanyName;
                     resp.NameOfDevice = request.NameOfDevice;
                     resp.Type = request.Type;
 
                     resp.IssuedFrom = request.IssuedFrom.ToShortDateString();
-                    resp.EmployeeID = request.EmployeeID;
                     resp.Serial = request.Serial;
 
                     context.Resources_table.Add(resp);
@@ -60,7 +58,7 @@ namespace AmsApi.Adapter
             using (var context = new Company_dbEntities())
             {
 
-                resource = (from a in context.Resources_table where request.CompanyName == a.CompanyName select a).ToList<Resources_table>();
+                resource = (from a in context.Resources_table select a).ToList<Resources_table>();
                 
                 response.ResourcesList = JsonConvert.SerializeObject(resource);
 
@@ -75,7 +73,7 @@ namespace AmsApi.Adapter
             using (var context = new Company_dbEntities())
             {
 
-                var comp = (from a in context.Resources_table where a.CompanyName == request.CompanyName && a.NameOfDevice == request.NameOfDevice && a.Serial == request.Serial  select a).FirstOrDefault<Resources_table>();
+                var comp = (from a in context.Resources_table where  a.NameOfDevice == request.NameOfDevice && a.Serial == request.Serial  select a).FirstOrDefault<Resources_table>();
 
                 if (comp != null)
                 {
@@ -83,7 +81,6 @@ namespace AmsApi.Adapter
                     comp.Type = request.Type;
                     comp.IssuedTo = request.IssuedTo.ToShortDateString();
                     comp.IssuedFrom = request.IssuedFrom.ToShortDateString();
-                    comp.EmployeeID = request.EmployeeID;
                     //comp.Picture = request.Picture;
                 }
 
@@ -99,18 +96,18 @@ namespace AmsApi.Adapter
         {
             ManageResourcesResponse response = new ManageResourcesResponse();
 
-            Resources_table resource = new Resources_table();
-            using (var context = new Company_dbEntities())
-            {
+            //Resources_table resource = new Resources_table();
+            //using (var context = new Company_dbEntities())
+            //{
 
-                resource = (from a in context.Resources_table where request.CompanyName == a.CompanyName && request.NameOfDevice == a.NameOfDevice && request.Type == a.Type && request.EmployeeID == a.EmployeeID && request.Serial == a.Serial select a).FirstOrDefault<Resources_table>();
+            //    resource = (from a in context.Resources_table  request.NameOfDevice == a.NameOfDevice && request.Type == a.Type && request.Serial == a.Serial select a).FirstOrDefault<Resources_table>();
 
-                context.Resources_table.Remove(resource);
+            //    context.Resources_table.Remove(resource);
 
-                context.SaveChanges();
+            //    context.SaveChanges();
 
-                response.ResourceDeleted = true;
-            }
+            //    response.ResourceDeleted = true;
+            //}
 
             return response;
         }
@@ -123,7 +120,7 @@ namespace AmsApi.Adapter
             using (var context = new Company_dbEntities())
             {
 
-                resource = (from a in context.Resources_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Resources_table>();
+                resource = (from a in context.Resources_table  select a).FirstOrDefault<Resources_table>();
 
                 if (resource != null)
                 {
@@ -147,7 +144,7 @@ namespace AmsApi.Adapter
             using (var context = new Company_dbEntities())
             {
 
-               var resource = (from a in context.Resources_table where request.CompanyName == a.CompanyName select a).Count();
+               var resource = (from a in context.Resources_table  select a).Count();
 
                var company = (from a in context.Company_table where request.CompanyName == a.CompanyName select a).FirstOrDefault<Company_table>();
 
@@ -169,7 +166,7 @@ namespace AmsApi.Adapter
             using (var context = new Company_dbEntities())
             {
 
-                resource = (from a in context.Resources_table where request.EmployeeID == a.EmployeeID select a).ToList<Resources_table>();
+               // resource = (from a in context.Resources_table where request.EmployeeID == a.EmployeeID select a).ToList<Resources_table>();
 
                 response.ResourcesAllocated = JsonConvert.SerializeObject(resource);
 

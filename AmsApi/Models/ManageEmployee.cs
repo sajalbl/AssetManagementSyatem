@@ -12,7 +12,7 @@ namespace AmsApi.Models
         public string CompanyName { get; set; }
         public string Department { get; set; }
         public string Designation { get; set; }
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         public string Address { get; set; }
         public string Contact { get; set; }
         public string Email { get; set; }
@@ -40,8 +40,9 @@ namespace AmsApi.Models
 
         public bool Edit { get; set; }
 
-        public string EmployeeDetail { get; set; }
+        public string EmployeeInfo { get; set; }
 
         public string ManagerEmployees { get; set; }
+        public bool IsEmployeeUpdated { get; set; }
     }
 }
