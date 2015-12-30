@@ -230,36 +230,36 @@
     </Compile>
     <Compile Include="Interceptors\APIInterceptor.cs" />
     <Compile Include="Interceptors\AuditAttribute.cs" />
-    <Compile Include="Models\Company_dbEntities.Context.cs">
+    <Compile Include="Models\CompanyDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Company_dbEntities.Context.tt</DependentUpon>
+      <DependentUpon>CompanyDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Company_dbEntities.cs">
+    <Compile Include="Models\CompanyDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Company_dbEntities.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Company_dbEntities.Designer.cs">
+    <Compile Include="Models\CompanyDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Company_table.cs">
-      <DependentUpon>Company_dbEntities.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee_table.cs">
-      <DependentUpon>Company_dbEntities.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageCompany.cs" />
     <Compile Include="Models\ManageEmployee.cs" />
     <Compile Include="Models\ManageResources.cs" />
     <Compile Include="Models\ManageTask.cs" />
     <Compile Include="Models\Resources_table.cs">
-      <DependentUpon>Company_dbEntities.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Task_table.cs">
-      <DependentUpon>Company_dbEntities.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -294,22 +294,22 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\Company_dbEntities.edmx">
+    <EntityDeploy Include="Models\CompanyDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Company_dbEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>CompanyDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Company_dbEntities.Context.tt">
+    <Content Include="Models\CompanyDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
-      <LastGenOutput>Company_dbEntities.Context.cs</LastGenOutput>
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
+      <LastGenOutput>CompanyDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Company_dbEntities.edmx.diagram">
-      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
+    <Content Include="Models\CompanyDB.edmx.diagram">
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Company_dbEntities.tt">
+    <Content Include="Models\CompanyDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Company_dbEntities.edmx</DependentUpon>
-      <LastGenOutput>Company_dbEntities.cs</LastGenOutput>
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
+      <LastGenOutput>CompanyDB.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

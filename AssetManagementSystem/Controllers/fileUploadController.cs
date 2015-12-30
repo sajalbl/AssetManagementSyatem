@@ -31,6 +31,7 @@ namespace AssetManagementSystem.Controllers
                     var uploadedImage = HttpContext.Current.Request.Files["UploadImage"];
                     var path = HttpContext.Current.Request.Params["FolderPath"];
                     var employeeID = HttpContext.Current.Request.Params["EmployeeID"];
+                   
 
                     if (uploadedImage != null)
                     {
@@ -51,6 +52,8 @@ namespace AssetManagementSystem.Controllers
                             {
                                 Directory.CreateDirectory(employeeFolder);
                             }
+
+                        
 
                         if (string.Equals(Path.GetExtension(uploadedImage.FileName), ".zip", StringComparison.InvariantCultureIgnoreCase))
                         {
@@ -75,7 +78,7 @@ namespace AssetManagementSystem.Controllers
                                 using (var context = new Company_dbEntities())
                                 {
                                     var result = JsonConvert.SerializeObject(pic);
-                                    var image = (from a in context.Resources_table where employeeID == a.Serial select a).FirstOrDefault<Resources_table>();
+                                    var image = (from a in context.Resources_table where a.Serial == employeeID select a).FirstOrDefault();
                                     image.Picture = result;
 
                                     context.SaveChanges();
@@ -86,40 +89,45 @@ namespace AssetManagementSystem.Controllers
                         else
                         {
                             var picture = Path.Combine(employeeFolder, uploadedImage.FileName);
-                            
+
                             using (var context = new Company_dbEntities())
                             {
 
-                                var image = (from a in context.Resources_table where employeeID == a.Serial select a).FirstOrDefault<Resources_table>();
+                                var image = (from a in context.Resources_table where a.Serial == employeeID select a).FirstOrDefault();
 
                                 if (image != null)
                                 {
-                                    List<Image> pic = new List<Image>();
+
                                     Image i = new Image();
 
                                     i.name = uploadedImage.FileName;
 
-                                    pic.Add(i);
-                                    var result = JsonConvert.SerializeObject(pic);
+                                    var result = JsonConvert.SerializeObject(i);
 
                                     image.Picture = result;
                                     context.SaveChanges();
                                 }
+                            }
 
-                                else
-                                {
-                                    var profile = (from a in context.Employee_table where employeeID == a.EmployeeID select a).FirstOrDefault<Employee_table>();
+                            //    else
+                            //    {
+                            //        var profile = (from a in context.Employee_table where a.EmployeeID.ToString() == employeeID select a).FirstOrDefault();
 
-                                    profile.Picture = uploadedImage.FileName;
-                                    context.SaveChanges();
-                                }
+                            //        profile.EmployeeInfo = info;
+                            //        context.SaveChanges();
+                            //    }
 
                                 
-                            }
+                            //}
+
                             uploadedImage.SaveAs(picture);
                         }
                     }
                     response = Request.CreateResponse(HttpStatusCode.OK, true);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK, false);
                 }
             }
 
@@ -132,53 +140,58 @@ namespace AssetManagementSystem.Controllers
             return response;
         }
 
-        //[Route("api/manage/UploadCSV")]
-        //[HttpPost]
+        [Route("api/manage/UploadCSV")]
+        [HttpPost]
 
-        //public HttpResponseMessage uploadCSV()
-        //{
-        //    HttpResponseMessage response = null;
+        public HttpResponseMessage uploadCSV()
+        {
+            HttpResponseMessage response = null;
 
-        //    try
-        //    {
-        //        if (HttpContext.Current.Request.Files.AllKeys.Any())
-        //        {
-        //            var uploadedCSV = HttpContext.Current.Request.Files["UploadCSV"];
-        //            var path = HttpContext.Current.Request.Params["FolderPath"];
+            try
+            {
+                if (HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    var uploadedCSV = HttpContext.Current.Request.Files["UploadCSV"];
+                    var path = HttpContext.Current.Request.Params["FolderPath"];
 
-        //            if (uploadedCSV != null)
-        //            {
-        //                var source = Path.Combine(HttpContext.Current.Server.MapPath("~/CSV/"), path);
-        //                bool exist = Directory.Exists(source);
+                    if (uploadedCSV != null)
+                    {
+                        var source = Path.Combine(HttpContext.Current.Server.MapPath("~/CSV/"), path);
+                        bool exist = Directory.Exists(source);
 
-        //                if (!exist)
-        //                {
-        //                    Directory.CreateDirectory(source);
+                        if (!exist)
+                        {
+                            Directory.CreateDirectory(source);
 
-        //                }
+                        }
 
-        //                var csvName = Path.GetFileNameWithoutExtension(uploadedCSV.FileName);
-        //                var uploadPath = Path.Combine(source, csvName);
+                       // var csvName = Path.GetFileNameWithoutExtension(uploadedCSV.FileName);
+                        var uploadPath = Path.Combine(source, uploadedCSV.FileName);
 
-        //                uploadedCSV.SaveAs(uploadPath);
+                        uploadedCSV.SaveAs(uploadPath);
 
-                    //    csvUploadAdapter adp = new csvUploadAdapter();
-                    //    csvUploadResponse result = adp.parseCSV(uploadedCSV);
-                    //    response = Request.CreateResponse(HttpStatusCode.OK, result);
-                    //}
+                        //csvUploadAdapter adp = new csvUploadAdapter();
+                        //csvUploadResponse result = adp.parseCSV(uploadedCSV);
 
-                   
-        //        }
+                        csvUploadResponse res = new csvUploadResponse();
 
-                
-        //    }
+                        res.csvUploaded = true;
 
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    return response;
-        //}
+                        response = Request.CreateResponse(HttpStatusCode.OK, res.csvUploaded);
+                    }
+
+
+                }
+
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return response;
+        }
 
 
     }

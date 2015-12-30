@@ -11,6 +11,7 @@ app.factory('uploadFileService', ['$http', function ($http) {
         data.append('EmployeeID', empid);
         data.append('UploadImage', file);
         data.append('FolderPath', path);
+        
         return $http.post(serviceBase + "api/manage/imageUpload", data, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
@@ -32,12 +33,12 @@ app.factory('uploadFileService', ['$http', function ($http) {
             headers: { 'Content-Type': undefined }
         }).then(function (results) {
 
-            var text = {"csvFileName": file.FileName}
+            //var text = {"csvFileName": file.FileName}
 
-            $http.post(serviceBase + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
+            //$http.post(serviceBase + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
 
 
-            });
+            //});
 
         });
     };

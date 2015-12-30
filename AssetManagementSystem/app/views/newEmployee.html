@@ -14,7 +14,7 @@
                         </div>
                         <div class="form-group">
                             <label> Email </label>
-                            <input type="text" class="form-control" ng-model="employee.Email" placeholder="Email" />
+                            <input type="email" class="form-control" ng-model="employee.Email" placeholder="Email" />
                         </div>
                         <!--<label> Employee ID  </label>
                         <input type="text" class="form-control" placeholder="Employee ID" ng-model="employee.EmployeeID" />-->
@@ -22,23 +22,23 @@
                         <input type="number" min ="1" class="form-control" placeholder="Resources no." ng-model="company.ResourceCount" name="resources" />-->
                         <div class="form-group">
                             <label> Date of Birth </label>
-                            <input type="text" class="form-control" placeholder="Date of birth" ng-model="employee.DOB" />
+                            <input type="date" class="form-control" placeholder="Date of birth" ng-model="employeeInfo.EmployeeInfo[0].info[0].DOB" />
                         </div>
                         <div class="form-group">
                             <label> Address </label>
-                            <input type="text" class="form-control" ng-model="employee.Address" placeholder="Address" />
+                            <input type="text" class="form-control" ng-model="employeeInfo.EmployeeInfo[0].info[0].Address" placeholder="Address" />
                         </div>
                         <div class="form-group">
                             <label> Contact </label>
-                            <input type="text" class="form-control" ng-model="employee.Contact" placeholder="Contact" />
+                            <input type="text" class="form-control" onkeypress="return event.charCode>=48 && event.charCode<=57" ng-model="employeeInfo.EmployeeInfo[0].info[0].Contact" placeholder="Contact" />
                         </div>
                         <div class="form-group">
                             <label> Department </label>
-                            <input type="text" class="form-control" placeholder="Department" ng-model="employee.Department" />
+                            <input type="text" class="form-control" placeholder="Department" ng-model="employeeInfo.EmployeeInfo[0].info[0].Department" />
                         </div>
                         <div class="form-group">
                             <label class="ui-radio" ng-repeat="desig in designations">
-                                <input ng-checked="desig.Checked" type="radio" ng-model="$parent.Name" class="radio" value="{{desig.Name}}" ng-change="selectDesig(desig)" />
+                                <input ng-checked="desig.Checked" type="radio" ng-model="$parent.Name" class="radio" value="{{desig.Name}}" ng-change="selectDesig(desig)" name="desig" />
                                 <span>{{desig.Name}}</span>
                             </label>
                         </div>
@@ -53,12 +53,17 @@
                         </div>
                         <button class="btn btn-info" ng-click="submit()">Submit</button>
                     </form>
+                  <h2 style="text-align:center"> OR </h2>
+                        <label> Upload CSV file : </label>
+                        <input type="file" name="file" file-model="csvFile" />
+                   
+                    <br />
+                    <button class="btn btn-info" ng-click="update()"> Upload </button>
+                    
+                    <br />
                     <div data-ng-hide="message == ''" class="alert alert-danger">
                         {{message}}
                     </div>
-                    <!--<label> Upload CSV file : </label>
-                    <input type="file" name="file" file-model="csvFile" />-->
-                    <!--<button class="btn btn-info" ng-click="update()"> Upload </button>-->
                 </div>
             </div>
         </div>

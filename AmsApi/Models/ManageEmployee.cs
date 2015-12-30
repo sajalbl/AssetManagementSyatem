@@ -18,23 +18,24 @@ namespace AmsApi.Models
         public string Email { get; set; }
         public string ManagerID { get; set; }
         public string Picture { get; set; }
+        public string EmployeeInfo { get; set; }
 
 
     }
 
     public class ManageEmployeeResponse
     {
-        public ManageEmployeeResponse()
-        {
-            EmployeeList = new List<Employee_table>();
-        }
+        //public ManageEmployeeResponse()
+        //{
+        //    EmployeeList = new List<dynamic>();
+        //}
         public bool IsEmployeeCreated { get; set; }
 
         public bool IsEmployeeExist { get; set; }
 
         public int EmployeeCount { get; set; }
 
-        public List<Employee_table> EmployeeList { get; set; }
+        public string EmployeeList { get; set; }
 
         public bool IsManager { get; set; }
 

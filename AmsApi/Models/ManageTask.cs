@@ -14,17 +14,14 @@ namespace AmsApi.Models
         public string EmployeeConfirm { get; set; }
         public string ManagerConfirm { get; set; }
         public bool Accept { get; set; }
-
+        public string Email { get; set; }
     }
 
     public class ManageTaskResponse
     {
-        public ManageTaskResponse()
-        {
-            TaskList = new List<Task_table>();
-        }
+        
         public bool TaskAdded { get; set; }
-        public List<Task_table> TaskList { get; set; }
+        public string TaskList { get; set; }
         public string TaskAssign { get; set; }
         public bool ConfirmEmployee { get; set; }
         public bool ConfirmManager { get; set; }

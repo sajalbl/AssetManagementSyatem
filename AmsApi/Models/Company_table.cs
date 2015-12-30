@@ -17,6 +17,7 @@ namespace AmsApi.Models
         public Company_table()
         {
             this.Employee_table = new HashSet<Employee_table>();
+            this.Resources_table = new HashSet<Resources_table>();
         }
     
         public int CompanyID { get; set; }
@@ -25,11 +26,14 @@ namespace AmsApi.Models
         public string Email { get; set; }
         public string CompanyName { get; set; }
         public string OwnerName { get; set; }
-        public string ResourceCount { get; set; }
+        public Nullable<int> ResourceCount { get; set; }
         public Nullable<int> EmployeeCount { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        public virtual Company_table Company_table1 { get; set; }
+        public virtual Company_table Company_table2 { get; set; }
         public virtual ICollection<Employee_table> Employee_table { get; set; }
+        public virtual ICollection<Resources_table> Resources_table { get; set; }
     }
 }

@@ -146,6 +146,26 @@ namespace AmsApi.Controllers
         //    }
         //    return response;
         //}
-        
+
+
+        [Route("api/company/EmployeeID")]
+        [HttpPost]
+
+        public HttpResponseMessage Employee(ManageCompanyRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageCompanyAdapter adp = new ManageCompanyAdapter();
+                ManageCompanyResponse result = adp.allEmployee(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception e)
+            {
+                HttpError myCustomError = new HttpError(e.Message) { { "IsSuccess", false } };
+                return Request.CreateErrorResponse(HttpStatusCode.OK, myCustomError);
+            }
+            return response;
+        }
     }
 }

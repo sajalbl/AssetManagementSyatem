@@ -1,9 +1,10 @@
 ﻿'use strict';
-app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http', 'localStorageService', '$window', function ($rootScope,$scope, $modal, $http, localStorageService, $window) {
+app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http', 'localStorageService', '$location', function ($rootScope, $scope, $modal, $http, localStorageService, $location) {
     var serviceBase = 'http://localhost:14597/';
+    var service = 'http://localhost:58474/';
     $scope.query = "";
 
-    
+    $scope.imageList = [];
     //$scope.resourceCompany = localStorageService.get("companyData");
 
     var resourceCompany = localStorageService.get("Company");
@@ -18,6 +19,13 @@ app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http'
         $scope.resourceList = JSON.parse(results.data.ResourcesList);
         console.log($scope.resourceList);
     });
+
+    $http.post(service + 'api/manage/downloadCsv', JSON.stringify(resourceCompany)).then(function (results) {
+        if (results.data.csvDowloaded == false)
+        {
+            $scope.message = "Data not found";
+        }
+    });
     
     $scope.show = function () {
         var resourceCompany = localStorageService.get("Company");
@@ -29,7 +37,7 @@ app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http'
     };
 
     $scope.editRow = function (resource) {
-        location.href = "#/edit";
+        $location.path("/edit");
         localStorageService.set("resourceDetail", resource);
     };
     
@@ -78,16 +86,17 @@ app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http'
         });
     };
 
-    var openImage = function ($scope, $modalInstance, ser) {
+    var openImage = function ($scope, $modalInstance, ser, $http) {
         //$scope.image = toImage;
 
         //$scope.image(ser);
         $scope.source = ser;
+        $scope.imageList = [];
         var text = { "Serial": ser };
         $http.post(serviceBase + 'api/manage/showImage', JSON.stringify(text)).then(function (results) {
-
+            
             $scope.imageList = JSON.parse(results.data.resourceImage);
-
+            console.log($scope.imageList);
         });
 
         $scope.close = function () {
@@ -108,7 +117,7 @@ app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http'
 
     $scope.deleteResources = function (resource) {
 
-        var text = { "CompanyName": resource.CompanyName, "NameOfDevice": resource.NameOfDevice, "Type": resource.Type, "EmployeeID": resource.EmployeeID, "Serial": resource.Serial };
+        var text = {"CompanyID":resource.CompanyID, "CompanyName": resource.CompanyName, "NameOfDevice": resource.NameOfDevice, "Type": resource.Type, "EmployeeID": resource.EmployeeID, "Serial": resource.Serial };
         $http.post(serviceBase + 'api/manage/deleteResources', JSON.stringify(text)).then(function (results) {
             
             $scope.show();
@@ -116,5 +125,88 @@ app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http'
     };
   
 
+    $scope.allocate = function (Serial) {
+
+        $scope.modalConfirmationResult = 'cancel';
+
+        var modalInstance = $modal.open({
+            templateUrl: 'allocate.html',
+            controller: openAlloc,
+            resolve: {
+                ser: function () {
+                    return Serial;
+
+                },
+                show: function () {
+                    return $scope.show;
+                }
+            }
+
+        })
+    };
+
+   
+
+    var openAlloc = function ($scope, $modalInstance, ser, localStorageService, $http, show) {
+        
+        $scope.detail = show;
+        var companyName = localStorageService.get("Company");
+
+        $http.post(serviceBase + 'api/company/EmployeeID', JSON.stringify(companyName)).then(function (results) {
+            if(results.data.EmployeeList != null)
+            {
+                $scope.employeeList = JSON.parse(results.data.EmployeeList);
+            }
+
+        })
+
+        //$scope.employee = { EmployeeID: "" };
+
+        $scope.ok = function () {
+           
+            $scope.employee = {"EmployeeID": $scope.EmployeeID, "Serial": ser, "Allocate": true };
+
+            $http.post(serviceBase + 'api/manage/allocate', JSON.stringify($scope.employee)).then(function (results) {
+                if (results.data.allocated) {
+                    
+                    $scope.detail();
+                    $modalInstance.dismiss('cancel');
+                    
+                }
+
+            });
+
+            
+        };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
+
+
+    $scope.deallocate = function (Serial) {
+
+        var serial = { "Serial": Serial, "Allocate": false };
+
+        $http.post(serviceBase + 'api/manage/allocate', JSON.stringify(serial)).then(function (results) {
+            if (results.data.allocated == false) {
+                $scope.show();
+            }
+
+        });
+    };
+
+    $scope.restore = function (Serial,CompanyID) {
+
+        var text = { "Serial": Serial, "CompanyID": CompanyID, "Deleted":true };
+
+        $http.post(serviceBase + 'api/manage/deleteResources', JSON.stringify(text)).then(function (results) {
+
+            if(results.data.ResourceDeleted == true)
+            {
+                $scope.show();
+            }
+        });
+    };
     
 }]);

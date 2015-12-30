@@ -13,7 +13,11 @@
                             <label> Contact No. </label>
                             <input type="text" class="form-control" onkeypress="return event.charCode>=48 && event.charCode<=57" placeholder="Contact no." ng-model="profile.Contact" />
                             <label> Email </label>
-                            <input type="text" class="form-control" placeholder="Email" ng-model="profile.Email" />
+                            <input type="email" class="form-control" placeholder="Email" ng-model="profile.Email" />
+                            <label> Department </label>
+                            <input type="text" class="form-control" placeholder="Department" ng-model="profile.Department" disabled />
+                            <label> DOB </label>
+                            <input type="text" class="form-control" ng-model="profile.DOB" disabled />
                             <br />
                         </div>
                         <div>
@@ -33,7 +37,9 @@
                     </form>
                 </div>
             </div>
-            <h2> <b> {{status}} </b></h2>
+            <div data-ng-hide="status == ''" class="alert alert-danger">
+                {{status}}
+            </div>
         </div>
     </div>
 </div>

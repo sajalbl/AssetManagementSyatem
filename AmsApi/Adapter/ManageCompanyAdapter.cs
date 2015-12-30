@@ -49,7 +49,7 @@ namespace AmsApi.Adapter
                 comp.Address = request.Address;
                 comp.Contact = request.Contact;
                 comp.EmployeeCount = 0;
-                //comp.ResourceCount = 0;
+                comp.ResourceCount = 0;
                 comp.Email = request.Email;
                 comp.ModifiedOn = DateTime.Now;
                 comp.IsActive = true;
@@ -121,6 +121,7 @@ namespace AmsApi.Adapter
                     comp.Address = request.Address;
                     comp.Contact = request.Contact;
                     comp.Email = request.Email;
+                    
                 }
 
                 // this method does not update any information about the employee or the resources of the company!
@@ -184,10 +185,10 @@ namespace AmsApi.Adapter
                                     CompanyID = a.CompanyID,
                                     ManagerID = a.ManagerID,
                                     Designation = a.Designation,
-                                    Department = a.Department,
-                                    DOB = a.DOB,
-                                    Address = a.Address,
-                                    Contact = a.Contact,
+                                    //Department = a.Department,
+                                    //DOB = a.DOB,
+                                    //Address = a.Address,
+                                   // Contact = a.Contact,
                                     Email = a.Email
                                 }).ToList();
 
@@ -224,6 +225,33 @@ namespace AmsApi.Adapter
         //}
 
 
+        public ManageCompanyResponse allEmployee(ManageCompanyRequest request)
+        {
+            ManageCompanyResponse response = new ManageCompanyResponse();
+
+            using (var context = new Company_dbEntities())
+            {
+                int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+                if (compId == null)
+                    throw new Exception("No company found. Try again!");
+
+                //  List<Employee_table> managers = new List<Employee_table>();
+
+                //Add FK bw employee and comapny table using company Id, redo LINQ for this- DONE!
+                var employee = (from a in context.Employee_table
+                                where a.CompanyID == compId
+                                select new
+                                {
+                                    EmployeeID = a.EmployeeID
+                                }).ToList();
+
+                //dynamic manList = new ExpandoObject();
+                //manList.Managers = managers;
+
+                response.EmployeeList = JsonConvert.SerializeObject(employee);
+            }
+            return response;
+        }
     }
 
 }

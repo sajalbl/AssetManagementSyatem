@@ -162,6 +162,23 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        
+        [Route("api/manage/allocate")]
+        [HttpPost]
+        public HttpResponseMessage allocate(ManageResourcesRequest request)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.Allocate(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            return response;
+        }
     }
 }

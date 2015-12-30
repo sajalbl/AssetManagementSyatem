@@ -1,21 +1,24 @@
 ﻿'use strict';
 app.controller('addResourcesController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
     var serviceBase = 'http://localhost:14597/';
-     
+    var service = 'http://localhost:58474/';
+    var uploadBase = '';
     //$scope.$on('Success', function (event, detail) {
 
     //    $scope.companyName = detail;
     //});
 
+    $scope.status = '';
+
     $scope.companyName = localStorageService.get("Company");
-    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type,  "IssuedFrom": $scope.IssuedFrom, "EmployeeID": $scope.EmployeeID, "Serial": $scope.Serial};
+    $scope.resources = { "NameOfDevice": $scope.NameOfDevice, "Type": $scope.Type,  "IssuedFrom": $scope.IssuedFrom, "Serial": $scope.Serial};
 
     $scope.add = function () {
 
         var valid = $scope.validate();
 
         if(valid)
-            var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID": $scope.resources.EmployeeID, "Serial": $scope.resources.Serial };
+            var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "Serial": $scope.resources.Serial };
         $http.post(serviceBase + 'api/manage/newResources', JSON.stringify(text)).then(function (results) {
             if (results.data.IsResourcesCreated)
                 {
@@ -29,6 +32,22 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
            
         });
         
+    };
+
+    $scope.upload = function () {
+
+        uploadFileService.CSVUpload($scope.csvFile, uploadBase).then(function (results) {
+
+            var text = { "CompanyName": $scope.companyName, "FileName": $scope.csvFile.name };
+        $http.post(service + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
+
+            if(results.data.csvUploaded)
+            {
+                $scope.status = "Resource detail added";
+            }
+        });
+
+        });
     };
 
     $scope.validate = function () {

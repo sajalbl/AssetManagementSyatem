@@ -21,5 +21,6 @@ namespace AssetManagementSystem.Models
         public string AssignedBy { get; set; }
         public string EmployeeConfirm { get; set; }
         public string ManagerConfirm { get; set; }
+        public Nullable<int> CompanyID { get; set; }
     }
 }

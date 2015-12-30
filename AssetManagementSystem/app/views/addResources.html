@@ -17,8 +17,8 @@
                             <input type="date"  class="form-control"  ng-model="resources.IssuedTo" />-->
                             <label> Issued From </label>
                             <input type="date" class="form-control"  ng-model="resources.IssuedFrom" />
-                            <label> Employee ID </label>
-                            <input type="text" class="form-control" placeholder="Employee ID" ng-model="resources.EmployeeID" />
+                            <!--<label> Employee ID </label>
+                            <input type="text" class="form-control" placeholder="Employee ID" ng-model="resources.EmployeeID" />-->
                             <label> Serial no. </label>
                             <input type="text"  class="form-control" placeholder="Serial no." ng-model="resources.Serial" />
                             <br />
@@ -26,7 +26,17 @@
                         </div>
                     </form>
                 </div>
-                <h2 ng-hide="resources.NameOfDevice"> <b> {{status}} </b></h2>
+                <h2 style="text-align:center"> OR </h2>
+                <label> Upload CSV file : </label>
+
+                <input type="file" name="file" file-model="csvFile" />
+
+                <button class="btn btn-info" ng-click="upload()"> Upload </button>
+
+                <div data-ng-hide="status == ''" class="alert alert-danger">
+                    {{status}}
+                </div>
+                
             </div>
         </div>
     </div>

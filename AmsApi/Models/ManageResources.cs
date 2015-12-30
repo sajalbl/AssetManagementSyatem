@@ -12,10 +12,14 @@ namespace AmsApi.Resources.Models
         public string Type { get; set; }
         public DateTime IssuedTo { get; set; }
         public DateTime IssuedFrom { get; set; }
-        public string EmployeeID { get; set; }
+        public int EmployeeID { get; set; }
         public string Serial { get; set; }
         public string Picture { get; set; }
-
+        public string EmployeeName { get; set; }
+        public string Email { get; set; }
+        public bool Allocate { get; set; }
+        public int CompanyID { get; set; }
+        public bool Deleted { get; set; }
        
         }
 
@@ -36,6 +40,8 @@ namespace AmsApi.Resources.Models
         public string ResourcesAllocated { get; set; }
 
         public string resourceImage { get; set; }
+
+        public bool allocated { get; set; }
 
     }
 }

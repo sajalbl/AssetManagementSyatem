@@ -14,9 +14,9 @@
                         <label> Address </label>
                         <input type="text" class="form-control" placeholder="Address" ng-model="companyInfo.Address" name="address" />
                         <label> Contact No. </label>
-                        <input type="text" class="form-control" placeholder="Contact no." ng-model="companyInfo.Contact" name="contact" />
+                        <input type="text" class="form-control" onkeypress="return event.charCode>=48 && event.charCode<=57" placeholder="Contact no." ng-model="companyInfo.Contact" name="contact" />
                         <label> Email </label>
-                        <input type="text" class="form-control" placeholder="Email" ng-model="companyInfo.Email" name="email" />
+                        <input type="email" class="form-control" placeholder="Email" ng-model="companyInfo.Email" name="email" />
                         <br />
                         <button class="btn btn-info" ng-click="update()">Update</button>
                     </div>

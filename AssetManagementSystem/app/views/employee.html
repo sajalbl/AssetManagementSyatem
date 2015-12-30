@@ -23,16 +23,16 @@
                             Employee Name
                         </th>
                         <th width="200">
-                            Department
+                            Email
                         </th>
 
                         <th width="200">
                             Designation
                         </th>
 
-                        <!--<th width="200">
-                            Employee ID
-                        </th>-->
+                        <th width="200">
+                            Manager ID
+                        </th>
 
                         <!--<th width="200">
                             Modified On
@@ -47,16 +47,19 @@
                             <td> {{$index + 1}}</td>
                             <td> {{employee.EmployeeID}}</td>
                             <td> {{employee.EmployeeName}}</td>
-                            <td> {{employee.Department}}</td>
+                            <td> {{employee.Email}}</td>
                             <td> {{employee.Designation}}</td>
+                            <td> {{employee.ManagerID}}</td>
                             
-                            <td> <button class="btn btn-info" ng-click="showProfile(employee.EmployeeID)"> Profile </button></td>
+                            <td> <button class="btn btn-info" ng-click="showProfile(employee.EmployeeName,employee.Email)"> Profile </button></td>
                         </tr>
                     </tbody>
 
                 </table>
 
                 <h2> <b> {{status}} </b></h2>
+
+                <a href="http://localhost:58474/Downloads/Employee.csv" download><h4 style="text-align:center"> Download CSV </h4> </a>
             </div>
         </div>
     </div>

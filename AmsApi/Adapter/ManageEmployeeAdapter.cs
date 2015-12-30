@@ -20,24 +20,34 @@ namespace AmsApi.Adapter
                 if (!compId.HasValue)
                     throw new Exception("No company found. Try again!");
 
-                int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
-                if (empId.HasValue)
-                    throw new Exception("Employee already exists.");
+                //int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+                //if (empId.HasValue)
+                //    throw new Exception("Employee already exists.");
 
-                var employee = new Employee_table();
+                Employee_table employee = new Employee_table();
                 employee.EmployeeName = request.EmployeeName.ToLower();
                 employee.CompanyID = compId.Value;
-                employee.Address = request.Address;
-                employee.Contact = request.Contact;
+              
                 employee.Email = request.Email.ToLower();
-                employee.Department = request.Department;
+           
                 employee.Designation = request.Designation;
                 employee.ManagerID = request.ManagerID;
-                employee.DOB = request.DOB;
+                //employee.Contact = request.Contact;
                 employee.ModifiedOn = DateTime.Now;
                 employee.IsActive = true;
+                employee.EmployeeInfo = request.EmployeeInfo;
+
+                //employeeInfo info = new employeeInfo();
+
+                //info.Address = request.Address;
+                //info.Contact = request.Contact;
+                //info.Department = request.Department;
+                //info.DOB = request.DOB;
+
+                //employee.EmployeeInfo = JsonConvert.SerializeObject(info);
 
                 context.Employee_table.Add(employee);
+                
 
                 //Updating the count of employees on successfulkl addition of employee.
                 var comp = (from a in context.Company_table
@@ -60,32 +70,75 @@ namespace AmsApi.Adapter
 
             using (var context = new Company_dbEntities())
             {
-                int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
-                if (!empId.HasValue)
-                    throw new Exception("Employee does not exist!");
-
-                var employee = (from a in context.Employee_table
-                                where a.EmployeeID == empId.Value
-                                select a).FirstOrDefault();
-
-                if (employee != null)
+                if(request.CompanyName != null)
                 {
-                    response.IsEmployeeExist = true;
+                    int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+                    if (compId == null)
+                    {
+                        throw new Exception("No company found. Try again!");
+                    }
 
-                    dynamic emp = new ExpandoObject();
-                    emp.EmployeeName = employee.EmployeeName;
-                    emp.EmployeeId = employee.EmployeeID;
-                    emp.Email = employee.Email;
-                    emp.Designation = employee.Designation;
-                    emp.DOB = employee.DOB;
-                    emp.Department = employee.Department;
-                    emp.ManagerId = employee.ManagerID;
-                    emp.CompanyId = employee.CompanyID;
-                    emp.Address = employee.Address;
-                    emp.Contact = employee.Contact;
+                    var employee = (from a in context.Employee_table
+                                    where a.CompanyID == compId.Value
+                                    select a).ToList();
+                    List<dto> dt = new List<dto>();
 
-                    response.EmployeeInfo = JsonConvert.SerializeObject(emp);
+                    if (employee != null)
+                    {
+                        //response.IsEmployeeExist = true;
+
+                        foreach(var entry in employee)
+                        { 
+                        dto d = new dto();
+
+                        d.EmployeeName = entry.EmployeeName;
+                        d.EmployeeID = entry.EmployeeID;
+                        d.Email = entry.Email;
+                        d.Designation = entry.Designation;
+                        //emp.DOB = employee.DOB;
+                        //emp.Department = employee.Department;
+                        d.ManagerID = entry.ManagerID;
+                       // emp.CompanyId = employee.CompanyID;
+                        //emp.Address = employee.Address;
+                        //emp.Contact = employee.Contact;
+
+                        dt.Add(d);
+                        }
+
+                        response.EmployeeInfo = JsonConvert.SerializeObject(dt);
+                    }
+
                 }
+                else
+                {
+                    int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+                    if (!empId.HasValue)
+                        throw new Exception("Employee does not exist!");
+
+                    var employee = (from a in context.Employee_table
+                                    where a.EmployeeID == empId.Value
+                                    select a).FirstOrDefault();
+
+                    if (employee != null)
+                    {
+                        response.IsEmployeeExist = true;
+
+                        dynamic emp = new ExpandoObject();
+                        emp.EmployeeName = employee.EmployeeName;
+                        emp.EmployeeId = employee.EmployeeID;
+                        emp.Email = employee.Email;
+                        emp.Designation = employee.Designation;
+                        //emp.DOB = employee.DOB;
+                        //emp.Department = employee.Department;
+                        emp.ManagerId = employee.ManagerID;
+                        emp.CompanyId = employee.CompanyID;
+                        //emp.Address = employee.Address;
+                        //emp.Contact = employee.Contact;
+
+                        response.EmployeeInfo = JsonConvert.SerializeObject(emp);
+                    }
+                }
+               
             }
             return response;
         }
@@ -156,18 +209,39 @@ namespace AmsApi.Adapter
         {
             ManageEmployeeResponse response = new ManageEmployeeResponse();
 
-            List<Employee_table> employee = new List<Employee_table>();
+            int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+            if (!empId.HasValue)
+                throw new Exception("Employee does not exist!");
+
+           // List<dynamic> list = new List<dynamic>();
+            //List<Employee_table> employee = new List<Employee_table>();
             using (var context = new Company_dbEntities())
             {
-                int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
-                if (!compId.HasValue)
-                    throw new Exception("No company found. Try again!");
+                dto dt = new dto();
 
-                employee = (from a in context.Employee_table
-                            where a.CompanyID == compId.Value
-                            select a).ToList<Employee_table>();
+                 var employee = (from a in context.Employee_table
+                                where a.EmployeeID == empId.Value 
+                                select a).FirstOrDefault();
 
-                response.EmployeeList = employee;
+                if (employee != null)
+                {
+                    dt.EmployeeName = employee.EmployeeName;
+                    dt.EmployeeID = employee.EmployeeID;
+                    dt.ManagerID = employee.ManagerID;
+                    //dt.ManagerID = employee.ManagerID;
+                    //dt.Department = employee.Department;
+                    dt.Designation = employee.Designation;
+                    //dt.DOB = employee.DOB;
+                    //dt.Address = employee.Address;
+                    //dt.Contact = employee.Contact;
+                    dt.Email = employee.Email;
+                    dt.EmployeeInfo = employee.EmployeeInfo;
+
+                }
+                
+                 
+                response.EmployeeList = JsonConvert.SerializeObject(dt);
+
             }
             return response;
         }
@@ -210,12 +284,14 @@ namespace AmsApi.Adapter
 
                 if (employee != null)
                 {
-                    employee.Designation = request.Designation;
-                    employee.ManagerID = request.ManagerID;
-                    employee.Department = request.Department;
-                    employee.DOB = request.DOB;
-                    employee.Address = request.Address;
-                    employee.Contact = request.Contact;
+                    //employee.Designation = request.Designation;
+                    //employee.ManagerID = request.ManagerID;
+                    //employee.Department = request.Department;
+                    //employee.DOB = request.DOB;
+                    //employee.Address = request.Address;
+                   // employee.Contact = request.Contact;
+                 
+                    employee.EmployeeInfo = request.EmployeeInfo;
                     employee.Email = request.Email;
                     employee.ModifiedOn = DateTime.Now;
                     employee.IsActive = true;
@@ -234,19 +310,58 @@ namespace AmsApi.Adapter
         {
             ManageEmployeeResponse response = new ManageEmployeeResponse();
             List<Employee_table> employee = new List<Employee_table>();
-
+            int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+            if (!empId.HasValue)
+                throw new Exception("Employee does not exist!");
+            List<dto> dto = new List<dto>();
             using (var context = new Company_dbEntities())
             {
                 employee = (from a in context.Employee_table
-                            where a.ManagerID == request.EmployeeID
-                            select a).ToList<Employee_table>();
+                            where a.ManagerID == empId.Value.ToString()
+                            select a).ToList();
 
                 if (employee.Count() > 0)
-                    response.ManagerEmployees = JsonConvert.SerializeObject(employee);
+                {
+                    foreach (var entry in employee)
+                    {
+                        dto d = new dto();
+                        d.EmployeeID = entry.EmployeeID;
+                        d.EmployeeName = entry.EmployeeName;
+
+                        dto.Add(d);
+                    }
+
+                    response.ManagerEmployees = JsonConvert.SerializeObject(dto);
+                }
                 else
                     response.ManagerEmployees = null;
             }
             return response;
         }
+    }
+
+    public class dto
+    {
+        public string EmployeeName { get; set; }
+        public int EmployeeID { get; set; }
+        public string CompanyName { get; set; }
+        //public string Department { get; set; }
+        public string Designation { get; set; }
+        //public DateTime? DOB { get; set; }
+        //public string Address { get; set; }
+       // public string Contact { get; set; }
+        public string Email { get; set; }
+        public string ManagerID { get; set; }
+        public string Picture { get; set; }
+        public string EmployeeInfo { get; set; }
+    }
+
+    public class employeeInfo
+    {
+        public string Department { get; set; }
+        public DateTime? DOB { get; set; }
+        public string Address { get; set; }
+        public string Contact { get; set; }
+        
     }
 }

@@ -105,11 +105,11 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        [Route("api/Employee/updateEmployee")] 
+        [Route("api/Employee/updateEmployee")]
         [HttpPost]
         public HttpResponseMessage updateEmployee(ManageEmployeeRequest request)
         {
-            HttpResponseMessage response = new HttpResponseMessage(); 
+            HttpResponseMessage response = new HttpResponseMessage();
             try
             {
                 ManageEmployeeAdapter adp = new ManageEmployeeAdapter();
@@ -124,24 +124,24 @@ namespace AmsApi.Controllers
             return response;
         }
 
-        //[Route("api/Employee/employeeDetail")]
-        //[HttpPost]
-        //public HttpResponseMessage employeeDetail(ManageEmployeeRequest request)
-        //{
-        //    HttpResponseMessage response = new HttpResponseMessage();
-        //    try
-        //    {
-        //        ManageEmployeeAdapter adp = new ManageEmployeeAdapter();
-        //        ManageEmployeeResponse result = adp.EmployeeDetail(request);
-        //        response = Request.CreateResponse(HttpStatusCode.OK, result);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        HttpError myCustomError = new HttpError(e.Message) { { "IsSuccess", false } };
-        //        return Request.CreateErrorResponse(HttpStatusCode.OK, myCustomError);
-        //    }
-        //    return response;
-        //}
+        [Route("api/Employee/employeeDetail")]
+        [HttpPost]
+        public HttpResponseMessage employeeDetail(ManageEmployeeRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageEmployeeAdapter adp = new ManageEmployeeAdapter();
+                ManageEmployeeResponse result = adp.EmployeeDetail(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception e)
+            {
+                HttpError myCustomError = new HttpError(e.Message) { { "IsSuccess", false } };
+                return Request.CreateErrorResponse(HttpStatusCode.OK, myCustomError);
+            }
+            return response;
+        }
 
         [Route("api/Employee/managerEmployees")]
         [HttpPost]
@@ -161,5 +161,6 @@ namespace AmsApi.Controllers
             }
             return response;
         }
+
     }
 }

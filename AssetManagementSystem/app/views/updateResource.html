@@ -15,10 +15,11 @@
                             <input type="text" class="form-control" ng-model="resources.IssuedTo" />-->
                             <label> Issued From </label>
                             <input type="text" class="form-control" ng-model="resources.IssuedFrom" />
-                            <label> Employee ID </label>
-                            <input type="text" class="form-control" ng-model="resources.EmployeeID" />
+                            <!--<label> Employee ID </label>
+                            <input type="text" class="form-control" ng-model="resources.EmployeeID" />-->
                             <!--<label> Is Active </label>
                             <input type="text" class="form-control" placeholder="Is Active" ng-model="resources.Active" />-->
+                            <br />
                             <label> Upload Image </label>
                             <input name="file" type="file" file-model="Picture" />
                             <br />
@@ -26,7 +27,9 @@
                         </div>
                     </form>
                 </div>
-                <h2> <b> {{status}} </b></h2>
+                <div data-ng-hide="status == ''" class="alert alert-danger">
+                    {{status}}
+                </div>
             </div>
         </div>
     </div>

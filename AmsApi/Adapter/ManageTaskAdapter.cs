@@ -13,13 +13,17 @@ namespace AmsApi.Adapter
         public ManageTaskResponse AddTask(ManageTaskRequest request)
         {
             ManageTaskResponse response = new ManageTaskResponse();
+            int? empId = AdapterHelper.GetEmployeeId(request.AssignedBy, request.Email);
+            if (!empId.HasValue)
+                throw new Exception("Employee does not exist!");
+
             using (var context = new Company_dbEntities())
             {
                 Task_table task = new Task_table();
                 task.EmployeeID = request.EmployeeID;
                 task.EmployeeName = request.EmployeeName;
                 task.Description = request.Description;
-                task.AssignedBy = request.AssignedBy;
+                task.AssignedBy = empId.Value.ToString();
                 task.EmployeeConfirm = request.EmployeeConfirm;
 
                 context.Task_table.Add(task);
@@ -34,12 +38,36 @@ namespace AmsApi.Adapter
         public ManageTaskResponse Task(ManageTaskRequest request)
         {
             ManageTaskResponse response = new ManageTaskResponse();
+            int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+            if (!empId.HasValue)
+                throw new Exception("Employee does not exist!");
             List<Task_table> task = new List<Task_table>();
+            List<task> list = new List<task>();
             using(var context = new Company_dbEntities())
             {
-                task = (from a in context.Task_table where a.EmployeeID == request.EmployeeID select a).ToList<Task_table>();
+                task = (from a in context.Task_table where a.EmployeeID == empId.Value.ToString() select a).ToList<Task_table>();
 
-                response.TaskList = task;
+                if (task != null)
+                {
+                    foreach (var entry in task)
+                    {
+                        task t = new task();
+
+                        t.EmployeeID = entry.EmployeeID;
+                        t.EmployeeName = entry.EmployeeName;
+                        t.Description = entry.Description;
+                        t.AssignedBy = entry.AssignedBy;
+                        t.EmployeeConfirm = entry.EmployeeConfirm;
+                        t.ManagerConfirm = entry.ManagerConfirm;
+
+                        list.Add(t);
+                    }
+                    response.TaskList = JsonConvert.SerializeObject(list);
+                }
+                else
+                {
+                    response.TaskList = null;
+                }
 
             }
             return response;
@@ -49,12 +77,38 @@ namespace AmsApi.Adapter
         public ManageTaskResponse TaskAssign(ManageTaskRequest request)
         {
             ManageTaskResponse response = new ManageTaskResponse();
+
+            int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+            if (!empId.HasValue)
+                throw new Exception("Employee does not exist!");
             List<Task_table> task = new List<Task_table>();
+            List<task> list = new List<task>();
             using (var context = new Company_dbEntities())
             {
-                task = (from a in context.Task_table where a.AssignedBy == request.EmployeeID select a).ToList<Task_table>();
+                task = (from a in context.Task_table where a.AssignedBy == empId.Value.ToString() select a).ToList();
 
-                response.TaskAssign = JsonConvert.SerializeObject(task);
+                if(task != null)
+                {
+                    foreach(var entry in task)
+                    {
+                        task t = new task();
+
+                        t.EmployeeID = entry.EmployeeID;
+                        t.EmployeeName = entry.EmployeeName;
+                        t.Description = entry.Description;
+                        t.EmployeeConfirm = entry.EmployeeConfirm;
+                        t.ManagerConfirm = entry.ManagerConfirm;
+
+                        list.Add(t);
+                    }
+                    response.TaskAssign = JsonConvert.SerializeObject(list);
+                }
+                else
+                {
+                    response.TaskAssign = null;
+                }
+
+                
             }
             return response;
         }
@@ -162,5 +216,16 @@ namespace AmsApi.Adapter
         }
 
         
+    }
+
+    public class task
+    {
+        public string EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+        public string Description { get; set; }
+        public string AssignedBy { get; set; }
+        public string EmployeeConfirm { get; set; }
+        public string ManagerConfirm { get; set; }
+        public bool Accept { get; set; }
     }
 }

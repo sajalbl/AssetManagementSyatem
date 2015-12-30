@@ -36,6 +36,7 @@
                         <th width="200">
                             Serial no.
                         </th>
+                        
 
                         <!--<th width="200">
                             Modified On
@@ -46,26 +47,34 @@
 
                     </tr>
                     <tbody>
-                        <tr ng-repeat="resource in resourceList | filter:query | orderBy: 'NameOfDevice'">
+                        <tr ng-repeat="resource in resourceList | filter:query | orderBy: 'Deleted'">
                             <td> {{$index + 1}}</td>
                             <td> {{resource.NameOfDevice}}</td>
                             <td> {{resource.Type}}</td>
                             <td> {{resource.IssuedFrom}}</td>
                             <td> {{resource.EmployeeID}} </td>
                             <td> {{resource.Serial}} </td>
-                            <td>
+                           
+                            <td ng-show="resource.Deleted == 0">
                                 <button class="btn btn-info" ng-click="editRow(resource)">  Edit   </button>
                             </td>
-                            <td> <button class="btn btn-info" ng-click="showImage(resource.Serial)"> Show Image </button></td>
-                            <td><button class="btn btn-danger" ng-click="remove(resource)">Delete</</button></td>
+                            <td ng-show="resource.Deleted == 0"> <button class="btn btn-info" ng-click="showImage(resource.Serial)"> Show Image </button></td>
+                            <td ng-show="resource.EmployeeID == 0 || resource.EmployeeID == null && resource.Deleted == 0"><button class="btn btn-info" ng-click="allocate(resource.Serial)"> Allocate </button></td>
+                            <td ng-show="resource.EmployeeID != null && resource.EmployeeID != 0 && resource.Deleted == 0"><button class="btn btn-info" ng-click="deallocate(resource.Serial)"> Deallocate</button></td>
+                            <td ng-show="resource.Deleted == 0"><button class="btn btn-danger" ng-click="remove(resource)"> &times; </button></td>
+                            <td ng-show="resource.Deleted == 1"><button class="btn btn-success" ng-click="restore(resource.Serial,resource.CompanyID)"> Restore </button></td>
                             
                         </tr>
                     </tbody>
-
+                    
                 </table>
 
                 
-                <h2> <b> {{status}} </b></h2>
+                <!--<div data-ng-hide="status == ''" class="alert alert-danger">
+                    {{status}}
+                </div>-->
+
+                <a href="http://localhost:58474/Downloads/Resource.csv" download><h4 style="text-align:center"> Download CSV </h4> </a>
             </div>
         </div>
     </div>
@@ -87,9 +96,27 @@
     <div class="modal-body">
         <div ng-repeat="image in imageList">
             <img ng-src="http://localhost:58474/images/{{source}}/{{image.name}}" width="250" height="400" />
-           
+
         </div>
     </div>
         
+</script>
+
+<script type="text/ng-template" id="allocate.html">
+    <div class="modal-body">
+        <h3 class="modal-title">Employee List</h3>
+        <div class="form-group">
+            <span class="ui-select">
+                <select ng-model="EmployeeID">
+                    <option value="">Select Employee ID</option>
+                    <option ng-repeat="list in employeeList" value="{{list.EmployeeID}}">{{list.EmployeeID}}</option>
+                </select>
+            </span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">Allocate</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
 </script>
 

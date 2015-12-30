@@ -1,12 +1,12 @@
 ﻿'use strict';
-app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'localStorageService', '$window', function ($scope, $rootScope, $modal, $http, localStorageService, $window) {
+app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'localStorageService', '$location', function ($scope, $rootScope, $modal, $http, localStorageService, $location) {
     var serviceBase = 'http://localhost:14597/';
     
      var employeeID = localStorageService.get("Employee");
         
     $scope.task = { "EmployeeID": $scope.EmployeeID, "EmployeeName": $scope.EmployeeName, "Description": $scope.Description };
 
-    $http.post(serviceBase + 'api/manage/checkManager', JSON.stringify(employeeID)).then(function (results) {
+    $http.post(serviceBase + 'api/Employee/checkManager', JSON.stringify(employeeID)).then(function (results) {
         if(results.data.IsManager)
         {
             $scope.manager = true;
@@ -24,7 +24,7 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
     $scope.employees = function () {
 
         var employeeID = localStorageService.get("Employee");
-        $http.post(serviceBase + 'api/manage/managerEmployees', JSON.stringify(employeeID)).then(function (results) {
+        $http.post(serviceBase + 'api/Employee/managerEmployees', JSON.stringify(employeeID)).then(function (results) {
             $scope.managerEmployees = JSON.parse(results.data.ManagerEmployees);
             console.log($scope.managerEmployees);
         });
@@ -37,7 +37,7 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
 
         
         $http.post(serviceBase + 'api/manage/TaskList', JSON.stringify(employeeID)).then(function (results) {
-            $scope.taskList = results.data.TaskList;
+            $scope.taskList = JSON.parse(results.data.TaskList);
 
             console.log($scope.taskList);
         });
@@ -47,14 +47,18 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
         
 
         $http.post(serviceBase + 'api/manage/taskAssign', JSON.stringify(employeeID)).then(function (results) {
+            if (results.data.TaskAssign != null)
+            {
+                $scope.taskPresent = true;
             $scope.taskAssign = JSON.parse(results.data.TaskAssign);
             console.log($scope.taskAssign);
+            }
         });
     };
 
     $scope.assign = function (EmployeeID, EmployeeName) {
 
-        location.href = "#/taskAssign";
+        $location.path("/taskAssign");
         var text = { "EmployeeID": EmployeeID, "EmployeeName": EmployeeName };
         localStorageService.set("assign", text);
     };

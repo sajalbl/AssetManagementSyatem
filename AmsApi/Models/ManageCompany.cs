@@ -25,5 +25,6 @@ namespace AmsApi.Models
         public int CompanyId { get; set; }
         public string ManagerList { get; set; }
         //public bool EditLinkShow { get; set; }
+        public string EmployeeList { get; set; }
     }
 }

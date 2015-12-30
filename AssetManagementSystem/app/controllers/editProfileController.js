@@ -4,18 +4,64 @@ app.controller('editProfileController', ['uploadFileService', '$scope', '$http',
     var serviceBase = 'http://localhost:14597/';
     var uploadBase = '';
 
-    $scope.employeeID = localStorageService.get("editProfile");
+    $scope.status = '';
+    $scope.employeeID = localStorageService.get("Employee");
     $scope.profile = localStorageService.get("employeeProfile");
 
+   
+
+    //$scope.employeeInfo = {
+    //    "EmployeeInfo": [{
+    //        "info": [{
+    //            "type": "info",
+    //            Address: $scope.profile.Address,
+    //            Contact: $scope.profile.Contact,
+    //            Department: $scope.profile.Department,
+    //            DOB: $scope.profile.DOB
+    //        }]
+    //    }]
+    //}
+
+    //$scope.pic = {
+    //    "EmployeeInfo": [{
+    //        "info": [{
+    //            "type": "image",
+    //            Picture: ""
+    //        }]
+    //    }]
+    //}
+
     $scope.update = function () {
-        var text = { "EmployeeID": $scope.employeeID.EmployeeID, "DOB": $scope.profile.DOB, "Address": $scope.profile.Address, "Contact": $scope.profile.Contact, "Email": $scope.profile.Email, "Picture": $scope.uploadFile.name };
+
+        //var image = { "Pict": $scope.uploadFile.name };
+
+        $scope.employeeInfo = {
+            "EmployeeInfo": [{
+                "info": [{
+                    "type": "info",
+                    Address: $scope.profile.Address,
+                    Contact: $scope.profile.Contact,
+                    Department: $scope.profile.Department,
+                    DOB: $scope.profile.DOB
+                }, {
+                    "type": "image",
+                    Picture: $scope.uploadFile.name
+                }]
+            }]
+        }
+
+        var info = JSON.stringify($scope.employeeInfo);
+       // var image = JSON.stringify($scope.pic);
+       var text = { "EmployeeName": $scope.employeeID.EmployeeName,"EmployeeInfo": info, "Email": $scope.profile.Email };
         
-        uploadFileService.fileUpload($scope.employeeID.EmployeeID, $scope.uploadFile, uploadBase).then(function (results) {
+       uploadFileService.fileUpload($scope.profile.EmployeeID, $scope.uploadFile, uploadBase).then(function (result) {
 
-        });
+           
+       });
 
-        $http.post(serviceBase + 'api/manage/updateEmployee', JSON.stringify(text)).then(function (results) {
-            $scope.status = "Details Updated Successfully";
+       $http.post(serviceBase + 'api/Employee/updateEmployee', JSON.stringify(text)).then(function (results) {
+ 
+           $scope.status = "Details Updated Successfully";
         });
 
     };

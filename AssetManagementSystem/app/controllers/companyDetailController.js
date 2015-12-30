@@ -45,7 +45,7 @@ app.controller('companyDetailController', ['$rootScope', '$location', '$modal', 
 
 
     $scope.editRow = function (companyInfo) {
-        location.href = "#/companyEdit";
+        $location.path("/companyEdit");
         localStorageService.set("CompanyInfo", companyInfo);
     };
 

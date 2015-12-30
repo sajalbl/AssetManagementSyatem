@@ -7,7 +7,7 @@ app.controller('taskAssignController', ['$scope', '$rootScope', '$modal', '$http
     $scope.detail = { "EmployeeID": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.Description };
 
     $scope.submit = function () {
-            var text = { "EmployeeID": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.detail.Description , "AssignedBy": employeeID.EmployeeID ,"EmployeeConfirm": "Pending"};
+        var text = { "EmployeeID": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.detail.Description, "EmployeeConfirm": "Pending", "Email": employeeID.Email, "AssignedBy": employeeID.EmployeeName };
 
             $http.post(serviceBase + 'api/manage/task', JSON.stringify(text)).then(function (results) {
 

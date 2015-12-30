@@ -17,7 +17,7 @@
                             <tr ng-repeat="employees in managerEmployees">
                                 <td> {{employees.EmployeeID}} </td>
                                 <td> {{employees.EmployeeName}} </td>
-                                <td> <button class="btn btn-info" ng-click="assign(employees.EmployeeID,employees.EmployeeName)"> Assign Task </button></td>
+                                <td> <button class="btn btn-info btn-group-justified" ng-click="assign(employees.EmployeeID,employees.EmployeeName)"> Assign Task </button></td>
                             </tr>
                         </tbody>
                     </table> 
@@ -60,15 +60,19 @@
                                 <td> {{tasks.Description}} </td>
                                 <td> {{tasks.EmployeeConfirm}} </td>
                                 <td> {{tasks.ManagerConfirm}} </td>
-                                <td> <button class="btn btn-info" ng-click="approved(tasks.EmployeeID,tasks.Description)"> Approved </button>
-                                    <button class="btn btn-info" ng-click="decline(tasks.EmployeeID,tasks.Description)"> Decline </button> </td>
-                                <td> <button class="btn btn-danger" ng-click="deleteTask(tasks.EmployeeID,tasks.Description)"> &times; </button></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" ng-click="approved(tasks.EmployeeID,tasks.Description)"> Approve </button>
+                                        <button class="btn btn-info" ng-click="decline(tasks.EmployeeID,tasks.Description)"> Decline </button>
+                                    </div>
+                                </td>
+                                <td> <button class="btn btn-danger" ng-click="deleteTask(tasks.EmployeeID,tasks.Description)"> &times;  </button></td>
                             </tr>
                         </tbody>
 
                     </table>
                     <!--<h4> {{approval}} </h4>-->
-                    
+
                 </div>
             </div>
         </div>
@@ -101,6 +105,10 @@
                             Approval
                         </th>
 
+                        <th width="200">
+
+                        </th>
+
                     </tr>
                     <tbody>
                         <tr ng-repeat="task in taskList">
@@ -112,14 +120,16 @@
                             <td> {{task.EmployeeConfirm}} </td>
                             <td> {{task.ManagerConfirm}} </td>
                             <td ng-hide="task.EmployeeConfirm == 'Completed' && task.ManagerConfirm == 'Approved'">
-                                <span> <input type="radio" ng-click="completed(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> Completed </span>
-                                <span> <input type="radio" ng-click="pending(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> Pending </span>
+                                <form class="form-group"><input type="radio" class="ui-radio" ng-click="completed(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> &nbsp; &nbsp; Completed </form> 
+                                <form class="form-group"><input type="radio" class="ui-radio" ng-click="pending(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> &nbsp; &nbsp; Pending </form>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <span><button class="btn btn-info" ng-click="update()"> Update </button></span>
-                <!--<h5> {{stat}} </h5>-->
+                <!--<div data-ng-hide="stat == ''" class="alert alert-danger">
+                    {{stat}}
+                </div>-->
             </div>
         </div>
     </div>

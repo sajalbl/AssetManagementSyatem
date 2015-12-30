@@ -1,21 +1,33 @@
 ﻿'use strict';
-app.controller('employeeController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
+app.controller('employeeController', ['$scope', '$http', '$location', 'localStorageService', function ($scope, $http, $location, localStorageService) {
     var serviceBase = 'http://localhost:14597/';
+    var service = 'http://localhost:58474/';
     $scope.query = "";
 
     var employee = localStorageService.get("Company");
 
-    $http.post(serviceBase + 'api/manage/employeeDetail', JSON.stringify(employee)).then(function (results) {
+    var text = { "CompanyName": employee.CompanyName, "Employee": true };
 
-        $scope.employeeList = JSON.parse(results.data.EmployeeDetail);
+    $http.post(serviceBase + 'api/Employee/employeeDetail', JSON.stringify(employee)).then(function (results) {
+
+        $scope.employeeList = JSON.parse(results.data.EmployeeInfo);
         console.log($scope.employeeList);
     });
 
-    $scope.showProfile = function (EmployeeID) {
-        location.href = "#/profile";
+    $http.post(service + 'api/manage/downloadCsv', JSON.stringify(text)).then(function (results) {
 
-        var detail = {"EmployeeID": EmployeeID };
-        localStorageService.set("employee",detail);
+        if(results.data.csvDowloaded == false)
+        {
+            $scope.message = "Data not found";
+        }
+
+    });
+
+    $scope.showProfile = function (EmployeeName,Email) {
+        $location.path("/profile");
+
+        var detail = {"EmployeeName": EmployeeName, "Email": Email };
+        localStorageService.set("employeeDetail",detail);
     };
 
 }]);

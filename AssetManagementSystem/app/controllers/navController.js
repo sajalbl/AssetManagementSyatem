@@ -28,6 +28,7 @@ app.controller('navController', ['$scope', '$rootScope', '$route', 'localStorage
     $scope.$on('CompanyLogin', function (event, data) {
         if (data != undefined && data != '') {
             localStorageService.set("Company", data);
+            localStorageService.set("EditLink", true);
             $scope.companyLogin = true;
             $scope.employeeLogin = false;
         };

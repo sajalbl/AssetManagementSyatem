@@ -17,7 +17,7 @@ namespace AmsApi.Models
         public int ResourceID { get; set; }
         public string NameOfDevice { get; set; }
         public int CompanyID { get; set; }
-        public int EmployeeID { get; set; }
+        public Nullable<int> EmployeeID { get; set; }
         public string Type { get; set; }
         public string IssuedTo { get; set; }
         public string IssuedFrom { get; set; }
@@ -25,7 +25,8 @@ namespace AmsApi.Models
         public string Picture { get; set; }
         public string IsActive { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public Nullable<bool> Deleted { get; set; }
     
-        public virtual Employee_table Employee_table { get; set; }
+        public virtual Company_table Company_table { get; set; }
     }
 }
