@@ -63,6 +63,10 @@ namespace AssetManagementSystem.Controllers
 
                             dynamic item = JsonConvert.DeserializeObject(fields);
 
+                           // var resource = (from a in context.Resources_table where  select a).FirstOrDefault<Resources_table>();
+
+                            //if(resource == null)
+
                             Resources_table res = new Resources_table();
 
                             res.CompanyID = comp.CompanyID;

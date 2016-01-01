@@ -88,7 +88,7 @@ namespace AmsApi.Adapter
                             resourceDTO r = new resourceDTO();
                             r.NameOfDevice = entry.NameOfDevice;
                             r.Type = entry.Type;
-                            r.IssuedFrom = entry.IssuedFrom.ToString();
+                            //r.IssuedFrom = entry.IssuedFrom.ToString();
                             r.EmployeeID = entry.EmployeeID;
                             r.Serial = entry.Serial;
                             r.CompanyID = entry.CompanyID;
@@ -237,7 +237,7 @@ namespace AmsApi.Adapter
                         resourceDTO r = new resourceDTO();
                         r.NameOfDevice = entry.NameOfDevice;
                         r.Type = entry.Type;
-                        r.IssuedFrom = entry.IssuedFrom.ToString();
+                       // r.IssuedFrom = entry.IssuedFrom.ToString();
                         
                         res.Add(r);
                     }

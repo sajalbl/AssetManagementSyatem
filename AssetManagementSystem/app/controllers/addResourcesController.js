@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('addResourcesController', ['$scope', '$http', 'localStorageService', function ($scope, $http, localStorageService) {
+app.controller('addResourcesController', ['uploadFileService', '$scope', '$http', 'localStorageService', function (uploadFileService, $scope, $http, localStorageService) {
     var serviceBase = 'http://localhost:14597/';
     var service = 'http://localhost:58474/';
     var uploadBase = '';
@@ -38,7 +38,7 @@ app.controller('addResourcesController', ['$scope', '$http', 'localStorageServic
 
         uploadFileService.CSVUpload($scope.csvFile, uploadBase).then(function (results) {
 
-            var text = { "CompanyName": $scope.companyName, "FileName": $scope.csvFile.name };
+            var text = { "CompanyName": $scope.companyName.CompanyName, "FileName": $scope.csvFile.name };
         $http.post(service + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
 
             if(results.data.csvUploaded)
