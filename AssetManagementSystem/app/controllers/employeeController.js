@@ -5,10 +5,13 @@ app.controller('employeeController', ['$scope', '$http', '$location', 'localStor
     $scope.query = "";
 
     var employee = localStorageService.get("Company");
+    var prefix = localStorageService.get("CompanyInfo");
+
+    var data = { "CompanyName": employee.CompanyName, "Prefix": prefix.Prefix };
 
     var text = { "CompanyName": employee.CompanyName, "Employee": true };
 
-    $http.post(serviceBase + 'api/Employee/employeeDetail', JSON.stringify(employee)).then(function (results) {
+    $http.post(serviceBase + 'api/Employee/employeeDetail', JSON.stringify(data)).then(function (results) {
 
         $scope.employeeList = JSON.parse(results.data.EmployeeInfo);
         console.log($scope.employeeList);
@@ -23,11 +26,39 @@ app.controller('employeeController', ['$scope', '$http', '$location', 'localStor
 
     });
 
-    $scope.showProfile = function (EmployeeName,Email) {
+    $scope.show = function () {
+        $http.post(serviceBase + 'api/Employee/employeeDetail', JSON.stringify(data)).then(function (results) {
+
+            $scope.employeeList = JSON.parse(results.data.EmployeeInfo);
+            console.log($scope.employeeList);
+        });
+
+        $http.post(service + 'api/manage/downloadCsv', JSON.stringify(text)).then(function (results) {
+
+            if (results.data.csvDowloaded == false) {
+                $scope.message = "Data not found";
+            }
+
+        });
+    };
+
+
+    $scope.showProfile = function (EmployeeID) {
         $location.path("/profile");
 
-        var detail = {"EmployeeName": EmployeeName, "Email": Email };
+        var detail = { "UserName": EmployeeID };
         localStorageService.set("employeeDetail",detail);
     };
+
+    //$scope.delete = function (employee) {
+       
+    //    var text = { "UserName": employee.EmployeeID, "EmployeeName": employee.EmployeeName, "Email": employee.Email, "Designation": employee.Designation, "ManagerID": employee.ManagerID, "CompanyID": employee.CompanyID };
+
+    //    $http.post(serviceBase + 'api/Employee/deleteEmployee', JSON.stringify(text)).then(function (results) {
+
+    //        $scope.show();
+    //    });
+    //};
+
 
 }]);

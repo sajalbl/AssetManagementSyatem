@@ -1,13 +1,14 @@
 ﻿'use strict';
-app.controller('newEmployeeController', ['uploadFileService', '$scope', '$http', 'localStorageService', function (uploadFileService, $scope, $http, localStorageService) {
+app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope', '$http', 'localStorageService', function (uploadFileService, $modal, $scope, $http, localStorageService) {
 
     var serviceBase = 'http://localhost:14597/';
     var service = 'http://localhost:58474/';
     var uploadBase = "";
     $scope.message = "";
-    
+    $scope.status = false;
     
     var company = localStorageService.get("Company");
+    var prefix = localStorageService.get("CompanyInfo");
     
     //$scope.companyName = localStorageService.get("forEmployee");
 
@@ -29,7 +30,7 @@ app.controller('newEmployeeController', ['uploadFileService', '$scope', '$http',
         }]
     }
 
-    $scope.employee = {CompanyName:company.CompanyName, EmployeeName: "", ManagerID: "", Designation: "", Email: "" };
+    $scope.employee = {CompanyName:company.CompanyName, EmployeeName: "", ManagerID: "", Designation: "", Email: "", Prefix: prefix.Prefix };
 
     
 
@@ -63,8 +64,8 @@ app.controller('newEmployeeController', ['uploadFileService', '$scope', '$http',
         $scope.employee.CompanyName = company.CompanyName;
 
         $http.post(serviceBase + 'api/Employee/newEmployee', JSON.stringify($scope.employee)).then(function (results) {
-            if (results.data.IsEmployeeCreated) {
-                $scope.message = "Details added successfully";
+            if (results.data.EmployeeID != null) {
+                $scope.message = "Employee ID - " + results.data.EmployeeID;
             }
             else {
                 $scope.message = "Employee already Exist";
@@ -75,19 +76,42 @@ app.controller('newEmployeeController', ['uploadFileService', '$scope', '$http',
     $scope.update = function () {
         uploadFileService.CSVUpload($scope.csvFile, uploadBase).then(function (results) {
 
-            var text = { "CompanyName": company.CompanyName, "FileName": $scope.csvFile.name,"Employee": true };
-             $http.post(service + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
-                 
-                 if(results.data.csvUploaded)
-                 {
-                     $scope.message = "Details added successfully";
-                 }
+            var text = { "CompanyName": company.CompanyName, "FileName": $scope.csvFile.name, "Employee": true };
 
-              });
-                
+            $http.post(service + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
+
+                if (results.data.DuplicateEmployee != null) {
+                    $scope.replaceTable = true;
+                    $scope.replaceList = JSON.parse(results.data.DuplicateEmployee);
+                }
+                else {
+                    $scope.message = "Details added successfully";
+
+                }
+            });
 
         });
-    };
 
+    };            
+                       
+         $scope.rep = function (list) {
+
+                 var text = { "UserName": list.UserName, "EmployeeName": list.EmployeeName, "CompanyName": list.CompanyName, "ManagerID": list.ManagerID, "Designation": list.Designation, "Email": list.Email };
+                             
+                     $http.post(serviceBase + 'api/Employee/replaceEmployee', JSON.stringify(text)).then(function (results) {
+
+                         if(results.data.IsEmployeeReplaced)
+                             {
+                             $scope.message = "Details added successfully";
+                             }
+
+                 });
+                            
+         };
+
+         $scope.skip = function () {
+             $scope.message = "Skipped";
+         }
+    
 
 }]);

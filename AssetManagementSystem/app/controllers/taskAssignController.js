@@ -4,10 +4,10 @@ app.controller('taskAssignController', ['$scope', '$rootScope', '$modal', '$http
 
     $scope.task = localStorageService.get("assign");
     var employeeID = localStorageService.get("Employee");
-    $scope.detail = { "EmployeeID": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.Description };
+    $scope.detail = { "UserName": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.Description };
 
     $scope.submit = function () {
-        var text = { "EmployeeID": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.detail.Description, "EmployeeConfirm": "Pending", "Email": employeeID.Email, "AssignedBy": employeeID.EmployeeName };
+        var text = { "UserName": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.detail.Description, "EmployeeConfirm": "Pending", "Email": employeeID.Email, "AssignedBy": employeeID.UserName };
 
             $http.post(serviceBase + 'api/manage/task', JSON.stringify(text)).then(function (results) {
 

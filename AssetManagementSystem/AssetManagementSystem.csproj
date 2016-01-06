@@ -151,22 +151,22 @@
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="packages.config" />
-    <EntityDeploy Include="Models\Company_DB.edmx">
+    <EntityDeploy Include="Models\CompanyDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Company_DB.Designer.cs</LastGenOutput>
+      <LastGenOutput>CompanyDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Company_DB.Context.tt">
+    <Content Include="Models\CompanyDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Company_DB.edmx</DependentUpon>
-      <LastGenOutput>Company_DB.Context.cs</LastGenOutput>
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
+      <LastGenOutput>CompanyDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Company_DB.edmx.diagram">
-      <DependentUpon>Company_DB.edmx</DependentUpon>
+    <Content Include="Models\CompanyDB.edmx.diagram">
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Company_DB.tt">
+    <Content Include="Models\CompanyDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Company_DB.edmx</DependentUpon>
-      <LastGenOutput>Company_DB.cs</LastGenOutput>
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
+      <LastGenOutput>CompanyDB.cs</LastGenOutput>
     </Content>
     <None Include="scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="scripts\jquery-2.1.3.js" />
@@ -192,33 +192,33 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Company_DB.Context.cs">
+    <Compile Include="Models\CompanyDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Company_DB.Context.tt</DependentUpon>
+      <DependentUpon>CompanyDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Company_DB.cs">
+    <Compile Include="Models\CompanyDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Company_DB.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Company_DB.Designer.cs">
+    <Compile Include="Models\CompanyDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Company_DB.edmx</DependentUpon>
+      <DependentUpon>CompanyDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Company_table.cs">
-      <DependentUpon>Company_DB.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\csvUpload.cs" />
     <Compile Include="Models\Employee_table.cs">
-      <DependentUpon>Company_DB.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Resources_table.cs">
-      <DependentUpon>Company_DB.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Task_table.cs">
-      <DependentUpon>Company_DB.tt</DependentUpon>
+      <DependentUpon>CompanyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

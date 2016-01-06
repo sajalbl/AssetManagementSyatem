@@ -9,7 +9,7 @@ app.controller('loginController', ['$scope', '$http', 'localStorageService', '$r
     $scope.companyLogin = true;
 
     $scope.company = { name: '' };
-    $scope.employee = { name: '', email: '' };
+    $scope.employee = { UserName: '', email: '' };
 
     $scope.authStatus = [
             { Name: 'Company', Value: 0, Checked: true },
@@ -70,7 +70,7 @@ app.controller('loginController', ['$scope', '$http', 'localStorageService', '$r
                 });
             }
             else {
-                var employee = { "Email": $scope.employee.email, "EmployeeName": $scope.employee.name };
+                var employee = { "Email": $scope.employee.email, "UserName": $scope.employee.UserName };
                 $http.post(serviceBase + 'api/Employee/searchEmployee', JSON.stringify(employee)).then(function (results) {
                     if (results.data.IsSuccess != false && results.data.IsEmployeeExist) {
                         localStorageService.set("EmployeeInfo", results.data.EmployeeInfo);

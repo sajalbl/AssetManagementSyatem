@@ -13,6 +13,7 @@ namespace AmsApi.Models
         public string Address { get; set; }
         public string Contact { get; set; }
         public string Email { get; set; }
+        public string Prefix { get; set; }
     }
 
     public class ManageCompanyResponse

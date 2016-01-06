@@ -2,9 +2,11 @@
 app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'localStorageService', '$location', function ($scope, $rootScope, $modal, $http, localStorageService, $location) {
     var serviceBase = 'http://localhost:14597/';
     
-     var employeeID = localStorageService.get("Employee");
-        
-    $scope.task = { "EmployeeID": $scope.EmployeeID, "EmployeeName": $scope.EmployeeName, "Description": $scope.Description };
+    var employeeID = localStorageService.get("Employee");
+    //var prefix = localStorageService.get("CompanyInfo");
+
+    
+    //$scope.task = { "EmployeeID": $scope.EmployeeID, "EmployeeName": $scope.EmployeeName, "Description": $scope.Description };
 
     $http.post(serviceBase + 'api/Employee/checkManager', JSON.stringify(employeeID)).then(function (results) {
         if(results.data.IsManager)
@@ -23,7 +25,10 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
 
     $scope.employees = function () {
 
-        var employeeID = localStorageService.get("Employee");
+        //var text = { "EmployeeName": employeeID.EmployeeName, "Email": employeeID.Email, "Prefix": prefix.Prefix };
+
+        //var employeeID = localStorageService.get("Employee");
+        
         $http.post(serviceBase + 'api/Employee/managerEmployees', JSON.stringify(employeeID)).then(function (results) {
             $scope.managerEmployees = JSON.parse(results.data.ManagerEmployees);
             console.log($scope.managerEmployees);
@@ -86,7 +91,7 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
     //};
 
     $scope.approved = function (EmployeeID, Description) {
-        var text = { "EmployeeID": EmployeeID, "Description": Description, "ManagerConfirm": "Approved" , "Accept": true };
+        var text = { "UserName": EmployeeID, "Description": Description, "ManagerConfirm": "Approved" , "Accept": true };
        
         $http.post(serviceBase + 'api/manage/approval', JSON.stringify(text)).then(function (results) {
             if(results.data.ConfirmManager)
@@ -105,7 +110,7 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
     };
 
     $scope.decline = function (EmployeeID, Description) {
-        var text = { "EmployeeID": EmployeeID, "Description": Description, "ManagerConfirm": "Declined" , "Accept": false};
+        var text = { "UserName": EmployeeID, "Description": Description, "ManagerConfirm": "Declined", "Accept": false };
 
         $http.post(serviceBase + 'api/manage/approval', JSON.stringify(text)).then(function (results) {
             if (results.data.ConfirmManager)
@@ -141,14 +146,14 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
 
     $scope.completed = function (EmployeeID,Description,AssignedBy,EmployeeConfirm) {
         EmployeeConfirm = "Completed";
-        var text = {"EmployeeID": EmployeeID , "Description": Description , "AssignedBy": AssignedBy , "EmployeeConfirm": EmployeeConfirm}; 
+        var text = { "UserName": EmployeeID, "Description": Description, "AssignedBy": AssignedBy, "EmployeeConfirm": EmployeeConfirm };
 
         localStorageService.set("status", text);
     };
 
     $scope.pending = function (EmployeeID, Description, AssignedBy, EmployeeConfirm) {
         EmployeeConfirm = "Pending";
-        var text = { "EmployeeID": EmployeeID, "Description": Description, "AssignedBy": AssignedBy, "EmployeeConfirm": EmployeeConfirm };
+        var text = { "UserName": EmployeeID, "Description": Description, "AssignedBy": AssignedBy, "EmployeeConfirm": EmployeeConfirm };
 
         localStorageService.set("status", text);
     };
@@ -187,7 +192,7 @@ app.controller('taskController', ['$scope', '$rootScope', '$modal', '$http', 'lo
         //var update = JsonConvert.SerializeObject(text);
 
     $scope.deleteTask = function (EmployeeID, Description) {
-        var text = { "EmployeeID": EmployeeID, "Description": Description };
+        var text = { "UserName": EmployeeID, "Description": Description };
         $scope.modalConfirmationResult = 'cancel';
 
         var modalInstance = $modal.open({

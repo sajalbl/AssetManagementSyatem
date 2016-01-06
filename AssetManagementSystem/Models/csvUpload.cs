@@ -31,5 +31,7 @@ namespace AssetManagementSystem.Models
         public bool csvUploaded { get; set; }
 
         public bool csvDowloaded { get; set; }
+
+        public string DuplicateEmployee { get; set; }
     }
 }

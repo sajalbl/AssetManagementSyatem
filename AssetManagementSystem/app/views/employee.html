@@ -51,7 +51,8 @@
                             <td> {{employee.Designation}}</td>
                             <td> {{employee.ManagerID}}</td>
                             
-                            <td> <button class="btn btn-info" ng-click="showProfile(employee.EmployeeName,employee.Email)"> Profile </button></td>
+                            <td> <button class="btn btn-info" ng-click="showProfile(employee.EmployeeID)"> Profile </button></td>
+                            <!--<td ng-show="employee.count == 1"> <button class="btn btn-danger" ng-click="delete(employee)"> Delete </button></td>-->
                         </tr>
                     </tbody>
 

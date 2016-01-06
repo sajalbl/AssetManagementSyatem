@@ -17,7 +17,7 @@ namespace AmsApi.Models
         public int ResourceID { get; set; }
         public string NameOfDevice { get; set; }
         public int CompanyID { get; set; }
-        public Nullable<int> EmployeeID { get; set; }
+        public string EmployeeID { get; set; }
         public string Type { get; set; }
         public string IssuedTo { get; set; }
         public string IssuedFrom { get; set; }

@@ -93,6 +93,7 @@ namespace AmsApi.Adapter
                             r.Serial = entry.Serial;
                             r.CompanyID = entry.CompanyID;
                             r.Deleted = entry.Deleted;
+                            r.Picture = entry.Picture;
                             res.Add(r);
                     }
                 
@@ -115,7 +116,7 @@ namespace AmsApi.Adapter
                 {
                     //comp = new Resources_table();
                     comp.Type = request.Type;
-                    comp.IssuedTo = request.IssuedTo.ToShortDateString();
+                    //comp.IssuedTo = request.IssuedTo.ToShortDateString();
                     comp.IssuedFrom = request.IssuedFrom.ToShortDateString();
                     //comp.Picture = request.Picture;
                 }
@@ -219,16 +220,16 @@ namespace AmsApi.Adapter
         public ManageResourcesResponse ResourceAllocated(ManageResourcesRequest request)
         {
             ManageResourcesResponse response = new ManageResourcesResponse();
-            int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
-            if (!empId.HasValue)
-                throw new Exception("Employee does not exist!");
+            //int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+            //if (!empId.HasValue)
+            //    throw new Exception("Employee does not exist!");
 
             List<resourceDTO> res = new List<resourceDTO>();
             List<Resources_table> resource = new List<Resources_table>();
             using (var context = new Company_dbEntities())
             {
 
-                resource = (from a in context.Resources_table where a.EmployeeID == empId.Value && a.Deleted == false select a).ToList();
+                resource = (from a in context.Resources_table where a.EmployeeID == request.UserName && a.Deleted == false select a).ToList();
 
                 if (resource != null)
                 {
@@ -237,6 +238,7 @@ namespace AmsApi.Adapter
                         resourceDTO r = new resourceDTO();
                         r.NameOfDevice = entry.NameOfDevice;
                         r.Type = entry.Type;
+                        r.IssuedTo = entry.IssuedTo;
                        // r.IssuedFrom = entry.IssuedFrom.ToString();
                         
                         res.Add(r);
@@ -281,7 +283,8 @@ namespace AmsApi.Adapter
                 {
                     if(request.Allocate == true)
                     {
-                        alloc.EmployeeID = request.EmployeeID;
+                        alloc.EmployeeID = request.UserName;
+                        alloc.IssuedTo = DateTime.Now.ToString();
                         context.SaveChanges();
                         response.allocated = true;
                     }
@@ -289,6 +292,7 @@ namespace AmsApi.Adapter
                     else
                     {
                         alloc.EmployeeID = null;
+                        alloc.IssuedTo = DateTime.Now.ToString();
                         context.SaveChanges();
                         response.allocated = false;
                     }
@@ -309,9 +313,9 @@ namespace AmsApi.Adapter
         public string CompanyName { get; set; }
         public string NameOfDevice { get; set; }
         public string Type { get; set; }
-        public DateTime IssuedTo { get; set; }
+        public string IssuedTo { get; set; }
         public string IssuedFrom { get; set; }
-        public int? EmployeeID { get; set; }
+        public string EmployeeID { get; set; }
         public string Serial { get; set; }
         public string Picture { get; set; }
         public int CompanyID { get; set; }

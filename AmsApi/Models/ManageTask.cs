@@ -7,7 +7,7 @@ namespace AmsApi.Models
 {
     public class ManageTaskRequest
     {
-        public string EmployeeID { get; set; }
+        public string UserName { get; set; }
         public string EmployeeName { get; set; }
         public string Description { get; set; }
         public string AssignedBy { get; set; }

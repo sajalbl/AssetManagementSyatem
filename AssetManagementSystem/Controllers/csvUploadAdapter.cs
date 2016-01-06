@@ -20,6 +20,9 @@ namespace AssetManagementSystem.Controllers
         public csvUploadResponse ParseCSV(csvUploadRequest request)
         {
             csvUploadResponse response = new csvUploadResponse();
+
+            List<dto> list = new List<dto>();
+            dto dt = new dto();
             
             List<dynamic> data = new List<dynamic>();
 
@@ -38,21 +41,51 @@ namespace AssetManagementSystem.Controllers
                         dynamic fields = JsonConvert.SerializeObject(entry.Data);
 
                         dynamic item = JsonConvert.DeserializeObject(fields);
+
+                        dt.UserName = item.UserName;
+                        dt.Email = item.Email;
                         
-                        Employee_table emp = new Employee_table();
+
+                        var emp = (from a in context.Employee_table where a.UserName == dt.UserName && a.Email == dt.Email select a).FirstOrDefault();
+
+                        if(emp == null)
+                        { 
+                        emp = new Employee_table();
 
                         emp.CompanyID = comp.CompanyID;
                         emp.EmployeeName = item.EmployeeName;
                         emp.Email = item.Email;
                         emp.ManagerID = item.ManagerID;
                         emp.Designation = item.Designation;
+                        emp.UserName = item.UserName;
                         emp.ModifiedOn = DateTime.Now;
                         emp.IsActive = true;
+
+                        var company = (from a in context.Company_table where a.CompanyID == comp.CompanyID select a).FirstOrDefault();
+
+                        company.EmployeeCount++;
 
                         context.Employee_table.Add(emp);
                         
                         context.SaveChanges();
+                        }
+                        else
+                        {
+                            dto d = new dto();
+
+                            d.UserName = item.UserName;
+                            d.Email = item.Email;
+                            d.EmployeeName = item.EmployeeName;
+                            d.CompanyName = item.CompanyName;
+                            d.Designation = item.Designation;
+                            d.ManagerID = item.ManagerID;
+
+                            list.Add(d);
+                        }
+                       
                     }
+                    response.DuplicateEmployee = JsonConvert.SerializeObject(list);
+    
                     }
 
                     else
@@ -77,6 +110,9 @@ namespace AssetManagementSystem.Controllers
                             res.ModifiedOn = DateTime.Now;
                             res.Deleted = false;
                             //res.IsActive = true;
+                             var company = (from a in context.Company_table where a.CompanyID == comp.CompanyID select a).FirstOrDefault();
+
+                            company.ResourceCount++;
 
                             context.Resources_table.Add(res);
 
@@ -340,5 +376,15 @@ namespace AssetManagementSystem.Controllers
         //        searchDataObject.Add(propName, fieldValue);
         //    }
         //}
+    }
+
+    public class dto
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string EmployeeName { get; set; }
+        public string CompanyName { get; set; }
+        public string Designation { get; set; }
+        public string ManagerID { get; set; }
     }
 }

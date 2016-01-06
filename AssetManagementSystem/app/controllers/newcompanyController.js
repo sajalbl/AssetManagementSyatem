@@ -5,7 +5,7 @@ app.controller('newCompanyController', ['$scope', '$http', function ($scope, $ht
     target.addClass('body-wide');
 
     var serviceBase = 'http://localhost:14597/';
-    $scope.company = { CompanyName: "", OwnerName: "", Address: "", Contact: "", Email: "" };
+    $scope.company = { CompanyName: "", OwnerName: "", Address: "", Contact: "", Email: "", Prefix:"" };
     $scope.message = '';
 
     $scope.submit = function () {
@@ -13,13 +13,13 @@ app.controller('newCompanyController', ['$scope', '$http', function ($scope, $ht
         if (valid)
             //var text = { "CompanyName": $scope.company.CompanyName, "OwnerName": $scope.company.OwnerName, "Address": $scope.company.Address, "Contact": $scope.company.Contact, "Email": $scope.company.Email };
             $http.post(serviceBase + 'api/Company/newCompany', JSON.stringify($scope.company)).then(function (results) {
-            if (results.data.IsSuccess != false && results.data.IsCompanyCreated)
+            if (results.data.IsCompanyCreated)
             {
                 $scope.message = "Company Details added Successfully";
-                $scope.company = { CompanyName: "", OwnerName: "", Address: "", Contact: "", Email: "" };
+                $scope.company = { CompanyName: "", OwnerName: "", Address: "", Contact: "", Email: "", Prefix:"" };
             }
             else {
-                $scope.message = "Try again.";
+                $scope.message = "Prefix already exist";
             }
         });
     };

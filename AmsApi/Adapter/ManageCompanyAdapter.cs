@@ -43,7 +43,11 @@ namespace AmsApi.Adapter
                 {
                     throw new Exception("Company Name already Exists. Try another name.");
                 }
-                var comp = new Company_table();
+
+                var comp = (from a in context.Company_table where a.Prefix == request.Prefix select a).FirstOrDefault();
+                if(comp == null)
+                { 
+                 comp = new Company_table();
                 comp.CompanyName = request.CompanyName;
                 comp.OwnerName = request.OwnerName;
                 comp.Address = request.Address;
@@ -51,6 +55,7 @@ namespace AmsApi.Adapter
                 comp.EmployeeCount = 0;
                 comp.ResourceCount = 0;
                 comp.Email = request.Email;
+                comp.Prefix = request.Prefix;
                 comp.ModifiedOn = DateTime.Now;
                 comp.IsActive = true;
 
@@ -59,6 +64,12 @@ namespace AmsApi.Adapter
 
                 response.IsCompanyCreated = true;
                 response.CompanyId = comp.CompanyID;
+                }
+
+                else
+                {
+                    response.IsCompanyCreated = false;
+                }
             }
             return response;
         }
@@ -93,6 +104,7 @@ namespace AmsApi.Adapter
                     comp.EmployeeCount = company.EmployeeCount;
                     comp.ResourceCount = company.ResourceCount;
                     comp.OwnerName = company.OwnerName;
+                    comp.Prefix = company.Prefix;
 
                     response.CompanyInfo = JsonConvert.SerializeObject(comp);
                 }
@@ -121,6 +133,7 @@ namespace AmsApi.Adapter
                     comp.Address = request.Address;
                     comp.Contact = request.Contact;
                     comp.Email = request.Email;
+                    //comp.Prefix = "BL_";
                     
                 }
 
@@ -181,7 +194,7 @@ namespace AmsApi.Adapter
                                 select new
                                 {
                                     EmployeeName = a.EmployeeName,
-                                    EmployeeID = a.EmployeeID,
+                                    EmployeeID = a.UserName,
                                     CompanyID = a.CompanyID,
                                     ManagerID = a.ManagerID,
                                     Designation = a.Designation,
@@ -236,22 +249,34 @@ namespace AmsApi.Adapter
                     throw new Exception("No company found. Try again!");
 
                 //  List<Employee_table> managers = new List<Employee_table>();
-
+                List<employee> emp = new List<employee>();
                 //Add FK bw employee and comapny table using company Id, redo LINQ for this- DONE!
-                var employee = (from a in context.Employee_table
+                var emplo = (from a in context.Employee_table
                                 where a.CompanyID == compId
-                                select new
-                                {
-                                    EmployeeID = a.EmployeeID
-                                }).ToList();
+                                select a).ToList();
 
+                foreach(var entry in emplo)
+                {
+                    employee e = new employee();
+
+                    e.UserName = entry.UserName;
+
+                    emp.Add(e);
+                }
                 //dynamic manList = new ExpandoObject();
                 //manList.Managers = managers;
 
-                response.EmployeeList = JsonConvert.SerializeObject(employee);
+                response.EmployeeList = JsonConvert.SerializeObject(emp);
             }
             return response;
         }
+
+        
+    }
+
+    public class employee
+    {
+        public string UserName { get; set; }
     }
 
 }

@@ -30,9 +30,8 @@ namespace AssetManagementSystem.Models
         public Nullable<int> EmployeeCount { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string Prefix { get; set; }
     
-        public virtual Company_table Company_table1 { get; set; }
-        public virtual Company_table Company_table2 { get; set; }
         public virtual ICollection<Employee_table> Employee_table { get; set; }
         public virtual ICollection<Resources_table> Resources_table { get; set; }
     }

@@ -161,10 +161,10 @@ app.controller('resourcesController', ['$rootScope', '$scope', '$modal', '$http'
         })
 
         //$scope.employee = { EmployeeID: "" };
-
+        
         $scope.ok = function () {
            
-            $scope.employee = {"EmployeeID": $scope.EmployeeID, "Serial": ser, "Allocate": true };
+            $scope.employee = {"UserName": $scope.EmployeeID, "Serial": ser, "Allocate": true };
 
             $http.post(serviceBase + 'api/manage/allocate', JSON.stringify($scope.employee)).then(function (results) {
                 if (results.data.allocated) {

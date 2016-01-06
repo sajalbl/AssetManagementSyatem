@@ -162,5 +162,24 @@ namespace AmsApi.Controllers
             return response;
         }
 
+
+        [Route("api/Employee/replaceEmployee")]
+        [HttpPost]
+        public HttpResponseMessage replaceEmployee(ManageEmployeeRequest request)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageEmployeeAdapter adp = new ManageEmployeeAdapter();
+                ManageEmployeeResponse result = adp.ReplaceEmployee(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception e)
+            {
+                HttpError myCustomError = new HttpError(e.Message) { { "IsSuccess", false } };
+                return Request.CreateErrorResponse(HttpStatusCode.OK, myCustomError);
+            }
+            return response;
+        }
     }
 }

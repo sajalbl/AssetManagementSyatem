@@ -13,17 +13,17 @@ namespace AmsApi.Adapter
         public ManageTaskResponse AddTask(ManageTaskRequest request)
         {
             ManageTaskResponse response = new ManageTaskResponse();
-            int? empId = AdapterHelper.GetEmployeeId(request.AssignedBy, request.Email);
-            if (!empId.HasValue)
-                throw new Exception("Employee does not exist!");
+            //int? empId = AdapterHelper.GetEmployeeId(request.AssignedBy, request.Email);
+            //if (!empId.HasValue)
+            //    throw new Exception("Employee does not exist!");
 
             using (var context = new Company_dbEntities())
             {
                 Task_table task = new Task_table();
-                task.EmployeeID = request.EmployeeID;
+                task.EmployeeID = request.UserName;
                 task.EmployeeName = request.EmployeeName;
                 task.Description = request.Description;
-                task.AssignedBy = empId.Value.ToString();
+                task.AssignedBy = request.AssignedBy;
                 task.EmployeeConfirm = request.EmployeeConfirm;
 
                 context.Task_table.Add(task);
@@ -38,14 +38,14 @@ namespace AmsApi.Adapter
         public ManageTaskResponse Task(ManageTaskRequest request)
         {
             ManageTaskResponse response = new ManageTaskResponse();
-            int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
-            if (!empId.HasValue)
-                throw new Exception("Employee does not exist!");
+            //int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+            //if (!empId.HasValue)
+            //    throw new Exception("Employee does not exist!");
             List<Task_table> task = new List<Task_table>();
             List<task> list = new List<task>();
             using(var context = new Company_dbEntities())
             {
-                task = (from a in context.Task_table where a.EmployeeID == empId.Value.ToString() select a).ToList<Task_table>();
+                task = (from a in context.Task_table where a.EmployeeID == request.UserName select a).ToList<Task_table>();
 
                 if (task != null)
                 {
@@ -78,14 +78,14 @@ namespace AmsApi.Adapter
         {
             ManageTaskResponse response = new ManageTaskResponse();
 
-            int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
-            if (!empId.HasValue)
-                throw new Exception("Employee does not exist!");
+            //int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+            //if (!empId.HasValue)
+            //    throw new Exception("Employee does not exist!");
             List<Task_table> task = new List<Task_table>();
             List<task> list = new List<task>();
             using (var context = new Company_dbEntities())
             {
-                task = (from a in context.Task_table where a.AssignedBy == empId.Value.ToString() select a).ToList();
+                task = (from a in context.Task_table where a.AssignedBy == request.UserName select a).ToList();
 
                 if(task != null)
                 {
@@ -119,7 +119,7 @@ namespace AmsApi.Adapter
             
             using(var context = new Company_dbEntities())
             {
-              var  confirm = (from a in context.Task_table where a.EmployeeID == request.EmployeeID && a.Description == request.Description && a.AssignedBy == request.AssignedBy select a).FirstOrDefault<Task_table>();
+              var  confirm = (from a in context.Task_table where a.EmployeeID == request.UserName && a.Description == request.Description && a.AssignedBy == request.AssignedBy select a).FirstOrDefault<Task_table>();
 
                 if(confirm != null)
                 {
@@ -153,7 +153,7 @@ namespace AmsApi.Adapter
 
             using (var context = new Company_dbEntities())
             {
-                var approve = (from a in context.Task_table where a.EmployeeID == request.EmployeeID && a.Description == request.Description && a.EmployeeConfirm == "Completed" select a).FirstOrDefault<Task_table>();
+                var approve = (from a in context.Task_table where a.EmployeeID == request.UserName && a.Description == request.Description && a.EmployeeConfirm == "Completed" select a).FirstOrDefault<Task_table>();
 
                 if (request.Accept == true)
                 {
@@ -197,7 +197,7 @@ namespace AmsApi.Adapter
 
             using (var context = new Company_dbEntities())
             {
-                var delete = (from a in context.Task_table where a.EmployeeID == request.EmployeeID && a.Description == request.Description select a).FirstOrDefault<Task_table>();
+                var delete = (from a in context.Task_table where a.EmployeeID == request.UserName && a.Description == request.Description select a).FirstOrDefault<Task_table>();
 
                 if (delete != null) 
                 { 

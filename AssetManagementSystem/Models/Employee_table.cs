@@ -23,6 +23,7 @@ namespace AssetManagementSystem.Models
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string EmployeeInfo { get; set; }
+        public string UserName { get; set; }
     
         public virtual Company_table Company_table { get; set; }
     }

@@ -19,6 +19,7 @@
           <Property Name="EmployeeCount" Type="int" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Employee_table">
           <Key>
@@ -33,6 +34,7 @@
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="EmployeeInfo" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Resources_table">
           <Key>
@@ -41,7 +43,7 @@
           <Property Name="ResourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameOfDevice" Type="nvarchar(max)" />
           <Property Name="CompanyID" Type="int" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" />
+          <Property Name="EmployeeID" Type="nvarchar(max)" />
           <Property Name="Type" Type="nvarchar(max)" />
           <Property Name="IssuedTo" Type="nvarchar(max)" />
           <Property Name="IssuedFrom" Type="nvarchar(max)" />
@@ -64,18 +66,6 @@
           <Property Name="ManagerConfirm" Type="nvarchar(max)" />
           <Property Name="CompanyID" Type="int" />
         </EntityType>
-        <Association Name="FK_Company_table_Company_table">
-          <End Role="Company_table" Type="Self.Company_table" Multiplicity="1" />
-          <End Role="Company_table1" Type="Self.Company_table" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Company_table">
-              <PropertyRef Name="CompanyID" />
-            </Principal>
-            <Dependent Role="Company_table1">
-              <PropertyRef Name="CompanyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employee_table_Company_table">
           <End Role="Company_table" Type="Self.Company_table" Multiplicity="1" />
           <End Role="Employee_table" Type="Self.Employee_table" Multiplicity="*" />
@@ -105,10 +95,6 @@
           <EntitySet Name="Employee_table" EntityType="Self.Employee_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Resources_table" EntityType="Self.Resources_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task_table" EntityType="Self.Task_table" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Company_table_Company_table" Association="Self.FK_Company_table_Company_table">
-            <End Role="Company_table" EntitySet="Company_table" />
-            <End Role="Company_table1" EntitySet="Company_table" />
-          </AssociationSet>
           <AssociationSet Name="FK_Employee_table_Company_table" Association="Self.FK_Employee_table_Company_table">
             <End Role="Company_table" EntitySet="Company_table" />
             <End Role="Employee_table" EntitySet="Employee_table" />
@@ -137,8 +123,7 @@
           <Property Name="EmployeeCount" Type="Int32" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Company_table1" Relationship="Self.FK_Company_table_Company_table" FromRole="Company_table" ToRole="Company_table1" />
-          <NavigationProperty Name="Company_table2" Relationship="Self.FK_Company_table_Company_table" FromRole="Company_table1" ToRole="Company_table" />
+          <Property Name="Prefix" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee_table" Relationship="Self.FK_Employee_table_Company_table" FromRole="Company_table" ToRole="Employee_table" />
           <NavigationProperty Name="Resources_table" Relationship="Self.FK_Resources_table_Company_table" FromRole="Company_table" ToRole="Resources_table" />
         </EntityType>
@@ -155,6 +140,7 @@
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="EmployeeInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Company_table" Relationship="Self.FK_Employee_table_Company_table" FromRole="Employee_table" ToRole="Company_table" />
         </EntityType>
         <EntityType Name="Resources_table">
@@ -164,7 +150,7 @@
           <Property Name="ResourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameOfDevice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="EmployeeID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IssuedTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IssuedFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -188,18 +174,6 @@
           <Property Name="ManagerConfirm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CompanyID" Type="Int32" />
         </EntityType>
-        <Association Name="FK_Company_table_Company_table">
-          <End Role="Company_table" Type="Self.Company_table" Multiplicity="1" />
-          <End Role="Company_table1" Type="Self.Company_table" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Company_table">
-              <PropertyRef Name="CompanyID" />
-            </Principal>
-            <Dependent Role="Company_table1">
-              <PropertyRef Name="CompanyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employee_table_Company_table">
           <End Role="Company_table" Type="Self.Company_table" Multiplicity="1" />
           <End Role="Employee_table" Type="Self.Employee_table" Multiplicity="*" />
@@ -229,10 +203,6 @@
           <EntitySet Name="Employee_table" EntityType="Self.Employee_table" />
           <EntitySet Name="Resources_table" EntityType="Self.Resources_table" />
           <EntitySet Name="Task_table" EntityType="Self.Task_table" />
-          <AssociationSet Name="FK_Company_table_Company_table" Association="Self.FK_Company_table_Company_table">
-            <End Role="Company_table" EntitySet="Company_table" />
-            <End Role="Company_table1" EntitySet="Company_table" />
-          </AssociationSet>
           <AssociationSet Name="FK_Employee_table_Company_table" Association="Self.FK_Employee_table_Company_table">
             <End Role="Company_table" EntitySet="Company_table" />
             <End Role="Employee_table" EntitySet="Employee_table" />
@@ -261,6 +231,7 @@
                 <ScalarProperty Name="EmployeeCount" ColumnName="EmployeeCount" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -276,6 +247,7 @@
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="EmployeeInfo" ColumnName="EmployeeInfo" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

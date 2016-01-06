@@ -58,7 +58,7 @@
                             <td ng-show="resource.Deleted == 0">
                                 <button class="btn btn-info" ng-click="editRow(resource)">  Edit   </button>
                             </td>
-                            <td ng-show="resource.Deleted == 0"> <button class="btn btn-info" ng-click="showImage(resource.Serial)"> Show Image </button></td>
+                            <td ng-show="resource.Deleted == 0 && resource.Picture != null"> <button class="btn btn-info" ng-click="showImage(resource.Serial)"> Show Image </button></td>
                             <td ng-show="resource.EmployeeID == 0 || resource.EmployeeID == null && resource.Deleted == 0"><button class="btn btn-info" ng-click="allocate(resource.Serial)"> Allocate </button></td>
                             <td ng-show="resource.EmployeeID != null && resource.EmployeeID != 0 && resource.Deleted == 0"><button class="btn btn-info" ng-click="deallocate(resource.Serial)"> Deallocate</button></td>
                             <td ng-show="resource.Deleted == 0"><button class="btn btn-danger" ng-click="remove(resource)"> &times; </button></td>
@@ -109,7 +109,7 @@
             <span class="ui-select">
                 <select ng-model="EmployeeID">
                     <option value="">Select Employee ID</option>
-                    <option ng-repeat="list in employeeList" value="{{list.EmployeeID}}">{{list.EmployeeID}}</option>
+                    <option ng-repeat="list in employeeList" ng-if="list.UserName != null" value="{{list.UserName}}">{{list.UserName}}</option>
                 </select>
             </span>
         </div>

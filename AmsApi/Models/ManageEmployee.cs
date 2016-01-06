@@ -19,7 +19,8 @@ namespace AmsApi.Models
         public string ManagerID { get; set; }
         public string Picture { get; set; }
         public string EmployeeInfo { get; set; }
-
+        public string UserName { get; set; }
+        public int CompanyID { get; set; }
 
     }
 
@@ -45,5 +46,7 @@ namespace AmsApi.Models
 
         public string ManagerEmployees { get; set; }
         public bool IsEmployeeUpdated { get; set; }
+        public string EmployeeID { get; set; }
+        public bool IsEmployeeReplaced { get; set; }
     }
 }

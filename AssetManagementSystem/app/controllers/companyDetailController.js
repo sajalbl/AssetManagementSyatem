@@ -84,7 +84,7 @@ app.controller('companyDetailController', ['$rootScope', '$location', '$modal', 
 
     $scope.deleteCompany = function (text) {
 
-        $http.post(serviceBase + 'api/manage/deleteCompany', JSON.stringify(text)).then(function (results) {
+        $http.post(serviceBase + 'api/Company/deleteCompany', JSON.stringify(text)).then(function (results) {
             
 
             $http.post(serviceBase + 'api/manage/companyDeleted', JSON.stringify(text)).then(function (results) {

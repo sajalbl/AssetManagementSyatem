@@ -18,6 +18,8 @@
                             <input type="text" class="form-control" onkeypress="return event.charCode>=48 && event.charCode<=57" placeholder="Contact no." ng-model="company.Contact" name="contact" />
                             <label> Email </label>
                             <input type="email" class="form-control" placeholder="Email" ng-model="company.Email" name="email" />
+                            <label> Prefix </label>
+                            <input type="text" class="form-control" placeholder="Prefix" ng-model="company.Prefix" name="prefix" />
                             <br />
                             <button class="btn btn-info" ng-click="submit()">Submit</button>
                         </div>
