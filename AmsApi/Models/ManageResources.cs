@@ -43,6 +43,8 @@ namespace AmsApi.Resources.Models
 
         public bool allocated { get; set; }
 
+        public bool IsResourceReplaced { get; set; }
+
     }
 }
     

@@ -80,9 +80,10 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
 
             $http.post(service + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
 
-                if (results.data.DuplicateEmployee != null) {
+                if (results.data.csvUploaded == false)
+                {
                     $scope.replaceTable = true;
-                    $scope.replaceList = JSON.parse(results.data.DuplicateEmployee);
+                    $scope.replaceList = JSON.parse(results.data.Duplicate);
                 }
                 else {
                     $scope.message = "Details added successfully";

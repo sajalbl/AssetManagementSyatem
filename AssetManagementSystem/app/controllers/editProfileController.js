@@ -31,9 +31,11 @@ app.controller('editProfileController', ['uploadFileService', '$scope', '$http',
     //    }]
     //}
 
-    $scope.update = function () {
+    $scope.upload = function () {
 
-        //var image = { "Pict": $scope.uploadFile.name };
+       // var image = { "Pict": $scope.uploadFile.name };
+
+       
 
         $scope.employeeInfo = {
             "EmployeeInfo": [{
@@ -52,9 +54,9 @@ app.controller('editProfileController', ['uploadFileService', '$scope', '$http',
 
         var info = JSON.stringify($scope.employeeInfo);
        // var image = JSON.stringify($scope.pic);
-       var text = { "EmployeeName": $scope.employeeID.EmployeeName,"EmployeeInfo": info, "Email": $scope.profile.Email };
+       var text = { "UserName": $scope.employeeID.UserName,"EmployeeInfo": info, "Email": $scope.profile.Email };
         
-       uploadFileService.fileUpload($scope.profile.EmployeeID, $scope.uploadFile, uploadBase).then(function (result) {
+       uploadFileService.fileUpload(text.UserName, $scope.uploadFile, uploadBase).then(function (result) {
 
            
        });
@@ -62,9 +64,37 @@ app.controller('editProfileController', ['uploadFileService', '$scope', '$http',
        $http.post(serviceBase + 'api/Employee/updateEmployee', JSON.stringify(text)).then(function (results) {
  
            $scope.status = "Details Updated Successfully";
-        });
+       });
 
+        
     };
+
+        $scope.update = function () {
+            $scope.employeeInfo = {
+                "EmployeeInfo": [{
+                    "info": [{
+                        "type": "info",
+                        Address: $scope.profile.Address,
+                        Contact: $scope.profile.Contact,
+                        Department: $scope.profile.Department,
+                        DOB: $scope.profile.DOB
+                    }, {
+                        "type": "image",
+                        Picture: $scope.profile.Picture
+                    }]
+                }]
+            }
+            var info = JSON.stringify($scope.employeeInfo);
+
+            var text = { "UserName": $scope.employeeID.UserName, "EmployeeInfo": info, "Email": $scope.profile.Email };
+
+            $http.post(serviceBase + 'api/Employee/updateEmployee', JSON.stringify(text)).then(function (results) {
+
+                $scope.status = "Details Updated Successfully";
+            });
+        };
+
+  
 
 
 }]);

@@ -133,7 +133,8 @@ namespace AmsApi.Adapter
                     comp.Address = request.Address;
                     comp.Contact = request.Contact;
                     comp.Email = request.Email;
-                    //comp.Prefix = "BL_";
+                    comp.EmployeeCount = 0;
+                    comp.ResourceCount = 0;
                     
                 }
 

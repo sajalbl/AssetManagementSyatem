@@ -88,7 +88,7 @@ namespace AmsApi.Adapter
                             resourceDTO r = new resourceDTO();
                             r.NameOfDevice = entry.NameOfDevice;
                             r.Type = entry.Type;
-                            //r.IssuedFrom = entry.IssuedFrom.ToString();
+                            r.IssuedFrom = entry.IssuedFrom.ToString();
                             r.EmployeeID = entry.EmployeeID;
                             r.Serial = entry.Serial;
                             r.CompanyID = entry.CompanyID;
@@ -158,11 +158,11 @@ namespace AmsApi.Adapter
 
                         if (comp != null)
                             comp.ResourceCount--;
+                        //context.Resources_table.Remove(resource);
                     }
                 }
                 
-                //context.Resources_table.Remove(resource);
-
+                
                 context.SaveChanges();
 
                 response.ResourceDeleted = true;
@@ -216,6 +216,46 @@ namespace AmsApi.Adapter
         //    }
         //    return response;
         //}
+
+        public ManageResourcesResponse ReplaceResource(ManageResourcesRequest request)
+        {
+            ManageResourcesResponse response = new ManageResourcesResponse();
+
+            int? compId = AdapterHelper.GetCompanyId(request.CompanyName);
+            if (compId == null)
+            {
+                throw new Exception("No company found. Try again!");
+            }
+
+            using (var context = new Company_dbEntities())
+            {
+
+
+                var res = (from a in context.Resources_table where a.Serial == request.Serial select a).FirstOrDefault();
+
+                res.Serial = request.Serial;
+                res.NameOfDevice = request.NameOfDevice;
+                res.Type = request.Type;
+                res.EmployeeID = request.UserName;
+                res.CompanyID = compId.Value;
+                res.IssuedFrom = request.IssuedFrom.ToString();
+                res.Deleted = false;
+                res.ModifiedOn = DateTime.Now;
+
+                //var comp = (from a in context.Company_table
+                //            where a.CompanyName == request.CompanyName
+                //            select a).FirstOrDefault();
+
+                //if (comp != null)
+                //    comp.EmployeeCount++;
+
+                //emp.CompanyID = compId.Value;
+
+                context.SaveChanges();
+                response.IsResourceReplaced = true;
+            }
+            return response;
+        }
 
         public ManageResourcesResponse ResourceAllocated(ManageResourcesRequest request)
         {

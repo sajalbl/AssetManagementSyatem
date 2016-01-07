@@ -21,6 +21,7 @@ namespace AmsApi.Models
         public string EmployeeInfo { get; set; }
         public string UserName { get; set; }
         public int CompanyID { get; set; }
+        //public bool Resource { get; set; }
 
     }
 

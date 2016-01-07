@@ -40,11 +40,11 @@ app.controller('profileController', ['$scope', '$http', '$location', 'localStora
     $scope.HideEdit = localStorageService.get("EditLink");
     
 
-    $scope.edit = function (Address, Contact, DOB, Department, Email, EmployeeID) {
+    $scope.edit = function (Address, Contact, DOB, Department, Email, EmployeeID,Picture) {
 
         $location.path("/editProfile");
 
-        var detail = {"EmployeeID": EmployeeID, "Address": Address, "Contact": Contact,"DOB": DOB, "Department": Department, "Email": Email };
+        var detail = {"EmployeeID": EmployeeID, "Address": Address, "Contact": Contact,"DOB": DOB, "Department": Department, "Email": Email,"Picture": Picture };
         localStorageService.set("employeeProfile", detail);
     };
 

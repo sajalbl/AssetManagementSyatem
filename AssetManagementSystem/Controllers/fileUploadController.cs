@@ -127,7 +127,7 @@ namespace AssetManagementSystem.Controllers
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.OK, false);
+                    response = Request.CreateResponse(HttpStatusCode.OK, true);
                 }
             }
 

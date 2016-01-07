@@ -20,6 +20,10 @@
                             <input type="text" class="form-control" ng-model="profile.DOB" disabled />
                             <br />
                         </div>
+                        <br />
+                        <button class="btn btn-info" ng-click="update()"> Update </button>
+                        <br />
+                        <br />
                         <div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -27,12 +31,13 @@
                                         <label> Profile photo : </label>
                                         <input name="file" type="file" file-model="uploadFile" />
                                     </div>
+                                    <br />
+                                    <button class="btn btn-info" ng-click="upload()"> Upload </button>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <br />
-                            <button class="btn btn-info" ng-click="update()"> Update </button>
+                            
                         </div>
                     </form>
                 </div>

@@ -68,6 +68,8 @@ namespace AssetManagementSystem.Controllers
                         context.Employee_table.Add(emp);
                         
                         context.SaveChanges();
+
+                        response.csvUploaded = true;
                         }
                         else
                         {
@@ -84,7 +86,8 @@ namespace AssetManagementSystem.Controllers
                         }
                        
                     }
-                    response.DuplicateEmployee = JsonConvert.SerializeObject(list);
+                    response.Duplicate = JsonConvert.SerializeObject(list);
+                    response.csvUploaded = false;
     
                     }
 
@@ -96,17 +99,20 @@ namespace AssetManagementSystem.Controllers
 
                             dynamic item = JsonConvert.DeserializeObject(fields);
 
-                           // var resource = (from a in context.Resources_table where  select a).FirstOrDefault<Resources_table>();
+                            dt.Serial = item.Serial;
 
-                            //if(resource == null)
+                            var res = (from a in context.Resources_table where a.Serial == dt.Serial select a).FirstOrDefault<Resources_table>();
 
-                            Resources_table res = new Resources_table();
+                            if(res == null)
+                            { 
+                             res = new Resources_table();
 
                             res.CompanyID = comp.CompanyID;
                             res.NameOfDevice = item.NameOfDevice;
-                            res.EmployeeID = item.EmployeeID;
+                            //res.EmployeeID = item.UserName;
                             res.Type = item.Type;
                             res.Serial = item.Serial;
+                            res.IssuedFrom = item.IssuedFrom;
                             res.ModifiedOn = DateTime.Now;
                             res.Deleted = false;
                             //res.IsActive = true;
@@ -117,7 +123,25 @@ namespace AssetManagementSystem.Controllers
                             context.Resources_table.Add(res);
 
                             context.SaveChanges();
+                            response.csvUploaded = true;
+                            }
+
+                            else
+                            {
+                                dto d = new dto();
+
+                                d.UserName = item.UserName;
+                                d.NameOfDevice = item.NameOfDevice;
+                                d.Type = item.Type;
+                                d.Serial = item.Serial;
+                                d.IssuedFrom = item.IssuedFrom;
+                                d.CompanyName = request.CompanyName;
+                                
+                                list.Add(d);
+                            }
                         }
+                        response.Duplicate = JsonConvert.SerializeObject(list);
+                        response.csvUploaded = false;
                     }
                 }
                 else
@@ -127,7 +151,7 @@ namespace AssetManagementSystem.Controllers
 
             }
 
-            response.csvUploaded = true;
+           
 
             return response;
         }
@@ -318,7 +342,7 @@ namespace AssetManagementSystem.Controllers
 
                     else
                     {
-                        string header = "NameOfDevice,CompanyID,EmployeeID,Type,Serial,Deleted";
+                        string header = "NameOfDevice,CompanyID,Type,Serial,Deleted";
 
                         StringBuilder sb = new StringBuilder();
 
@@ -336,7 +360,6 @@ namespace AssetManagementSystem.Controllers
                                 sb.AppendLine(string.Join(",",
                                     string.Format(entry.NameOfDevice),
                                     string.Format(entry.CompanyID.ToString()),
-                                    string.Format(entry.EmployeeID.ToString()),
                                     string.Format(entry.Type),
                                     string.Format(entry.Serial),
                                     string.Format(entry.Deleted.ToString())));
@@ -386,5 +409,9 @@ namespace AssetManagementSystem.Controllers
         public string CompanyName { get; set; }
         public string Designation { get; set; }
         public string ManagerID { get; set; }
+        public string Serial { get; set; }
+        public string NameOfDevice { get; set; }
+        public string Type { get; set; }
+        public string IssuedFrom { get; set; }
     }
 }

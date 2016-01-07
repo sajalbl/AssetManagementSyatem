@@ -17,7 +17,8 @@ app.controller('addResourcesController', ['uploadFileService', '$scope', '$http'
 
         var valid = $scope.validate();
 
-        if(valid)
+        if (valid)
+            {
             var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "Serial": $scope.resources.Serial };
         $http.post(serviceBase + 'api/manage/newResources', JSON.stringify(text)).then(function (results) {
             if (results.data.IsResourcesCreated)
@@ -29,8 +30,10 @@ app.controller('addResourcesController', ['uploadFileService', '$scope', '$http'
             {
                 $scope.status = "Resource already exist";
             }
+      
            
         });
+        }
         
     };
 
@@ -41,13 +44,33 @@ app.controller('addResourcesController', ['uploadFileService', '$scope', '$http'
             var text = { "CompanyName": $scope.companyName.CompanyName, "FileName": $scope.csvFile.name };
         $http.post(service + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
 
-            if(results.data.csvUploaded)
+            if (results.data.csvUploaded == false)
             {
-                $scope.status = "Resource detail added";
+                $scope.replaceTable = true;
+                $scope.replaceList = JSON.parse(results.data.Duplicate);
+            }
+            else {
+                $scope.status = "Details added successfully";
+
             }
         });
 
         });
+    };
+
+    $scope.rep = function (list) {
+
+        var text = { "UserName": list.UserName, "Serial": list.Serial, "NameOfDevice": list.NameOfDevice, "Type": list.Type, "CompanyName": list.CompanyName, "IssuedFrom": list.IssuedFrom };
+
+        $http.post(serviceBase + 'api/manage/replaceResource', JSON.stringify(text)).then(function (results) {
+
+            if (results.data.IsResourceReplaced) {
+
+                $scope.status = "Details added successfully";
+            }
+
+        });
+
     };
 
     $scope.validate = function () {

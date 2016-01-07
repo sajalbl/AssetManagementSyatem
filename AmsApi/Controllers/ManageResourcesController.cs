@@ -180,5 +180,24 @@ namespace AmsApi.Controllers
             }
             return response;
         }
+
+        [Route("api/manage/replaceResource")]
+        [HttpPost]
+        public HttpResponseMessage replaceResource(ManageResourcesRequest request)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                ManageResourcesAdapter adp = new ManageResourcesAdapter();
+                ManageResourcesResponse result = adp.ReplaceResource(request);
+                response = Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            return response;
+        }
     }
 }

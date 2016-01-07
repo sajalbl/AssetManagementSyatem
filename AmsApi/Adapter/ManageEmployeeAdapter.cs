@@ -257,6 +257,7 @@ namespace AmsApi.Adapter
 
             using (var context = new Company_dbEntities())
             {
+                
 
                 var emp = (from a in context.Employee_table where a.UserName == request.UserName && a.Email == request.Email select a).FirstOrDefault();
 
@@ -355,12 +356,12 @@ namespace AmsApi.Adapter
 
             using (var context = new Company_dbEntities())
             {
-                int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
-                if (!empId.HasValue)
-                    throw new Exception("Employee does not exist!");
+                //int? empId = AdapterHelper.GetEmployeeId(request.EmployeeName, request.Email);
+                //if (!empId.HasValue)
+                //    throw new Exception("Employee does not exist!");
 
                 var employee = (from a in context.Employee_table
-                                where a.EmployeeID == empId.Value
+                                where a.UserName == request.UserName
                                 select a).FirstOrDefault();
 
                 if (employee != null)

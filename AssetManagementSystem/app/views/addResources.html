@@ -49,8 +49,41 @@
                 
             </div>
         </div>
+
+        <div ng-show="replaceTable" class="alert alert-danger">
+            <h3 style="text-align:center"> Resource's already exist </h3>
+            <br />
+            <table class="table table-bordered">
+                <tr>
+                    <th width="200">
+                        Serial
+                    </th>
+                    <th width="200">
+                        Name Of Device
+                    </th>
+                </tr>
+
+                <tr ng-repeat="list in replaceList" class="alert">
+                    <td>
+                        {{list.Serial}}
+                    </td>
+                    <td>
+                        {{list.NameOfDevice}}
+                    </td>
+                    <td>
+                        <button class="close btn btn-info" data-dismiss="alert" ng-click="rep(list)"> Replace </button>
+                    </td>
+                    <td>
+                        <button class="close btn btn-info" data-dismiss="alert"> Skip </button>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
+
+
 <!--<script type="text/javascript">
   $(function() {
     $('#datetimepicker2').datetimepicker({
