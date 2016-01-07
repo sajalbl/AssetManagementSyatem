@@ -439,12 +439,12 @@ namespace AmsApi.Adapter
         public int count { get; set; }
     }
 
-    public class employeeInfo
-    {
-        public string Department { get; set; }
-        public DateTime? DOB { get; set; }
-        public string Address { get; set; }
-        public string Contact { get; set; }
+    //public class employeeInfo
+    //{
+    //    public string Department { get; set; }
+    //    public DateTime? DOB { get; set; }
+    //    public string Address { get; set; }
+    //    public string Contact { get; set; }
         
-    }
+    //}
 }
