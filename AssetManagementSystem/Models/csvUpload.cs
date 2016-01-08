@@ -11,6 +11,7 @@ namespace AssetManagementSystem.Models
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public bool Employee { get; set; }
+        public string EmployeeInfo { get; set; }
         //public string EmployeeName { get; set; }
         //public string EmployeeID { get; set; }
         //public string Department { get; set; }

@@ -23,72 +23,73 @@ namespace AssetManagementSystem.Controllers
 
             List<dto> list = new List<dto>();
             dto dt = new dto();
-            
+
             List<dynamic> data = new List<dynamic>();
 
             data.Add(parse(request));
-            
-            using(var context = new Company_dbEntities())
+
+            using (var context = new Company_dbEntities())
             {
                 var comp = (from a in context.Company_table where a.CompanyName == request.CompanyName select a).FirstOrDefault<Company_table>();
 
-                if(comp != null)
+                if (comp != null)
                 {
-                    if(request.Employee == true)
-                    { 
-                    foreach (var entry in data[0])
+                    if (request.Employee == true)
                     {
-                        dynamic fields = JsonConvert.SerializeObject(entry.Data);
-
-                        dynamic item = JsonConvert.DeserializeObject(fields);
-
-                        dt.UserName = item.UserName;
-                        dt.Email = item.Email;
-                        
-
-                        var emp = (from a in context.Employee_table where a.UserName == dt.UserName && a.Email == dt.Email select a).FirstOrDefault();
-
-                        if(emp == null)
-                        { 
-                        emp = new Employee_table();
-
-                        emp.CompanyID = comp.CompanyID;
-                        emp.EmployeeName = item.EmployeeName;
-                        emp.Email = item.Email;
-                        emp.ManagerID = item.ManagerID;
-                        emp.Designation = item.Designation;
-                        emp.UserName = item.UserName;
-                        emp.ModifiedOn = DateTime.Now;
-                        emp.IsActive = true;
-
-                        var company = (from a in context.Company_table where a.CompanyID == comp.CompanyID select a).FirstOrDefault();
-
-                        company.EmployeeCount++;
-
-                        context.Employee_table.Add(emp);
-                        
-                        context.SaveChanges();
-
-                        response.csvUploaded = true;
-                        }
-                        else
+                        foreach (var entry in data[0])
                         {
-                            dto d = new dto();
+                            dynamic fields = JsonConvert.SerializeObject(entry.Data);
 
-                            d.UserName = item.UserName;
-                            d.Email = item.Email;
-                            d.EmployeeName = item.EmployeeName;
-                            d.CompanyName = item.CompanyName;
-                            d.Designation = item.Designation;
-                            d.ManagerID = item.ManagerID;
+                            dynamic item = JsonConvert.DeserializeObject(fields);
 
-                            list.Add(d);
+                            dt.UserName = item.UserName;
+                            dt.Email = item.Email;
+
+
+                            var emp = (from a in context.Employee_table where a.UserName == dt.UserName && a.Email == dt.Email select a).FirstOrDefault();
+
+                            if (emp == null)
+                            {
+                                emp = new Employee_table();
+
+                                emp.CompanyID = comp.CompanyID;
+                                emp.EmployeeName = item.EmployeeName;
+                                emp.Email = item.Email;
+                                emp.ManagerID = item.ManagerID;
+                                emp.Designation = item.Designation;
+                                emp.UserName = item.UserName;
+                                emp.ModifiedOn = DateTime.Now;
+                                emp.IsActive = true;
+
+                               
+                                var company = (from a in context.Company_table where a.CompanyID == comp.CompanyID select a).FirstOrDefault();
+
+                                company.EmployeeCount++;
+
+                                context.Employee_table.Add(emp);
+
+                                context.SaveChanges();
+
+                                response.csvUploaded = true;
+                            }
+                            else
+                            {
+                                dto d = new dto();
+
+                                d.UserName = item.UserName;
+                                d.Email = item.Email;
+                                d.EmployeeName = item.EmployeeName;
+                                d.CompanyName = item.CompanyName;
+                                d.Designation = item.Designation;
+                                d.ManagerID = item.ManagerID;
+
+                                list.Add(d);
+                            }
+
                         }
-                       
-                    }
-                    response.Duplicate = JsonConvert.SerializeObject(list);
-                    response.csvUploaded = false;
-    
+                        response.Duplicate = JsonConvert.SerializeObject(list);
+                        response.csvUploaded = false;
+
                     }
 
                     else
@@ -103,27 +104,27 @@ namespace AssetManagementSystem.Controllers
 
                             var res = (from a in context.Resources_table where a.Serial == dt.Serial select a).FirstOrDefault<Resources_table>();
 
-                            if(res == null)
-                            { 
-                             res = new Resources_table();
+                            if (res == null)
+                            {
+                                res = new Resources_table();
 
-                            res.CompanyID = comp.CompanyID;
-                            res.NameOfDevice = item.NameOfDevice;
-                            //res.EmployeeID = item.UserName;
-                            res.Type = item.Type;
-                            res.Serial = item.Serial;
-                            res.IssuedFrom = item.IssuedFrom;
-                            res.ModifiedOn = DateTime.Now;
-                            res.Deleted = false;
-                            //res.IsActive = true;
-                             var company = (from a in context.Company_table where a.CompanyID == comp.CompanyID select a).FirstOrDefault();
+                                res.CompanyID = comp.CompanyID;
+                                res.NameOfDevice = item.NameOfDevice;
+                                //res.EmployeeID = item.UserName;
+                                res.Type = item.Type;
+                                res.Serial = item.Serial;
+                                res.IssuedFrom = item.IssuedFrom;
+                                res.ModifiedOn = DateTime.Now;
+                                res.Deleted = false;
+                                //res.IsActive = true;
+                                var company = (from a in context.Company_table where a.CompanyID == comp.CompanyID select a).FirstOrDefault();
 
-                            company.ResourceCount++;
+                                company.ResourceCount++;
 
-                            context.Resources_table.Add(res);
+                                context.Resources_table.Add(res);
 
-                            context.SaveChanges();
-                            response.csvUploaded = true;
+                                context.SaveChanges();
+                                response.csvUploaded = true;
                             }
 
                             else
@@ -136,7 +137,7 @@ namespace AssetManagementSystem.Controllers
                                 d.Serial = item.Serial;
                                 d.IssuedFrom = item.IssuedFrom;
                                 d.CompanyName = request.CompanyName;
-                                
+
                                 list.Add(d);
                             }
                         }
@@ -151,7 +152,7 @@ namespace AssetManagementSystem.Controllers
 
             }
 
-           
+
 
             return response;
         }
@@ -165,7 +166,7 @@ namespace AssetManagementSystem.Controllers
                 parser.CommentTokens = new string[] { "#" };
                 parser.SetDelimiters(new string[] { "," });
                 parser.HasFieldsEnclosedInQuotes = true;
-                
+
                 // Skip over header line.
                 //parser.ReadLine();
 
@@ -191,7 +192,7 @@ namespace AssetManagementSystem.Controllers
                     //dynamic authSearchDataObject = new ExpandoObject();
                     //IDictionary<string, object> authSearchDataUnderlyingObject = authSearchDataObject;
 
-                
+
                     for (int i = 0; i < headerFields.Length; i++)
                     {
                         var propName = propertyNames[i];
@@ -216,12 +217,12 @@ namespace AssetManagementSystem.Controllers
                         //    ExtractSearchData(request, searchDataUnderlyingObject, propName, fieldValue);
                         //}
                     }
-                
+
                     baseDataUnderlyingObject.Add("Data", dataObject);
                     //baseDataUnderlyingObject.Add("SearchData", searchDataObject);
                     //baseDataUnderlyingObject.Add("AuthData", authData);
                     //baseDataUnderlyingObject.Add("AuthSearchData", authSearchDataObject);
-                     yield return baseObject;
+                    yield return baseObject;
                 }
             }
         }
@@ -229,23 +230,23 @@ namespace AssetManagementSystem.Controllers
 
         public string DownloadCsv(csvUploadRequest request)
         {
-            
+
             //csvUploadResponse response = new csvUploadResponse();
-                
+
             bool exist = Directory.Exists(request.FilePath);
 
-                if (!exist)
-                {
-                    Directory.CreateDirectory(request.FilePath);
+            if (!exist)
+            {
+                Directory.CreateDirectory(request.FilePath);
 
-                }
+            }
 
-            if(request.Employee == true)
-            { 
+            if (request.Employee == true)
+            {
                 var file = Path.Combine(request.FilePath, "Employee.csv");
                 bool present = File.Exists(file);
 
-                if(!present)
+                if (!present)
                 {
                     //File.Delete(file);
                     //DownloadCsv(request);
@@ -268,21 +269,21 @@ namespace AssetManagementSystem.Controllers
                 return file;
             }
 
-                //else
-                //{
-                //    File.Create(file);
+            //else
+            //{
+            //    File.Create(file);
 
-                //}
+            //}
 
-                //var csv = Path.Combine(request.FilePath, "Employee.csv");
-                //bool pres = File.Exists(csv);
-                //if (!pres)
-                //{
-                //    File.Create(csv);
-                //}
-                  //response.csvDowloaded = true;
-            
-            
+            //var csv = Path.Combine(request.FilePath, "Employee.csv");
+            //bool pres = File.Exists(csv);
+            //if (!pres)
+            //{
+            //    File.Create(csv);
+            //}
+            //response.csvDowloaded = true;
+
+
         }
 
 
@@ -313,7 +314,7 @@ namespace AssetManagementSystem.Controllers
                             foreach (var entry in employee)
                             {
                                 sb.AppendLine(string.Join(",",
-                                    string.Format(entry.EmployeeID.ToString()),
+                                    string.Format(entry.UserName),
                                     string.Format(entry.EmployeeName),
                                     string.Format(entry.CompanyID.ToString()),
                                     string.Format(entry.ManagerID),
@@ -384,7 +385,7 @@ namespace AssetManagementSystem.Controllers
                         }
                     }
                 }
-                
+
             }
             return response;
         }
@@ -413,5 +414,8 @@ namespace AssetManagementSystem.Controllers
         public string NameOfDevice { get; set; }
         public string Type { get; set; }
         public string IssuedFrom { get; set; }
+
+
     }
+
 }

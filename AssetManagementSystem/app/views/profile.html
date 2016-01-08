@@ -3,6 +3,7 @@
             <div class="container">
                 <div class="panel-box">
                     <h4> <label> Profile Picture :</label> </h4> &nbsp; <img ng-if="info.EmployeeInfo[0].info[1].type == 'image'" ng-src="http://localhost:58474/images/{{employee.EmployeeID}}/{{info.EmployeeInfo[0].info[1].Picture}}" width="250" height="400" />
+                    <img ng-if="info.EmployeeInfo[0].info[1].type == 'imageDefault'" ng-src="http://localhost:58474/images/{{info.EmployeeInfo[0].info[1].Picture}}" width="250" height="300" />
                 </div>
                      <!--<br />
                 <h4>  <label> Company Name :  </label> &nbsp; <label style="font:italic"> {{employee.CompanyName}}</label> </h4>-->

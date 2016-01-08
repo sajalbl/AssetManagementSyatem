@@ -26,6 +26,9 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
                 DOB: "",
                 Department:""
 
+            }, {
+                "type": "imageDefault",
+                Picture: "defaultProfile.png"
             }]
         }]
     }
@@ -76,7 +79,22 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
     $scope.update = function () {
         uploadFileService.CSVUpload($scope.csvFile, uploadBase).then(function (results) {
 
-            var text = { "CompanyName": company.CompanyName, "FileName": $scope.csvFile.name, "Employee": true };
+            $scope.employeeInfo = {
+                "EmployeeInfo": [{
+                    "info": [{
+                        "type": "info",
+                        "Address": "",
+                        "Contact": "",
+                        "DOB": "",
+                        "Department": ""
+
+                    }]
+                }]
+            }
+
+            var info = JSON.stringify($scope.employeeInfo);
+
+            var text = { "CompanyName": company.CompanyName, "FileName": $scope.csvFile.name, "Employee": true, "EmployeeInfo": info };
 
             $http.post(service + 'api/manage/csvController', JSON.stringify(text)).then(function (results) {
 
