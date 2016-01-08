@@ -4,14 +4,14 @@
             <div class="panel-body">
                 <div class="container">
                     <table class="table table-bordered table-hover">
-                        <tr>
+                        <tr style="color:black">
                             <th>
                                 Employee ID
                             </th>
                             <th>
                                 Employee Name
                             </th>
-                            
+
                         </tr>
                         <tbody>
                             <tr ng-repeat="employees in managerEmployees">
@@ -33,7 +33,7 @@
             <div class="col-md-12">
                 <div class="container">
                     <table class="table table-bordered  table-hover">
-                        <tr>
+                        <tr style="color:black">
 
                             <th width="100">
                                 Employee ID
@@ -61,7 +61,7 @@
                                 <td> {{tasks.EmployeeConfirm}} </td>
                                 <td> {{tasks.ManagerConfirm}} </td>
                                 <td>
-                                    <div class="btn-group">
+                                    <div class="btn-default-light">
                                         <button class="btn btn-info" ng-click="approved(tasks.EmployeeID,tasks.Description)"> Approve </button>
                                         <button class="btn btn-info" ng-click="decline(tasks.EmployeeID,tasks.Description)"> Decline </button>
                                     </div>
@@ -84,7 +84,7 @@
         <div class="col-md-12">
             <div class="container">
                 <table class="table table-bordered  table-hover">
-                    <tr>
+                    <tr style="color:black">
 
                         <th width="100">
                             Employee ID
@@ -105,7 +105,7 @@
                             Approval
                         </th>
 
-                        <th width="200">
+                        <th width="400">
 
                         </th>
 
@@ -120,8 +120,12 @@
                             <td> {{task.EmployeeConfirm}} </td>
                             <td> {{task.ManagerConfirm}} </td>
                             <td ng-hide="task.EmployeeConfirm == 'Completed' && task.ManagerConfirm == 'Approved'">
-                                <form class="form-group"><input type="radio" class="ui-radio" ng-click="completed(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> &nbsp; &nbsp; Completed </form> 
-                                <form class="form-group"><input type="radio" class="ui-radio" ng-click="pending(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" /> &nbsp; &nbsp; Pending </form>
+                               <input type="radio" class="radio-inline" ng-click="completed(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" value="Completed"  /> &nbsp; &nbsp; Completed
+                                    <br />
+                                <br />
+                               <input type="radio" class="radio-inline" ng-click="pending(task.EmployeeID,task.Description,task.AssignedBy,task.EmployeeConfirm)" name="{{task.Description}}" value="Pending" /> &nbsp; &nbsp; Pending
+                                    
+                                    
                             </td>
                         </tr>
                     </tbody>
