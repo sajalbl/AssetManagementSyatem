@@ -144,32 +144,32 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
              if($scope.employee.EmployeeName == null || $scope.employee.EmployeeName == "")
              {
                  alert("Enter Employee's name");
-                 isvalid = false;
+                return isvalid = false;
              }
              if ($scope.employee.Email == null || $scope.employee.Email == "")
              {
                  alert("Enter Email");
-                 isvalid = false;
+                return isvalid = false;
              }
-             if ($scope.employee.Address == null || $scope.employee.Address == "")
+             if ($scope.employeeInfo.EmployeeInfo[0].info[0].Address == null || $scope.employeeInfo.EmployeeInfo[0].info[0].Address == "")
              {
                  alert("Enter Address");
-                 isvalid = false;
+                 return isvalid = false;
              }
-             if ($scope.employee.Contact == null || $scope.employee.Contact == "") {
+             if ($scope.employeeInfo.EmployeeInfo[0].info[0].Contact == null || $scope.employeeInfo.EmployeeInfo[0].info[0].Contact == "") {
                  alert("Enter Contact");
-                 isvalid = false;
+               return  isvalid = false;
              }
-             if ($scope.employee.DOB == null || $scope.employee.DOB == "") {
+             if ($scope.employeeInfo.EmployeeInfo[0].info[0].DOB == null || $scope.employeeInfo.EmployeeInfo[0].info[0].DOB == "") {
                  alert("Enter Date of Birth");
-                 isvalid = false;
+                return isvalid = false;
              }
-             if ($scope.employee.Department == null || $scope.employee.Department == "") {
+             if ($scope.employeeInfo.EmployeeInfo[0].info[0].Department == null || $scope.employeeInfo.EmployeeInfo[0].info[0].Department == "") {
                  alert("Enter Department");
-                 isvalid = false;
+                return isvalid = false;
              }
             
-             return isvalid;
+             //return isvalid;
          }
     
 

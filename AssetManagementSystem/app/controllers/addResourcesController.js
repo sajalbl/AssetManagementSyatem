@@ -79,12 +79,12 @@ app.controller('addResourcesController', ['uploadFileService', '$scope', '$http'
         if ($scope.resources.NameOfDevice == null || $scope.resources.NameOfDevice == "")
         {
             alert("Enter Device name");
-            isValid = false;
+           return isValid = false;
         }
         if ($scope.resources.Type == null || $scope.resources.Type == "")
         {
             alert("Enter Resource type");
-            isValid = false;
+           return isValid = false;
         }
         //if ($scope.resources.IssuedTo == null && $scope.resources.IssuedTo == "") {
         //    alert("Enter Issued On Date and Time");
@@ -93,14 +93,14 @@ app.controller('addResourcesController', ['uploadFileService', '$scope', '$http'
         if ($scope.resources.IssuedFrom == null || $scope.resources.IssuedFrom == "")
         {
             alert("Enter Issued From date and time");
-            isValid = false;
+           return isValid = false;
         }
 
         if ($scope.resources.Serial == null || $scope.resources.Serial == "") {
             alert("Enter Serial no. of resource");
-            isValid = false;
+           return isValid = false;
         }
-        return isValid;
+       // return isValid;
     };
 
 }]);
