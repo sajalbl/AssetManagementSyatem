@@ -7,6 +7,10 @@ app.controller('taskAssignController', ['$scope', '$rootScope', '$modal', '$http
     $scope.detail = { "UserName": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.Description };
 
     $scope.submit = function () {
+
+        var valid = $scope.validate();
+        if (valid)
+            {
         var text = { "UserName": $scope.task.EmployeeID, "EmployeeName": $scope.task.EmployeeName, "Description": $scope.detail.Description, "EmployeeConfirm": "Pending", "Email": employeeID.Email, "AssignedBy": employeeID.UserName };
 
             $http.post(serviceBase + 'api/manage/task', JSON.stringify(text)).then(function (results) {
@@ -21,7 +25,7 @@ app.controller('taskAssignController', ['$scope', '$rootScope', '$modal', '$http
                 $scope.detail = "";
                 
             });
-   
+        }
     };
 
     var openModal = function ($scope, $modalInstance) {
@@ -29,5 +33,17 @@ app.controller('taskAssignController', ['$scope', '$rootScope', '$modal', '$http
             $modalInstance.dismiss();
         };
     };
+
+    $scope.validate = function () {
+
+       var isvalid = true;
+
+        if($scope.detail.Description == null || $scope.detail.Description == "")
+        {
+            alert("Enter Description");
+            isvalid = false;
+        }
+        return isvalid;
+    }
 
 }]);

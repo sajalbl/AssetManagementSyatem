@@ -59,6 +59,10 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
     };
 
     $scope.submit = function () {
+
+        var IsValid = $scope.validate();
+        if (IsValid == true)
+            {
         //$scope.designation = localStorageService.get("empDes");
         //var text = { "EmployeeName": $scope.employee.EmployeeName, "EmployeeID": $scope.employee.EmployeeID, "Department": $scope.employee.Department, "Designation": $scope.designation.Designation, "CompanyName": $scope.companyName.CompanyName, "ManagerID": $scope.employee.ManagerID, "DOB": $scope.employee.DOB };
       
@@ -74,6 +78,7 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
                 $scope.message = "Employee already Exist";
             }
         });
+        }
     };
 
     $scope.update = function () {
@@ -130,6 +135,41 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
 
          $scope.skip = function () {
              $scope.message = "Skipped";
+         }
+
+
+         $scope.validate = function () {
+             var isvalid = true;
+
+             if($scope.employee.EmployeeName == null || $scope.employee.EmployeeName == "")
+             {
+                 alert("Enter Employee's name");
+                 isvalid = false;
+             }
+             if ($scope.employee.Email == null || $scope.employee.Email == "")
+             {
+                 alert("Enter Email");
+                 isvalid = false;
+             }
+             if ($scope.employee.Address == null || $scope.employee.Address == "")
+             {
+                 alert("Enter Address");
+                 isvalid = false;
+             }
+             if ($scope.employee.Contact == null || $scope.employee.Contact == "") {
+                 alert("Enter Contact");
+                 isvalid = false;
+             }
+             if ($scope.employee.DOB == null || $scope.employee.DOB == "") {
+                 alert("Enter Date of Birth");
+                 isvalid = false;
+             }
+             if ($scope.employee.Department == null || $scope.employee.Department == "") {
+                 alert("Enter Department");
+                 isvalid = false;
+             }
+            
+             return isvalid;
          }
     
 

@@ -26,16 +26,16 @@ app.controller('newCompanyController', ['$scope', '$http', function ($scope, $ht
 
     $scope.validate = function () {
         var isValid = true;
-        if ($scope.company.CompanyName == null && $scope.company.CompanyName == "") {
+        if ($scope.company.CompanyName == null || $scope.company.CompanyName == "") {
             alert("Enter Company name");
             isValid = false;
         };
-        if ($scope.company.OwnerName == null && $scope.company.OwnerName == "") {
+        if ($scope.company.OwnerName == null || $scope.company.OwnerName == "") {
             alert("Enter Owner's name");
             isValid = false;
         };
        
-        if ($scope.company.Address == null && $scope.company.Address == "") {
+        if ($scope.company.Address == null || $scope.company.Address == "") {
             alert("Enter address");
             isValid = false;
         };

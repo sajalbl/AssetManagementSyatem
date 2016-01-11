@@ -264,6 +264,7 @@ namespace AmsApi.Adapter
 
                     emp.Add(e);
                 }
+                
                 //dynamic manList = new ExpandoObject();
                 //manList.Managers = managers;
 
