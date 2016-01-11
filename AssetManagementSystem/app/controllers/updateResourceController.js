@@ -10,9 +10,11 @@ app.controller('updateResourceController', ['uploadFileService', '$scope', '$htt
     //    $scope.companyName = detail;
     //});
     $scope.companyName = localStorageService.get("Company");
+
+    $scope.active = [{ Name: 'Yes', Value: true }, { Name: 'No', Value: false }];
      
     $scope.update = function () {
-        var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID": $scope.resources.EmployeeID, "Serial": $scope.resources.Serial };
+        var text = { "CompanyName": $scope.companyName.CompanyName, "NameOfDevice": $scope.resources.NameOfDevice, "Type": $scope.resources.Type, "IssuedFrom": $scope.resources.IssuedFrom, "EmployeeID": $scope.resources.EmployeeID, "Serial": $scope.resources.Serial,"IsActive": $scope.IsActive };
 
         uploadFileService.fileUpload($scope.resources.Serial, $scope.Picture, uploadBase).then(function (results) {
     

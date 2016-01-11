@@ -94,6 +94,7 @@ namespace AmsApi.Adapter
                             r.CompanyID = entry.CompanyID;
                             r.Deleted = entry.Deleted;
                             r.Picture = entry.Picture;
+                            r.IsActive = entry.IsActive;
                             res.Add(r);
                     }
                 
@@ -119,6 +120,7 @@ namespace AmsApi.Adapter
                     //comp.IssuedTo = request.IssuedTo.ToShortDateString();
                     comp.IssuedFrom = request.IssuedFrom.ToShortDateString();
                     //comp.Picture = request.Picture;
+                    comp.IsActive = request.IsActive;
                 }
 
                 context.SaveChanges();
@@ -360,5 +362,6 @@ namespace AmsApi.Adapter
         public string Picture { get; set; }
         public int CompanyID { get; set; }
         public bool? Deleted { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

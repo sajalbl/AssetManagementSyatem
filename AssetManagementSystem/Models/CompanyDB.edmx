@@ -49,7 +49,7 @@
           <Property Name="IssuedFrom" Type="nvarchar(max)" />
           <Property Name="Serial" Type="nvarchar(max)" />
           <Property Name="Picture" Type="nvarchar(max)" />
-          <Property Name="IsActive" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
           <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
           <Property Name="Deleted" Type="bit" />
         </EntityType>
@@ -156,7 +156,7 @@
           <Property Name="IssuedFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Serial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
           <Property Name="Deleted" Type="Boolean" />
           <NavigationProperty Name="Company_table" Relationship="Self.FK_Resources_table_Company_table" FromRole="Resources_table" ToRole="Company_table" />

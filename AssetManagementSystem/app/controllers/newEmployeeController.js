@@ -13,7 +13,7 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
     //$scope.companyName = localStorageService.get("forEmployee");
 
     $scope.designations = [
-           { Name: 'Employee', Checked: true },
+           { Name: 'Employee' },
            { Name: 'Manager' },
     ];
 
@@ -169,7 +169,7 @@ app.controller('newEmployeeController', ['uploadFileService', '$modal', '$scope'
                 return isvalid = false;
              }
             
-             //return isvalid;
+             return isvalid;
          }
     
 

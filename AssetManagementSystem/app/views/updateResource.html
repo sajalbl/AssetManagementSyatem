@@ -15,6 +15,16 @@
                             <input type="text" class="form-control" ng-model="resources.IssuedTo" />-->
                             <label> Issued From </label>
                             <input type="text" class="form-control" ng-model="resources.IssuedFrom" disabled />
+                            <br />
+                            <div class="form-group-lg">
+                                <label> Is resource active ?</label>
+                                <span class="ui-select">
+                                    <select ng-model="IsActive">
+                                        <option value="">Select Option : </option>
+                                        <option ng-repeat="act in active" ng-selected="{{IsActive == act.Value}}" value="{{act.Value}}">{{act.Name}}</option>
+                                    </select>
+                                </span>
+                            </div>
                             <!--<label> Employee ID </label>
                             <input type="text" class="form-control" ng-model="resources.EmployeeID" />-->
                             <!--<label> Is Active </label>

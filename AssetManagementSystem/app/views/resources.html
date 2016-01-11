@@ -16,6 +16,9 @@
             <div class="container">
                 <table class="table table-bordered table-hover">
                     <tr style="color:black">
+                        <th width="10">
+
+                        </th>
                         <th width="100">
                             #
                         </th>
@@ -51,6 +54,8 @@
                     </tr>
                     <tbody>
                         <tr ng-repeat="resource in resourceList | filter:query | orderBy: 'Deleted'">
+                            <td ng-if="resource.IsActive == 0" style="color:red"> &times;</td>
+                            <td ng-if="resource.IsActive == 1" style="color:lightgreen"> &radic;</td>
                             <td> {{$index + 1}}</td>
                             <td> {{resource.NameOfDevice}}</td>
                             <td> {{resource.Type}}</td>

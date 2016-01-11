@@ -20,6 +20,7 @@ namespace AmsApi.Resources.Models
         public bool Allocate { get; set; }
         public int CompanyID { get; set; }
         public bool Deleted { get; set; }
+        public bool IsActive { get; set; }
        
         }
 

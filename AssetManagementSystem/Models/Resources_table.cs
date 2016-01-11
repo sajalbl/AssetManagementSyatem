@@ -23,7 +23,7 @@ namespace AssetManagementSystem.Models
         public string IssuedFrom { get; set; }
         public string Serial { get; set; }
         public string Picture { get; set; }
-        public string IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<bool> Deleted { get; set; }
     

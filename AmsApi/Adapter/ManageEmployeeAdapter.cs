@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Web;
+//using SmsClient;
 namespace AmsApi.Adapter
 {
     public class ManageEmployeeAdapter
@@ -73,6 +74,26 @@ namespace AmsApi.Adapter
                    emp.UserName = ID;
 
                    context.SaveChanges();
+
+                   //SendSms sms = new SendSms();
+
+                   //string body = "Your Employee ID is" + ID;
+
+                   //string status = sms.send("9899699418", "3561", "Your Employee ID is" + ID, request.Contact);
+                   //if (status == "1")
+                   //{
+                   //    response.EmployeeID = "Message Send";
+                   //}
+                   //else if (status == "2")
+                   //{
+                   //    response.EmployeeID = "No Internet Connection";
+                   //   // MessageBox.Show("No Internet Connection");
+                   //}
+                   //else
+                   //{
+                   //    response.EmployeeID = "Invalid Login Or No Internet Connection";
+                   //    //MessageBox.Show("Invalid Login Or No Internet Connection");
+                   //}
 
                    response.EmployeeID = emp.UserName;
                }

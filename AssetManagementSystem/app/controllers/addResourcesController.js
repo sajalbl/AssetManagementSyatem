@@ -100,7 +100,7 @@ app.controller('addResourcesController', ['uploadFileService', '$scope', '$http'
             alert("Enter Serial no. of resource");
            return isValid = false;
         }
-       // return isValid;
+        return isValid;
     };
 
 }]);
